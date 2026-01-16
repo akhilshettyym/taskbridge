@@ -15,15 +15,12 @@ const Login = () => {
   }
 
   return (
-    <div className="flex h-screen w-screen items-center justify-center">
-      <div className="border-2 border-emerald-600 rounded-3xl p-20">
-        <form onSubmit={(e) => {
-          submitHandler(e);
-        }}
-          className="flex flex-col items-center justify-center">
-          <input value={email} onChange={(e) => { setEmail(e.target.value) }} required className="outline-none bg-transparent border-2 border-emerald-600 py-3 text-xl px-5 rounded-full placeholder:text-gray-400" type="email" placeholder="Enter your Email" />
-          <input value={password} onChange={(e) => { setPassword(e.target.value) }} required className="outline-none bg-transparent border-2 border-emerald-600 py-3 text-xl px-5 rounded-full mt-5 placeholder:text-gray-400" type="password" placeholder="Enter password" />
-          <button className="text-white border-none bg-emerald-600 py-3 text-xl px-5 rounded-full mt-7 placeholder:text-gray-400">Login</button>
+    <div className="flex h-screen w-screen items-center justify-center bg-[#0F1412]">
+      <div className="bg-[#1B211A] border border-[#FFDAB3]/40 rounded-3xl p-14 shadow-[0_0_40px_rgba(0,0,0,0.6)]">
+        <form onSubmit={(e) => submitHandler(e)} className="flex flex-col items-center justify-center gap-5">
+          <input value={email} onChange={(e) => setEmail(e.target.value)} required type="email" placeholder="Enter your Email" className="w-80 bg-[#0F1412] border border-[#FFDAB3]/30 rounded-full px-5 py-3 text-[#F8F8F2] outline-none placeholder:text-gray-400 focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+          <input value={password} onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Enter password" className="w-80 bg-[#0F1412] border border-[#FFDAB3]/30 rounded-full px-5 py-3 text-[#F8F8F2] outline-none placeholder:text-gray-400 focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+          <button className="mt-4 w-full bg-[#FFDAB3] text-[#1B211A] font-semibold py-3 rounded-full hover:brightness-110 active:scale-95 transition-all">Login </button>
         </form>
       </div>
     </div>

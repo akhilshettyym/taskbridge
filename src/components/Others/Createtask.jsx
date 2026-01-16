@@ -1,10 +1,8 @@
-import React from 'react'
-
 const Createtask = () => {
     return (
 
         <div className="w-full flex justify-center py-10">
-            <form className="w-full max-w-5xl bg-[#1B211A] p-10 rounded-3xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8">
+            <form className="w-full bg-[#1B211A] p-10 rounded-3xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8">
 
                 <div className="w-full md:w-[48%] flex flex-col gap-6">
                     <div>

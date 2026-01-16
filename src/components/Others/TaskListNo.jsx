@@ -1,24 +1,24 @@
 const TaskListNo = () => {
     return (
-        <div className="flex mt-10 justify-between gap-10 screen">
-            <div className="rounded-xl w-[45%] py-6 px-9 bg-[#777C6D]">
-                <h2 className="text-3xl font-semibold">0</h2>
-                <h3 className="text-xl font-medium">New Task</h3>
+        <div className="flex flex-wrap mt-10 gap-6">
+            <div className="flex-1 min-w-56 bg-[#1B211A] border border-[#FFDAB3]/30 rounded-2xl p-6 shadow-md">
+                <h2 className="text-3xl font-semibold text-[#FFDAB3]">0</h2>
+                <h3 className="mt-1 text-lg text-[#F8F8F2]/80">New Tasks</h3>
             </div>
 
-            <div className="rounded-xl w-[45%] py-6 px-9 bg-[#90AB8B]">
-                <h2 className="text-3xl font-semibold">0</h2>
-                <h3 className="text-xl font-medium">New Task</h3>
+            <div className="flex-1 min-w-56 bg-[#1B211A] border border-[#FFDAB3]/30 rounded-2xl p-6 shadow-md">
+                <h2 className="text-3xl font-semibold text-[#FFDAB3]">0</h2>
+                <h3 className="mt-1 text-lg text-[#F8F8F2]/80">Completed</h3>
             </div>
 
-            <div className="rounded-xl w-[45%] py-6 px-9 bg-[#5A7863]">
-                <h2 className="text-3xl font-semibold">0</h2>
-                <h3 className="text-xl font-medium">New Task</h3>
+            <div className="flex-1 min-w-56 bg-[#1B211A] border border-[#FFDAB3]/30 rounded-2xl p-6 shadow-md">
+                <h2 className="text-3xl font-semibold text-[#FFDAB3]">0</h2>
+                <h3 className="mt-1 text-lg text-[#F8F8F2]/80">In Progress</h3>
             </div>
 
-            <div className="rounded-xl w-[45%] py-6 px-9 bg-[#41644A]">
-                <h2 className="text-3xl font-semibold">0</h2>
-                <h3 className="text-xl font-medium">New Task</h3>
+            <div className="flex-1 min-w-56 bg-[#1B211A] border border-[#FFDAB3]/30 rounded-2xl p-6 shadow-md">
+                <h2 className="text-3xl font-semibold text-[#FFDAB3]">0</h2>
+                <h3 className="mt-1 text-lg text-[#F8F8F2]/80">Failed</h3>
             </div>
         </div>
     )
