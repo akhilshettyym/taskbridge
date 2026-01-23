@@ -196,10 +196,33 @@ const admin = [
 
 export const setLocalStorage = () => {
     localStorage.setItem('employees', JSON.stringify(employee));
-    localStorage.setItem('admin', JSON.stringify(admin));
-}
+    localStorage.setItem('admin',     JSON.stringify(admin));
+};
 
 export const getLocalStorage = () => {
-    const employees = localStorage.getItem('employees', JSON.parse(employee));
-    const admins = localStorage.getItem('admin', JSON.parse(admin));
-}
+    const employeesStr = localStorage.getItem('employees');
+    const adminStr = localStorage.getItem('admin');
+
+    let employees = [];
+    let admin     = [];
+
+    if (employeesStr) {
+        try {
+            employees = JSON.parse(employeesStr);
+        } catch (err) {
+            console.error("Failed to parse employees from localStorage:", err);
+            // localStorage.removeItem('employees');
+        }
+    }
+
+    if (adminStr) {
+        try {
+            admin = JSON.parse(adminStr);
+        } catch (err) {
+            console.error("Failed to parse admin from localStorage:", err);
+            // localStorage.removeItem('admin');
+        }
+    }
+
+    return { employees, admin };
+};
