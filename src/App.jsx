@@ -32,6 +32,7 @@ const App = () => {
   // }, [user]);
 
   const data = useContext(AuthContext);
+  console.log("USERDATA", data);
 
   if (!user) {
     return <Login handleLogin={handleLogin} />;
