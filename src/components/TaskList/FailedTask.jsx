@@ -18,7 +18,7 @@ const FailedTask = ({ data }) => {
       </div>
 
       <div className="flex justify-between mt-5 mb-5">
-        <button className="bg-red-500 py-2 px-2 text-sm rounded-md w-full"> Failed </button>
+        <button className="py-2 px-2 text-sm rounded-md w-full border border-red-500 text-red-500"> Failed </button>
       </div>
     </div>
   )

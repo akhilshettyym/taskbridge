@@ -1,5 +1,4 @@
 const Header = ({ data }) => {
-    console.log("DATA", data);
     if (!data) {
         return <div className="text-white">Loading...</div>
     }

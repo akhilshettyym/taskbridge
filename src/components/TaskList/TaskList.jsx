@@ -1,5 +1,5 @@
 import InProgress from "./InProgress";
-import CompleteTask from "./CompleteTask";
+import CompletedTask from "./CompletedTask";
 import FailedTask from "./FailedTask";
 import NewTask from "./NewTask";
 
@@ -14,7 +14,7 @@ const TaskList = ({ data }) => {
                     return <NewTask key={idx} data={e} />
                 }
                 if (e.completed) {
-                    return <CompleteTask key={idx} data={e} />
+                    return <CompletedTask key={idx} data={e} />
                 }
                 if (e.failed) {
                     return <FailedTask key={idx} data={e} />

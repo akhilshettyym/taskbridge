@@ -20,7 +20,7 @@ const employee = [
        category: "Design"
      },
      {
-       active: true,
+       active: false,
        newTask: true,
        completed: false,
        failed: false,

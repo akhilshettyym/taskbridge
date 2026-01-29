@@ -1,4 +1,4 @@
-import Login from "./components/Auth/Login";
+import SignIn from "./components/Auth/SignIn";
 import EmployeeDashboard from "./components/Dashboard/EmployeeDashboard";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import { useContext, useEffect, useState } from "react";
@@ -43,7 +43,7 @@ const App = () => {
   }
 
   if (!user) {
-    return <Login handleLogin={handleLogin} />;
+    return <SignIn handleLogin={handleLogin} />;
   }
 
   return user.role === "admin" ? (

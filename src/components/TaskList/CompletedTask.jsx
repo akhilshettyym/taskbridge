@@ -1,6 +1,6 @@
 import PriorityTag from "../Basics/PriorityTag";
 
-const CompleteTask = ({ data }) => {
+const CompletedTask = ({ data }) => {
   return (
     <div id="tasklist" className="h-[85%] w-90 p-6 bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/30 shadow-md py-5 mt-10">
       <div className="flex justify-between items-center">
@@ -18,10 +18,10 @@ const CompleteTask = ({ data }) => {
       </div>
 
       <div className="flex justify-between mt-5 mb-2">
-        <button className="bg-green-500 py-2 px-2 text-sm rounded-md w-full"> Completed </button>
+        <button className="py-2 px-2 text-sm rounded-md w-full border border-green-600 text-green-600"> Completed </button>
       </div>
     </div>
   )
 }
 
-export default CompleteTask;
+export default CompletedTask;
