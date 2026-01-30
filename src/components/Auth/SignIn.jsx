@@ -46,9 +46,9 @@ const Login = ({ handleLogin }) => {
             Sign In
           </button>
 
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-400 uppercase">
             Not a registered user ?
-            <Link to="/signup" className="ml-2 text-[#FFDAB3] hover:underline transition-all uppercase">
+            <Link to="/signup" className="ml-2 mt-4 text-sm text-gray-400 hover:text-[#FFDAB3] hover:underline transition-colors uppercase">
               Sign Up
             </Link>
           </p>
