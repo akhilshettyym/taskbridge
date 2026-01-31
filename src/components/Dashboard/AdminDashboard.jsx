@@ -1,12 +1,10 @@
-import AllTask from "../Others/AllTask";
-import Createtask from "../Others/Createtask";
-import Header from "../Others/Header";
+import { AllTask, CreateTask, Header, adminDivClass } from "../../constants/imports";
 
 const AdminDashboard = ({ data, handleLogout }) => {
     return (
-        <div className="h-screen w-full p-10">
+        <div className={adminDivClass}>
             <Header data={data} handleLogout={handleLogout} />
-            <Createtask data={data} />
+            <CreateTask data={data} />
             <AllTask data={data} />
         </div>
     )

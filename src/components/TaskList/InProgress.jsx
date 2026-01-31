@@ -3,7 +3,7 @@ import PriorityTag from "../Basics/PriorityTag";
 const InProgress = ({ data }) => {
 
   return (
-    <div id="tasklist" className="h-[85%] w-90 p-6 bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/30 shadow-md py-5 mt-10">
+    <div id="tasklist" className="h-[85%] w-100 p-6 bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/30 shadow-md py-5 mt-10">
       <div className="flex justify-between items-center">
         <span className="text-xs px-4 py-1 rounded-sm bg-[#DCD9D6]/15 text-[#ffffff] tracking-wide"> Task In Progress </span>
         <PriorityTag priorityMsg={data?.priority || ""} />
