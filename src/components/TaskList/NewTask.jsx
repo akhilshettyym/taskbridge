@@ -1,7 +1,7 @@
 import PriorityTag from "../Basics/PriorityTag";
 
 const NewTask = ({ data }) => {
-  console.log("data", data);
+
   return (
     <div id="tasklist" className="h-[85%] w-100 p-6 bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/30 shadow-md py-5 mt-10">
       <div className="flex justify-between items-center">
