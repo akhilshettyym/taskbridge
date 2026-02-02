@@ -1,12 +1,9 @@
-import InProgress from "./InProgress";
-import CompletedTask from "./CompletedTask";
-import FailedTask from "./FailedTask";
-import NewTask from "./NewTask";
+import { InProgress, CompletedTask, FailedTask, NewTask, taskListMainCompDiv } from "../../constants/imports";
 
 const TaskList = ({ data }) => {
-    
+
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        <div className={taskListMainCompDiv}>
             {data.tasks.map((e, idx) => {
                 if (e.active) {
                     return <InProgress key={idx} data={e} />

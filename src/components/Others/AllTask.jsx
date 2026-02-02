@@ -48,11 +48,9 @@ const AllTask = () => {
                                         <PriorityTag priorityMsg={task.priority} />
                                     </div>
                                 </div>
-                            )
-                        })}
+                            )})}
                     </div>
-                )
-            })}
+                )})}
         </div>
     )
 }

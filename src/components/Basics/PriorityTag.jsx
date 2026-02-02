@@ -1,23 +1,25 @@
+import { priorityMsgSpanClass, priorityMsgSpanHigh, priorityMsgSpanMedium, priorityMsgSpanLow } from "../../constants/imports";
+
 const PriorityTag = ({ priorityMsg }) => {
-    
+
     if (priorityMsg === "High") {
         return (
-            <span className="flex items-center gap-2 text-xs px-4 py-1 rounded-full bg-[#FFDAB3]/15 text-[#FFDAB3] uppercase tracking-wide">
-                <span className="h-3 w-3 rounded-full bg-red-500"></span> High </span>
+            <span className={priorityMsgSpanClass}>
+                <span className={priorityMsgSpanHigh}></span> High </span>
         );
     }
 
     if (priorityMsg === "Medium") {
         return (
-            <span className="flex items-center gap-2 text-xs px-4 py-1 rounded-full bg-[#FFDAB3]/15 text-[#FFDAB3] uppercase tracking-wide">
-                <span className="h-3 w-3 rounded-full bg-orange-500"></span> Medium </span>
+            <span className={priorityMsgSpanClass}>
+                <span className={priorityMsgSpanMedium}></span> Medium </span>
         );
     }
 
     if (priorityMsg === "Low") {
         return (
-            <span className="flex items-center gap-2 text-xs px-4 py-1 rounded-full bg-[#FFDAB3]/15 text-[#FFDAB3] uppercase tracking-wide">
-                <span className="h-3 w-3 rounded-full bg-yellow-500"></span> Low </span>
+            <span className={priorityMsgSpanClass}>
+                <span className={priorityMsgSpanLow}></span> Low </span>
         );
     }
 

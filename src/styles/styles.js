@@ -81,3 +81,33 @@ export const taskListNoChildDiv = "flex-1 min-w-56 bg-[#1B211A] border border-[#
 export const taskListNoTaskDiv = "flex-1 min-w-56 bg-[#1B211A] border border-[#FFDAB3]/30 rounded-2xl p-6 shadow-md";
 export const taskListNoH2 = "text-3xl font-semibold text-[#FFDAB3]";
 export const taskListNoH3 = "mt-1 text-lg text-[#F8F8F2]/80";
+
+// - - - - - -
+
+export const taskListMainCompDiv = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4";
+export const taskListMainDiv = "h-[85%] w-92 p-6 bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/30 shadow-md py-5 mt-10";
+export const taskListChildDiv = "flex justify-between items-center";
+export const taskListTitleSpanClass = "text-xs px-4 py-1 rounded-sm bg-[#DCD9D6]/15 text-[#ffffff] tracking-wide";
+export const taskListDateSpanClass = "text-xs text-[#F8F8F2]/70";
+export const taskListTitleH2 = "mt-5 text-xl font-semibold text-[#F8F8F2]";
+export const taskListCategoryH6 = "mt-1 text-sm text-[#F8F8F2]";
+export const taskListDescP = "text-sm mt-3 text-[#F8F8F2]/70 leading-relaxed";
+export const taskListInnerDiv = "mt-5 text-right";
+export const taskListInnerH6 = "text-xs text-[#F8F8F2]/70";
+export const taskListCompBtnDiv = "flex justify-between mt-5 mb-2";
+export const taskListCompBtnClass = "py-2 px-2 text-sm rounded-md w-full border border-green-600 text-green-600";
+export const taskListFailedBtnDiv = "flex justify-between mt-5 mb-5";
+export const taskListFailedBtnClass = "py-2 px-2 text-sm rounded-md w-full border border-red-500 text-red-500";
+export const taskListInProBtnDiv = "flex justify-between mt-5 mb-2";
+export const taskListInProBtnGreen = "bg-green-500 py-2 px-2 text-sm w-1/2 mr-1 rounded-md";
+export const taskListInProBtnRed = "bg-red-500 py-2 px-2 text-sm  w-1/2 ml-1 rounded-md";
+export const taskListNewTaskBtnDiv = "flex justify-between mt-5";
+export const taskListNewTaskBtnGreen = "bg-green-500 py-2 px-2 text-sm w-1/2 mr-1 rounded-md";
+export const taskListNewTaskBtnRed = "bg-red-500 py-2 px-2 text-sm  w-1/2 ml-1 rounded-md";
+
+// - - - - - -
+
+export const priorityMsgSpanClass = "flex items-center gap-2 text-xs px-4 py-1 rounded-full bg-[#FFDAB3]/15 text-[#FFDAB3] uppercase tracking-wide";
+export const priorityMsgSpanHigh = "h-3 w-3 rounded-full bg-red-500";
+export const priorityMsgSpanMedium = "h-3 w-3 rounded-full bg-orange-500";
+export const priorityMsgSpanLow = "h-3 w-3 rounded-full bg-yellow-500";

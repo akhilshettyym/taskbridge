@@ -3,7 +3,6 @@ import { createTaskBtn, createTaskBtnDiv, createTaskChildDiv, createTaskFormClas
 const CreateTask = () => {
 
     return (
-
         <div className={createTaskMainDiv}>
             <form className={createTaskFormClass}>
 
@@ -27,7 +26,6 @@ const CreateTask = () => {
                         <label className={createTaskLabelClass}> Category </label>
                         <input type="text" placeholder="Design, Development" className={createTaskInputClass} />
                     </div>
-
                 </div>
 
                 <div className={createTaskTextAreaDiv}>
