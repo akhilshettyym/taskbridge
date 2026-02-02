@@ -1,46 +1,81 @@
 import { Link, signupAlreadyRegistered, signupContainerDiv, signupCreateOrgBtn, signupCreateOrgDiv, signupDescDiv, signupFormClass, signupHeaderDiv, signupHeaderH1, signupInputClass, signupLabelClass, signupLinkToSignIn, signupMainDiv, signupMessagePTag, signupOrgAdminDets, signupOrgDets, signupOrgInfo, signupOrgLeftRight, signupTextareaClass } from '../../constants/imports'
 
+import { useNavigate } from "react-router-dom";
+import { generateSequentialId, setLocalStorage } from '../../utils/localStorage';
+import { v4 as uuidv4 } from "uuid";
+
 const SignUp = () => {
 
-    return (
+    const navigate = useNavigate();
 
+    const handleCreateOrg = (e) => {
+        e.preventDefault();
+
+        const taskbridge = {
+            organization: {
+                uuid: `org-${uuidv4()}`,
+                id: generateSequentialId("org"),
+                name: e.target.orgName.value,
+                category: e.target.orgCategory.value,
+                description: e.target.orgDesc.value,
+                createdAt: new Date().toLocaleDateString("en-GB"),
+            },
+            admin: {
+                uuid: `admin-${uuidv4()}`,
+                id: generateSequentialId("admin"),
+                firstName: e.target.firstName.value,
+                lastName: e.target.lastName.value,
+                email: e.target.email.value,
+                password: e.target.password.value,
+            },
+            employees: [],
+        };
+
+        setLocalStorage(taskbridge);
+        navigate("/complete-org");
+    };
+
+    return (
         <div className={signupMainDiv}>
 
             <div className={signupHeaderDiv}>
                 <h1 className={signupHeaderH1}> Create Your Organization </h1>
-                <p className={signupMessagePTag}> Register as an organization admin to manage employees and tasks </p>
+                <p className={signupMessagePTag}>
+                    Register as an organization admin to manage employees and tasks
+                </p>
             </div>
 
             <div className={signupContainerDiv}>
-                <form className={signupFormClass}>
+                <form onSubmit={handleCreateOrg} className={signupFormClass}>
+
                     <div className={signupOrgAdminDets}>
                         <h2 className={signupOrgDets}> Organization Admin Details </h2>
-                        <Link to="/complete-org" className={signupLinkToSignIn}> Already have an account ? </Link>
+                        <Link to="/signin" className={signupLinkToSignIn}> Already have an account ? </Link>
                     </div>
 
-                    {/* LEFT */}
+                    {/* ADMIN LEFT */}
                     <div className={signupOrgLeftRight}>
                         <div>
                             <label className={signupLabelClass}> First Name </label>
-                            <input type="text" placeholder="Enter your first name" className={signupInputClass} />
+                            <input name="firstName" type="text" placeholder="Enter your first name" className={signupInputClass} />
                         </div>
 
                         <div>
                             <label className={signupLabelClass}> Email Address </label>
-                            <input type="email" placeholder="Enter your email" className={signupInputClass} />
+                            <input name="email" type="email" placeholder="Enter your email" className={signupInputClass} />
                         </div>
                     </div>
 
-                    {/* RIGHT */}
+                    {/* ADMIN RIGHT */}
                     <div className={signupOrgLeftRight}>
                         <div>
                             <label className={signupLabelClass}> Last Name </label>
-                            <input type="text" placeholder="Enter your last name" className={signupInputClass} />
+                            <input name="lastName" type="text" placeholder="Enter your last name" className={signupInputClass} />
                         </div>
 
                         <div>
                             <label className={signupLabelClass}> Password </label>
-                            <input type="password" placeholder="Create a strong password" className={signupInputClass} />
+                            <input name="password" type="password" placeholder="Create a strong password" className={signupInputClass} />
                         </div>
                     </div>
 
@@ -48,31 +83,31 @@ const SignUp = () => {
                         <h2 className={signupOrgDets}> Organization Information </h2>
                     </div>
 
-                    {/* ORG LEFT */}
+                    {/* ORG NAME */}
                     <div className={signupOrgLeftRight}>
                         <div>
                             <label className={signupLabelClass}> Organization Name </label>
-                            <input type="text" placeholder="Enter organization name" className={signupInputClass} />
+                            <input name="orgName" type="text" placeholder="Enter organization name" className={signupInputClass} />
                         </div>
                     </div>
 
-                    {/* ORG RIGHT */}
+                    {/* ORG CATEGORY */}
                     <div className={signupOrgLeftRight}>
                         <div>
                             <label className={signupLabelClass}> Organization Category </label>
-                            <input type="text" placeholder="IT, Marketing, Finance, R&D" className={signupInputClass} />
+                            <input name="orgCategory" type="text" placeholder="IT, Marketing, Finance, R&D" className={signupInputClass} />
                         </div>
                     </div>
 
                     {/* DESCRIPTION */}
                     <div className={signupDescDiv}>
                         <label className={signupLabelClass}> Organization Description </label>
-                        <textarea rows="5" placeholder="Briefly describe what your organization does" className={signupTextareaClass} />
+                        <textarea name="orgDesc" rows="5" placeholder="Briefly describe what your organization does" className={signupTextareaClass} />
                     </div>
 
                     {/* CTA */}
                     <div className={signupCreateOrgDiv}>
-                        <button className={signupCreateOrgBtn}> Create Organization </button>
+                        <button type="submit" className={signupCreateOrgBtn}> Create Organization </button>
                         <Link to="/signin" className={signupAlreadyRegistered}> Already registered ? Sign In </Link>
                     </div>
 

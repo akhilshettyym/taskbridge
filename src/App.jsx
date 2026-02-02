@@ -49,22 +49,24 @@ const App = () => {
   }
 
   return (
-    <Routes>
-      <Route path="/" element={!user ? <SignIn handleLogin={handleLogin} /> : <Navigate to="/dashboard" />} />
-      <Route path="/signin" element={!user ? <SignIn handleLogin={handleLogin} /> : <Navigate to="/dashboard" />} />
-      <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/dashboard" />} />
-      <Route path="/complete-org" element={<CompleteOrg />} />
+    <>
+      <Routes>
+        <Route path="/" element={!user ? <SignIn handleLogin={handleLogin} /> : <Navigate to="/dashboard" />} />
+        <Route path="/signin" element={!user ? <SignIn handleLogin={handleLogin} /> : <Navigate to="/dashboard" />} />
+        <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/dashboard" />} />
+        <Route path="/complete-org" element={<CompleteOrg />} />
 
-      <Route path="/dashboard" element={
-        !user ? (
-          <Navigate to="/" />
-        ) : user.role === "admin" ? (
-          <AdminDashboard data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />
-        ) : (
-          <EmployeeDashboard data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />
-        )}
-      />
-    </Routes>
+        <Route path="/dashboard" element={
+          !user ? (
+            <Navigate to="/" />
+          ) : user.role === "admin" ? (
+            <AdminDashboard data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />
+          ) : (
+            <EmployeeDashboard data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />
+          )}
+        />
+      </Routes>
+    </>
   );
 };
 
