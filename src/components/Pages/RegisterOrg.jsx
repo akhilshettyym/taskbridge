@@ -1,61 +1,32 @@
-import { signupContainerDiv, signupCreateOrgBtn, signupCreateOrgDiv, signupFormClass, signupHeaderDiv, signupHeaderH1, signupInputClass, signupLabelClass, signupMainDiv, signupMessagePTag, signupOrgAdminDets, signupOrgDets, signupOrgLeftRight } from '../../constants/imports';
-
-import { generateSequentialId, getLocalStorage, setLocalStorage } from "../../utils/localStorage";
 import { useState } from "react";
-import AddEmployees from './AddEmployees';
+import { useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from 'react-router-dom';
-import PasswordToggle from '../Basics/PasswordToggle';
 // import toast from "react-hot-toast";
 
+import { generateSequentialId, getLocalStorage, setLocalStorage } from "../../utils/localStorage";
+import PasswordToggle from "../Basics/PasswordToggle";
+import AddEmployees from "./AddEmployees";
 
 const RegisterOrg = () => {
-
   const navigate = useNavigate();
 
-  const [employees, setEmployees] = useState(getLocalStorage()?.employees || []);
-  const adminOrgNull = getLocalStorage();
-
-  // const handleAddEmployee = (e) => {
-  //   if (!(adminOrgNull?.admin) || (!adminOrgNull?.organization)) {
-  //     alert("You need to set up an organization first.");
-  //     navigate("/signup");
-  //     // toast.error("Please create an organization before adding employees.");
-  //     // navigate("/signup");
-  //     return null;
-  //   }
-
-  //   e.preventDefault();
-
-  //   const newEmployee = {
-  //     uuid: `emp-${uuidv4()}`,
-  //     id: generateSequentialId("emp"),
-  //     firstName: e.target.firstName.value,
-  //     lastName: e.target.lastName.value,
-  //     email: e.target.email.value,
-  //     password: e.target.password.value,
-  //     position: e.target.position.value,
-  //     dob: e.target.dob.value,
-  //     taskNumbers: { active: 0, newTask: 0, completed: 0, failed: 0 },
-  //     tasks: []
-  //   };
-
-  //   const taskbridge = getLocalStorage();
-  //   taskbridge.employees.push(newEmployee);
-
-  //   setLocalStorage(taskbridge);
-  //   setEmployees([...taskbridge.employees]);
-  //   e.target.reset();
-  // };
+  const taskbridge = getLocalStorage();
+  const [employees, setEmployees] = useState(taskbridge?.employees || []);
+  const [dob, setDob] = useState(null);
 
   const handleAddEmployee = (e) => {
     e.preventDefault();
 
-    const taskbridge = getLocalStorage();
-
     if (!taskbridge?.admin || !taskbridge?.organization) {
-      toast.error("Please create an organization first.");
+      // toast.error("Please create an organization first.");
       navigate("/signup");
+      return;
+    }
+
+    if (!dob) {
+      // toast.error("Please select date of birth");
       return;
     }
 
@@ -69,21 +40,21 @@ const RegisterOrg = () => {
       email: form.email.value.trim(),
       password: form.password.value,
       position: form.position.value.trim(),
-      dob: form.dob.value,
+      dob: dob.toISOString().split("T")[0],
       taskNumbers: { active: 0, newTask: 0, completed: 0, failed: 0 },
       tasks: [],
     };
 
-    const emailExists = taskbridge.employees?.some(
+    const emailExists = employees.some(
       (emp) => emp.email === newEmployee.email
     );
 
     if (emailExists) {
-      toast.error("Employee with this email already exists.");
+      // toast.error("Employee already exists");
       return;
     }
 
-    const updatedEmployees = [...(taskbridge.employees || []), newEmployee];
+    const updatedEmployees = [...employees, newEmployee];
 
     setLocalStorage({
       ...taskbridge,
@@ -91,85 +62,78 @@ const RegisterOrg = () => {
     });
 
     setEmployees(updatedEmployees);
+    setDob(null);
     form.reset();
-    toast.success("Employee added successfully");
+    // toast.success("Employee added");
   };
+
   return (
-    <>
-      <div className={signupMainDiv}>
-        <div className={signupHeaderDiv}>
-          <h1 className={signupHeaderH1}> Complete Your Organization </h1>
-          <p className={signupMessagePTag}> Register employees to the Org. </p>
-        </div>
-
-        <div className={signupContainerDiv}>
-          <form onSubmit={handleAddEmployee} className={signupFormClass}>
-
-            <div className={signupOrgAdminDets}>
-              <h2 className={signupOrgDets}> Add Employee Details </h2>
-            </div>
-
-            <div className={signupOrgLeftRight}>
-              <div>
-                <label className={signupLabelClass}> First Name </label>
-                <input name="firstName" type="text" placeholder="Enter your first name" className={signupInputClass} />
-              </div>
-
-              <div>
-                <label className={signupLabelClass}> Email Address </label>
-                <input name="email" type="email" placeholder="Enter your email" className={signupInputClass} />
-              </div>
-            </div>
-
-            <div className={signupOrgLeftRight}>
-              <div>
-                <label className={signupLabelClass}> Last Name </label>
-                <input name="lastName" type="text" placeholder="Enter your last name" className={signupInputClass} />
-              </div>
-
-              <div>
-                <label className={signupLabelClass}> Password </label>
-                <PasswordToggle name="password" placeholder="Create a strong password" className={signupInputClass} iconClassName="top-[55%]" />
-              </div>
-            </div>
-
-            <div className={signupOrgLeftRight}>
-              <div>
-                <label className={signupLabelClass}> Employee Position </label>
-                <input name="position" type="text" placeholder="Trainee, Jr., Sr. etc." className={signupInputClass} />
-              </div>
-            </div>
-
-            <div className={signupOrgLeftRight}>
-              <div>
-                <label className={signupLabelClass}> Date Of Birth </label>
-                <input name="dob" type="text" placeholder="DD/MM/YYYY" className={signupInputClass} />
-              </div>
-            </div>
-
-            {adminOrgNull && (
-              <div className={signupCreateOrgDiv}>
-                <button type="submit" className={signupCreateOrgBtn}> Add Employee </button>
-              </div>
-            )}
-
-          </form>
-        </div>
-
-        <hr class="mt-5 border-[#FFDAB3] border-2 rounded"></hr>
-
-        <AddEmployees employees={employees} setEmployees={setEmployees} />
-
-        <div className={signupCreateOrgDiv}>
-          <button type="submit" onClick={() => navigate("/signin")} className="bg-[#FFDAB3] text-lg text-[#1B211A] font-bold px-15 py-4 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> Register Org. </button>
-
-          <div className="mt-3 space-y-3 text-[#FFDAB3]/65 text-sm leading-relaxed">
-            <p>Log in on the next screen to get started. Note: You can add more employees later.</p>
-          </div>
-        </div>
-
+    <div className="h-screen w-full p-10 bg-[#0F1412] overflow-auto">
+      <div className="flex flex-col items-center justify-center text-center mb-10">
+        <h1 className="text-3xl font-bold uppercase tracking-wider text-[#FFDAB3]">Complete Your Organization</h1>
+        <p className="mt-2 text-sm text-[#FFDAB3]/70"> Register employees for your organization </p>
       </div>
-    </>
+
+      <div className="w-full flex justify-center">
+        <form onSubmit={handleAddEmployee} className="w-full bg-[#1B211A] p-10 rounded-3xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8">
+          <div className="w-full flex justify-between items-center">
+            <h2 className="text-xl uppercase tracking-wide text-[#FFDAB3]">Add Employee Details</h2>
+          </div>
+
+          <div className="w-full md:w-[48%] flex flex-col gap-6">
+            <div>
+              <label className="text-sm uppercase tracking-wide text-[#FFDAB3]/80">First Name</label>
+              <input name="firstName" required className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#F8F8F2] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" placeholder="Enter first name" />
+            </div>
+
+            <div>
+              <label className="text-sm uppercase tracking-wide text-[#FFDAB3]/80">Email Address</label>
+              <input name="email" type="email" required className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#F8F8F2] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" placeholder="Enter email" />
+            </div>
+          </div>
+
+          <div className="w-full md:w-[48%] flex flex-col gap-6">
+            <div>
+              <label className="text-sm uppercase tracking-wide text-[#FFDAB3]/80">Last Name</label>
+              <input name="lastName" required className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#F8F8F2] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" placeholder="Enter last name" />
+            </div>
+
+            <div>
+              <label className="text-sm uppercase tracking-wide text-[#FFDAB3]/80">Password</label>
+              <PasswordToggle name="password" placeholder="Create password" className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#F8F8F2] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" iconClassName="top-[55%]" />
+            </div>
+          </div>
+
+          <div className="w-full md:w-[48%] flex flex-col gap-6">
+            <div>
+              <label className="text-sm uppercase tracking-wide text-[#FFDAB3]/80">Position</label>
+              <input name="position" required className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#F8F8F2] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" placeholder="Trainee, Jr, Sr..." />
+            </div>
+          </div>
+
+          <div className="w-full md:w-[48%] flex flex-col gap-6">
+            <div>
+              <label className="text-sm uppercase tracking-wide text-[#FFDAB3]/80 mr-10"> Date of Birth </label>
+              <DatePicker selected={dob} onChange={setDob} placeholderText="DD/MM/YYYY" dateFormat="dd/MM/yyyy" maxDate={new Date()} showYearDropdown scrollableYearDropdown yearDropdownItemNumber={80} className="mt-8 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#F8F8F2] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+            </div>
+          </div>
+
+          <div className="w-full flex flex-col items-center pt-2">
+            <button type="submit" className="bg-[#FFDAB3] text-[#1B211A] font-bold px-12 py-3 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> Add Employee </button>
+          </div>
+        </form>
+      </div>
+
+      <hr className="my-6 border-[#FFDAB3]/40" />
+
+      <AddEmployees employees={employees} setEmployees={setEmployees} />
+
+      <div className="w-full flex flex-col items-center pt-2">
+        <button onClick={() => navigate("/signin")} className="bg-[#FFDAB3] text-[#1B211A] font-bold px-14 py-4 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> Register Org </button>
+
+        <p className="mt-3 text-sm text-[#FFDAB3]/60 text-center"> You can add more employees later from the dashboard. </p>
+      </div>
+    </div>
   );
 };
 

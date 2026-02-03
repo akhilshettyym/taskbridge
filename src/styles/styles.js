@@ -43,7 +43,7 @@ export const employeeDivClass = "p-10 bg-[#21351] h-screen";
 // - - - - - -
 
 export const allTaskMainDiv = "pb-10";
-export const allTaskMainH1 = "text-[#FFDAB3] text-2xl";
+export const allTaskMainH1 = "text-[#FFDAB3] text-2xl uppercase";
 export const allTaskChildDiv = "bg-[#1B211A] rounded-2xl p-4 mt-5 border border-[#FFDAB3]/30 shadow-inner";
 export const allTaskChildInnerDiv = "bg-[#819A91]/30 py-3 px-5 flex items-center rounded-xl mb-3 border border-[#EEEFE0]/50";
 export const allTaskChildH2 = "w-1/6 text-[#A7C1A8] text-xl font-bold";

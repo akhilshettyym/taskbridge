@@ -21,3 +21,24 @@ body {
 /* #tasklist :: -webkit-scrollbar {
   display: none;
 } */
+
+.react-datepicker {
+ background-color: #1B211A;
+ border: 1px solid rgba(255, 218, 179, 0.3);
+}
+
+.react-datepicker__header {
+ background-color: #797877;
+ border-bottom: 1px solid rgba(255, 218, 179, 0.2);
+}
+
+.react-datepicker__day,
+.react-datepicker__day-name {
+ color: #FFDAB3;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+ background-color: #FFDAB3;
+ color: #000000;
+}

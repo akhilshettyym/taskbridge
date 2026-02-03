@@ -1,4 +1,4 @@
-import CompleteOrg from "./components/Pages/RegisterOrg";
+import RegisterOrg from "./components/Pages/RegisterOrg";
 import Landing from "./components/Pages/Landing";
 import { SignIn, SignUp, EmployeeDashboard, AdminDashboard, useContext, useEffect, useState, AuthContext, Routes, Route, Navigate } from "./constants/imports";
 import { getOrganizationData } from "./utils/localStorage";
@@ -41,7 +41,10 @@ const App = () => {
       return;
     }
 
-    const employee = authData?.employees?.find((e) => e.email === email && e.password === password);
+    const employee = authData?.employees?.find((e) =>
+      e.email === email && e.password === password
+    )
+
     if (employee) {
       setUser({ role: "employee" });
       setLoggedInUserData(employee);
@@ -63,7 +66,7 @@ const App = () => {
         <Route path="/" element={!user ? <Landing /> : <Navigate to="/dashboard" />} />
         <Route path="/signin" element={!user ? <SignIn handleLogin={handleLogin} /> : <Navigate to="/dashboard" />} />
         <Route path="/signup" element={!user ? <SignUp /> : <Navigate to="/dashboard" />} />
-        <Route path="/complete-org" element={<CompleteOrg />} />
+        <Route path="/register-org" element={<RegisterOrg />} />
 
         <Route path="/dashboard" element={
           !user ? (

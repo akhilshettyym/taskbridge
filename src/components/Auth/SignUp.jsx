@@ -33,7 +33,7 @@ const SignUp = () => {
         };
 
         setLocalStorage(taskbridge);
-        navigate("/complete-org");
+        navigate("/register-org");
     };
 
     return (
@@ -54,7 +54,6 @@ const SignUp = () => {
                         <Link to="/signin" className={signupLinkToSignIn}> Already have an account ? </Link>
                     </div>
 
-                    {/* ADMIN LEFT */}
                     <div className={signupOrgLeftRight}>
                         <div>
                             <label className={signupLabelClass}> First Name </label>
@@ -67,7 +66,6 @@ const SignUp = () => {
                         </div>
                     </div>
 
-                    {/* ADMIN RIGHT */}
                     <div className={signupOrgLeftRight}>
                         <div>
                             <label className={signupLabelClass}> Last Name </label>
@@ -84,7 +82,6 @@ const SignUp = () => {
                         <h2 className={signupOrgDets}> Organization Information </h2>
                     </div>
 
-                    {/* ORG NAME */}
                     <div className={signupOrgLeftRight}>
                         <div>
                             <label className={signupLabelClass}> Organization Name </label>
@@ -92,7 +89,6 @@ const SignUp = () => {
                         </div>
                     </div>
 
-                    {/* ORG CATEGORY */}
                     <div className={signupOrgLeftRight}>
                         <div>
                             <label className={signupLabelClass}> Organization Category </label>
@@ -100,13 +96,11 @@ const SignUp = () => {
                         </div>
                     </div>
 
-                    {/* DESCRIPTION */}
                     <div className={signupDescDiv}>
                         <label className={signupLabelClass}> Organization Description </label>
                         <textarea name="orgDesc" rows="5" placeholder="Briefly describe what your organization does" className={signupTextareaClass} />
                     </div>
 
-                    {/* CTA */}
                     <div className={signupCreateOrgDiv}>
                         <button type="submit" className={signupCreateOrgBtn}> Create Organization </button>
                         <Link to="/signin" className={signupAlreadyRegistered}> Already registered ? Sign In </Link>
