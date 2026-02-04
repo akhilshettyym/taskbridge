@@ -2,8 +2,8 @@ import RegisterOrg from "./components/Pages/RegisterOrg";
 import Landing from "./components/Pages/Landing";
 import { SignIn, SignUp, EmployeeDashboard, AdminDashboard, useContext, useEffect, useState, AuthContext, Routes, Route, Navigate } from "./constants/imports";
 import { getOrganizationData } from "./utils/localStorage";
-// import { Toaster } from "react-hot-toast";
-// import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 
 const App = () => {
@@ -35,6 +35,7 @@ const App = () => {
 
   const handleLogin = (email, password) => {
     if (authData?.admin && email === authData.admin.email && password === authData.admin.password) {
+      toast.success(`Welcome back ${authData?.admin?.firstName}`);
       setUser({ role: "admin" });
       setLoggedInUserData(authData.admin);
       localStorage.setItem("loggedInUser", JSON.stringify({ role: "admin", admin: authData.admin }));
@@ -46,12 +47,13 @@ const App = () => {
     )
 
     if (employee) {
+      toast.success(`Welcome back ${employee?.firstName}`);
       setUser({ role: "employee" });
       setLoggedInUserData(employee);
       localStorage.setItem("loggedInUser", JSON.stringify({ role: "employee", employee }));
       return;
     }
-    alert("Invalid credentials");
+    toast.error("Invalid username or password. Please try again");
   };
 
   const handleLogout = () => {
@@ -61,7 +63,7 @@ const App = () => {
 
   return (
     <>
-      {/* <Toaster position="top-right" toastOptions={{ style: { background: "#1B211A", color: "#FFDAB3", borderRadius: "12px", border: "1px solid rgba(255,218,179,0.2)"}}}/> */}
+      <Toaster position="top-right" toastOptions={{ style: { background: "#1B211A", color: "#FFDAB3", borderRadius: "12px", border: "1px solid rgba(255,218,179,0.2)"}}}/>
       <Routes>
         <Route path="/" element={!user ? <Landing /> : <Navigate to="/dashboard" />} />
         <Route path="/signin" element={!user ? <SignIn handleLogin={handleLogin} /> : <Navigate to="/dashboard" />} />

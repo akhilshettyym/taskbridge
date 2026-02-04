@@ -42,7 +42,7 @@ const CreateTask = () => {
             description: formData.description.trim(),
             createdAt: creationDate.toISOString(),
             dueDate: dueDate.toISOString(),
-            status: "New Task",
+            status: "new",
         };
         const updatedEmployees = taskbridge.employees.map((emp) =>
             emp.id === formData.assignedTo
@@ -52,7 +52,7 @@ const CreateTask = () => {
                     taskNumbers: {
                         ...emp.taskNumbers,
                         newTask: emp.taskNumbers.newTask + 1,
-                        active: emp.taskNumbers.active + 1,
+                        // active: emp.taskNumbers.active + 1,
                     },
                 }
                 : emp
@@ -65,7 +65,7 @@ const CreateTask = () => {
         setDueDate(null);
         setFormData({ title: "", assignedTo: "", category: "", priority: "Medium", description: "" });
     };
-    
+
     return (
         <div className="w-full flex justify-center py-10">
             <form onSubmit={handleCreteTask} className="w-full bg-[#1B211A] p-10 rounded-3xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8">

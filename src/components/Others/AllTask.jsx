@@ -2,22 +2,12 @@ import { useRef } from "react";
 import {
     AuthContext, PriorityTag, TaskCount, useContext, useEffect, useState, allTaskChildDiv, allTaskChildInnerDiv, allTaskChildH2, allTaskMainDiv, allTaskMainH1, allTaskChildInnerH2, allTaskTasksDiv, allTaskDivSpan, allTaskDivDiv
 } from "../../constants/imports";
+import DateConversion from "../Basics/DateConversion";
 
 const AllTask = () => {
     const authData = useContext(AuthContext);
 
     const employees = authData?.employees ?? [];
-
-    // const [employees, setEmployees] = useState([]);
-
-    // useEffect(() => {
-    //     if (authData?.employees) {
-    //         setEmployees(authData.employees);
-    //     }
-    // }, [authData]);
-
-
-
 
     return (
         <div className={allTaskMainDiv}>
@@ -25,6 +15,7 @@ const AllTask = () => {
 
             {employees.map((emp) => (
                 <div key={emp.id}>
+                    {console.log("EMP", emp)}
                     <hr className="my-5 border border-[#FFDAB3]/40" />
 
                     <div className={allTaskChildDiv}>
@@ -66,16 +57,13 @@ const AllTask = () => {
                         </div>
 
                         {emp.tasks.map((task) => {
-                            const createdAt = task.createdAt?.slice(0, 10);
-                            const dueDate = task.dueDate?.slice(0, 10);
-
                             return (
                                 <div key={task.id} className={allTaskTasksDiv}>
                                     <span className={allTaskDivSpan}>{task.title}</span>
                                     <span className={allTaskDivSpan}>{task.category}</span>
                                     <span className={allTaskDivSpan}>{task.status}</span>
-                                    <span className={allTaskDivSpan}>{createdAt}</span>
-                                    <span className={allTaskDivSpan}>{dueDate}</span>
+                                    <span className={allTaskDivSpan}><DateConversion convertDate={task?.createdAt} /></span>
+                                    <span className={allTaskDivSpan}><DateConversion convertDate={task?.dueDate} /></span>
                                     <div className={allTaskDivDiv}>
                                         <PriorityTag priorityMsg={task.priority} />
                                     </div>

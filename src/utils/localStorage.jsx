@@ -224,7 +224,7 @@
 //           failed: false,
 //           priority: "Medium",
 //           title: "Edge Case Review",
-//           description: "Identify edge scenarios",
+//           description: "Edge Case Review",
 //           dateCreated: "02 Feb 2026",
 //           dueDate: "07 Feb 2026",
 //           category: "Testing"

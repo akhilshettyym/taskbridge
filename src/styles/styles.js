@@ -49,7 +49,7 @@ export const allTaskChildInnerDiv = "bg-[#819A91]/30 py-3 px-5 flex items-center
 export const allTaskChildH2 = "w-1/6 text-[#A7C1A8] text-xl font-bold";
 export const allTaskChildInnerH2 = "w-1/6 text-[#FFDAB3] text-sm font-medium flex items-center gap-2";
 export const allTaskTasksDiv = "bg-[#0F1412] py-3 px-5 flex items-center rounded-xl mb-3 border border-[#FFDAB3]/20";
-export const allTaskDivSpan = "w-1/6 text-[#FFDAB3] text-sm font-medium";
+export const allTaskDivSpan = "w-1/6 text-[#FFDAB3] text-sm font-medium capitalize";
 export const allTaskDivDiv = "w-1/6 flex justify-center";
 
 // - - - - - -

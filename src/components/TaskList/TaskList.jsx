@@ -2,19 +2,21 @@ import { InProgress, CompletedTask, FailedTask, NewTask, taskListMainCompDiv } f
 
 const TaskList = ({ data }) => {
 
+    
     return (
         <div className={taskListMainCompDiv}>
             {data.tasks.map((e, idx) => {
-                if (e.active) {
+                
+                if (e?.status === "inProgress") {
                     return <InProgress key={idx} data={e} />
                 }
-                if (e.newTask) {
+                if (e?.status === "new") {
                     return <NewTask key={idx} data={e} />
                 }
-                if (e.completed) {
+                if (e?.status === "completed") {
                     return <CompletedTask key={idx} data={e} />
                 }
-                if (e.failed) {
+                if (e?.status === "failed") {
                     return <FailedTask key={idx} data={e} />
                 }
             })}

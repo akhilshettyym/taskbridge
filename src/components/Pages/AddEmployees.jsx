@@ -28,7 +28,7 @@ const AddEmployees = ({ employees, setEmployees }) => {
   return (
     <div className="pb-10">
       <div className="bg-[#1B211A] rounded-2xl p-4 mt-5 border border-[#FFDAB3]/30 shadow-inner">
-        <div className="py-3 px-5 flex items-center rounded-xl border border-[#EEEFE0]/50">
+        <div className="py-3 px-5 flex items-center rounded-xl border-2 border-[#EEEFE0]/50">
           <h2 className="w-1/4 text-[#FFDAB3] text-xl font-bold">Emp ID</h2>
           <h2 className="w-1/4 text-[#FFDAB3] text-xl font-bold">Name</h2>
           <h2 className="w-1/4 text-[#FFDAB3] text-xl font-bold">Position</h2>
@@ -37,24 +37,25 @@ const AddEmployees = ({ employees, setEmployees }) => {
             {employees.length}
           </h2>
         </div>
-      </div>
-      {employees.map((emp) => {
-        const renderName = `${emp.firstName} ${emp.lastName}`;
-        return (
-          <div
-            key={emp.uuid}
-            className="bg-[#1B211A] rounded-2xl p-4 mt-5 border border-[#FFDAB3]/30 shadow-inner"
-          >
-            <div className="bg-[#819A91]/30 py-3 px-5 flex items-center rounded-xl border border-[#EEEFE0]/50">
-              <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.id}</h2>
-              <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{renderName}</h2>
-              <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.position}</h2>
-              <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.email}</h2>
-              <RemoveEmp onDelete={() => handleDelete(emp.id)} />
+
+        {employees.map((emp) => {
+          const renderName = `${emp.firstName} ${emp.lastName}`;
+          return (
+            <div
+              key={emp.uuid}
+              className="bg-[#1B211A] rounded-2xl p-4 mt-5 border border-[#FFDAB3]/30 shadow-inner"
+            >
+              <div className="bg-[#819A91]/30 py-3 px-5 flex items-center rounded-xl border border-[#EEEFE0]/50">
+                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.id}</h2>
+                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{renderName}</h2>
+                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.position}</h2>
+                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.email}</h2>
+                <RemoveEmp onDelete={() => handleDelete(emp.id)} />
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };
