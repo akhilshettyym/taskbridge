@@ -1,6 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
 import { FiGrid, FiClipboard, FiUsers, FiBarChart2, FiBarChart } from "react-icons/fi";
-import TaskCount from "../../Basics/TaskCount";
 
 const AdminControl = () => {
     const { pathname } = useLocation();

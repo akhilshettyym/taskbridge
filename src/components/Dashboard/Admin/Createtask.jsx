@@ -84,7 +84,7 @@ const CreateTask = () => {
             <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase"> Create Tasks </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />
             <div className="w-full flex justify-center">
-                <form onSubmit={handleCreateTask} className="w-full bg-[#1B211A] p-6 rounded-3xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8">
+                <form onSubmit={handleCreateTask} className="w-full bg-[#1B211A] p-6 rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8">
                     <div className="w-full md:w-[48%] flex flex-col gap-6">
                         <div>
                             <label className="text-sm uppercase tracking-wide text-[#FFDAB3]/80"> Task Title </label>
