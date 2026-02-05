@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from "uuid";
-// import toast from "react-hot-toast";
 
 import { generateSequentialId, getLocalStorage, setLocalStorage } from "../../utils/localStorage";
 import PasswordToggle from "../Basics/PasswordToggle";

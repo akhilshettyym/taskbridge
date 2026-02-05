@@ -1,8 +1,5 @@
 import { useRef } from "react";
-import {
-    AuthContext, PriorityTag, TaskCount, useContext, useEffect, useState, allTaskChildDiv, allTaskChildInnerDiv, allTaskChildH2, allTaskMainDiv, allTaskMainH1, allTaskChildInnerH2, allTaskTasksDiv, allTaskDivSpan, allTaskDivDiv,
-    Header
-} from "../../../constants/imports";
+import { AuthContext, PriorityTag, TaskCount, useContext, useEffect, useState, allTaskChildDiv, allTaskChildInnerDiv, allTaskChildH2, allTaskMainDiv, allTaskMainH1, allTaskChildInnerH2, allTaskTasksDiv, allTaskDivSpan, allTaskDivDiv, Header } from "../../../constants/imports";
 import DateConversion from "../../Basics/DateConversion";
 import AdminControl from "./AdminControl";
 
@@ -16,11 +13,13 @@ const EmployeeDetails = ({ data, handleLogout, orgData }) => {
             <Header data={data} handleLogout={handleLogout} orgData={orgData}/>
             <AdminControl />
             <div className="pb-10">
-                <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase"> Employee Details </h1>
+                
+                <hr className="my-5 border border-[#FFDAB3]/40" />
+                <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> Employee Details </h1>
+                <hr className="my-5 border border-[#FFDAB3]/40" />
 
                 {employees.map((emp) => (
                     <div key={emp.id}>
-                        <hr className="my-5 border border-[#FFDAB3]/40" />
 
                         <div className={allTaskChildDiv}>
                             <div className={allTaskChildInnerDiv}>
