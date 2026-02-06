@@ -1,49 +1,36 @@
-import { taskListCategoryH6, taskListChildDiv, taskListDateSpanClass, taskListDescP, taskListInnerDiv, taskListInnerH6, taskListMainDiv, taskListNewTaskBtnDiv, taskListNewTaskBtnGreen, taskListNewTaskBtnRed, taskListTitleH2, taskListTitleSpanClass, PriorityTag } from "../../../constants/imports";
-import DateConversion from "../../Basics/DateConversion";
+import { Header, TaskListNo } from "../../../constants/imports";
+import EmployeeControl from "./EmployeeControl";
+import TaskCard from "./TaskCard";
 
-const NewTask = ({ data }) => {
-
-  const handleAcceptTask = () => {
-    // These tasks should go under inProgress/active Tasks
-    // Under taskNumbers : should fall under active
-    // taskNumbers :  {active: 5, newTask: 6, completed: 0, failed: 0}
-
-
-    // And under Tasks
-    // tasks : [{id: "task-014", title: "Icon Set Review", category: "Design", priority: "Low",…},…] 0 : 
-    // {id: "task-014", title: "Icon Set Review", category: "Design", priority: "Low",…}
-    // category : "Design"createdAt: "2026-02-04T08:51:06.067Z"description: "Review icon consistency"dueDate: "2026-02-05T18:30:00.000Z": "task-014"priority: "Lowstatus: "new"title: 
-    // "Icon Set Review"
-    // here the status should be changes to inProgress
-  }
-
-  const handleRejectTask = () => {
-    // These tasks should go under Failed Tasks
-    // same as above but set both to failed
-  }
+const NewTask = ({ data, handleLogout, orgData }) => {
+  const newTasks = data?.tasks?.filter((e) => e.status === "new") || [];
 
   return (
-    <div id="tasklist" className={taskListMainDiv}>
-      <div className={taskListChildDiv}>
-        <span className={taskListTitleSpanClass}> New Task </span>
-        <PriorityTag priorityMsg={data?.priority ?? ""} />
-        <DateConversion convertDate={data?.createdAt} className={taskListInnerH6} />
+    <div className="h-screen w-full p-10 overflow-auto">
+      <Header data={data} handleLogout={handleLogout} orgData={orgData} />
+      <EmployeeControl />
+
+      <hr className="my-5 border border-[#FFDAB3]/40" />
+      <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> New Tasks </h1>
+      <hr className="my-5 border border-[#FFDAB3]/40" />
+
+      <TaskListNo data={data} />
+
+      <div className="mt-5 bg-[#1B211A] rounded-xl p-4 border border-[#FFDAB3]/25">
+        {newTasks.length === 0 ? (
+          <div className="text-center py-12 text-[#F8F8F2]/60 text-lg"> No new tasks at the moment. </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+            {newTasks.map((task) => {
+              return <TaskCard key={task.id || task._id} task={task} />
+            })}
+          </div>
+        )}
       </div>
 
-      <h2 className={taskListTitleH2}> {data?.title ?? ""} </h2>
-      <h6 className={taskListCategoryH6}> Category : {data?.category ?? ""} </h6>
-      <p className={taskListDescP}> {data?.description ?? ""} </p>
 
-      <div className={taskListInnerDiv}>
-        <h6 className={taskListInnerH6}> Due Date : <DateConversion convertDate={data?.dueDate} /> </h6>
-      </div>
-
-      <div className={taskListNewTaskBtnDiv}>
-        <button onClick={handleAcceptTask} className={taskListNewTaskBtnGreen}> Accept Task </button>
-        <button onClick={handleRejectTask} className={taskListNewTaskBtnRed}> Reject Task </button>
-      </div>
     </div>
-  )
-}
+  );
+};
 
 export default NewTask;

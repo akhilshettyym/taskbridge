@@ -4,7 +4,7 @@ import EmployeeDetails from "../components/Dashboard/Admin/EmployeeDetails";
 import CreateTask from "../components/Dashboard/Admin/Createtask";
 import Header from "../components/Basics/Header";
 import TaskListNo from "../components/Dashboard/Employee/TaskListNo";
-import TaskList from "../components/Dashboard/Employee/TaskList";
+import TaskList from "../components/Dashboard/Employee/EmpTaskStatus";
 import { AuthContext } from "../context/AuthProvider";
 import PriorityTag from "../components/Basics/PriorityTag";
 import TaskCount from "../components/Basics/TaskCount";

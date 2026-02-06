@@ -1,4 +1,6 @@
 import { Header, TaskListNo, TaskList, employeeDivClass } from "../../../constants/imports";
+import EmployeeControl from "./EmployeeControl";
+import TaskStatus from "./EmpTaskStatus";
 
 const EmployeeDashboard = ({ data, handleLogout, orgData }) => {
 
@@ -7,8 +9,9 @@ const EmployeeDashboard = ({ data, handleLogout, orgData }) => {
   return (
     <div className={employeeDivClass}>
       <Header data={data} handleLogout={handleLogout} orgData={orgData} />
+      <EmployeeControl />
       <TaskListNo data={data} />
-      <TaskList data={data} />
+      <TaskStatus data={data} />
     </div>
   )
 }

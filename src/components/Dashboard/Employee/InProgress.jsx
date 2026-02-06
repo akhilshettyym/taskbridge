@@ -1,28 +1,33 @@
-import { taskListCategoryH6, taskListChildDiv, taskListDateSpanClass, taskListDescP, taskListInnerDiv, taskListInnerH6, taskListInProBtnDiv, taskListInProBtnGreen, taskListInProBtnRed, taskListMainDiv, taskListTitleH2, taskListTitleSpanClass, PriorityTag } from "../../../constants/imports";
-import DateConversion from "../../Basics/DateConversion";
+import { Header, TaskListNo } from "../../../constants/imports";
+import EmployeeControl from "./EmployeeControl";
+import TaskCard from "./TaskCard";
 
-const InProgress = ({ data }) => {
+const InProgress = ({ data, handleLogout, orgData }) => {
+  const inProgress = data?.tasks?.filter((e) => e.status === "inProgress") || [];
 
   return (
-    <div id="tasklist" className={taskListMainDiv}>
-      <div className={taskListChildDiv}>
-        <span className={taskListTitleSpanClass}> Task In Progress </span>
-        <PriorityTag priorityMsg={data?.priority ?? ""} />
-        <DateConversion convertDate={data?.createdAt} className={taskListInnerH6} />
+    <div className="h-screen w-full p-10 overflow-auto">
+      <Header data={data} handleLogout={handleLogout} orgData={orgData} />
+      <EmployeeControl />
+
+      <hr className="my-5 border border-[#FFDAB3]/40" />
+      <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> New Tasks </h1>
+      <hr className="my-5 border border-[#FFDAB3]/40" />
+
+      <TaskListNo data={data} />
+
+      <div className="mt-5 bg-[#1B211A] rounded-xl p-4 border border-[#FFDAB3]/25">
+        {inProgress.length === 0 ? (
+          <div className="text-center py-12 text-[#F8F8F2]/60 text-lg"> No tasks are accepted at the moment. </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+            {inProgress.map((task) => {
+              return <TaskCard key={task.id || task._id} task={task} />
+            })}
+          </div>
+        )}
       </div>
 
-      <h2 className={taskListTitleH2}> {data?.title ?? ""} </h2>
-      <h6 className={taskListCategoryH6}> Category : {data?.category ?? ""} </h6>
-      <p className={taskListDescP}> {data?.description ?? ""} </p>
-
-      <div className={taskListInnerDiv}>
-        <h6 className={taskListInnerH6}> Due Date : <DateConversion convertDate={data?.dueDate}/> </h6>
-      </div>
-
-      <div className={taskListInProBtnDiv}>
-        <button className={taskListInProBtnGreen}> Mark as Completed </button>
-        <button className={taskListInProBtnRed}> Mark as Failed </button>
-      </div>
     </div>
   );
 };

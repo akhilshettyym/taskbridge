@@ -26,7 +26,7 @@ const TaskStatus = ({ data, handleLogout, orgData }) => {
           employees.map((emp) => (
             <div key={emp.id} className="mt-5">
 
-              <div className="bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
+              <div className="bg-[#1B211A] rounded-xl p-4 border border-[#FFDAB3]/25">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                   {emp.tasks?.length === 0 ? (
                     <div className="col-span-full text-center py-8 text-[#F8F8F2]/60"> No tasks assigned yet </div>
