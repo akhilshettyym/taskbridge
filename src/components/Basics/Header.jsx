@@ -6,8 +6,8 @@ const Header = ({ data, handleLogout, orgData }) => {
         return <div className={headerLoadingDiv}>Loading...</div>
     }
 
-    const firstName = data.firstName.replace(/\b\w/g, char => char.toUpperCase());
-    const lastName = data.lastName.replace(/\b\w/g, char => char.toUpperCase());
+    const firstName = data.firstName
+    const lastName = data.lastName
     const renderName = `${firstName} ${lastName}`;
 
     return (

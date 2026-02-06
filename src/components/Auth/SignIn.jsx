@@ -32,8 +32,6 @@ const Login = ({ handleLogin }) => {
 
           <div className={signinWFull}>
             <label className={signinLabelClass}> Password </label>
-            {/* <input value={password} onChange={(e) => setPassword(e.target.value)} required type="password" placeholder="Enter your password" className={signinInputClass} /> */}
-            {/* <PasswordToggle value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" className={signinInputClass} /> */}
             <PasswordToggle value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter your password" className={signinInputClass} />
           </div>
 

@@ -5,7 +5,7 @@ import { getOrganizationData } from "./utils/localStorage";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import CreatedTasks from "./components/Dashboard/Admin/CreatedTasks";
-import Dashboard from "./components/Dashboard/Dashboard";
+import Dashboard from "./components/Dashboard/Admin/Dashboard";
 import TaskStatus from "./components/Dashboard/Admin/TaskStatus";
 import { useNavigate } from "react-router-dom";
 import EmployeeManagement from "./components/Dashboard/Admin/EmployeeManagement";

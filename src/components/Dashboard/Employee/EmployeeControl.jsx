@@ -1,22 +1,22 @@
 import { Link, useLocation } from "react-router-dom";
 import { FiGrid, FiClipboard, FiUsers, FiBarChart2, FiBarChart } from "react-icons/fi";
 
-const AdminControl = () => {
+const EmployeeControl = () => {
     const { pathname } = useLocation();
 
     const navItems = [
-        { label: "Dashboard", path: "/admin/dashboard", icon: <FiGrid size={18} /> },
-        { label: "Created Tasks", path: "/admin/tasks", icon: <FiClipboard size={18} /> },
-        { label: "Task Status", path: "/admin/status", icon: <FiBarChart2 size={18} /> },
-        { label: "Employee Details", path: "/admin/employees", icon: <FiUsers size={18} /> },
-        { label: "Employee Management", path: "/admin/management", icon: <FiBarChart size={18} /> }
+        { label: "Task Status", path: "/employee/taskstatus", icon: <FiGrid size={18} /> },
+        { label: "New Tasks", path: "/employee/newtasks", icon: <FiClipboard size={18} /> },
+        { label: "In Progress", path: "/employee/inprogress", icon: <FiBarChart size={18} /> },
+        { label: "Completed / Failed", path: "/employee/tasklifecycle", icon: <FiBarChart2 size={18} /> },
+        { label: "Employee Details", path: "/employee/details", icon: <FiUsers size={18} /> }
     ];
 
     return (
         <div className="mt-6">
             <div className="bg-[#626F47]/35 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-md">
                 <div className="flex flex-wrap items-center gap-3">
-                    <h1 className="ml-5 mr-5 text-[#FFDAB3] text-md uppercase"> Admin Dashboard </h1>
+                    <h1 className="ml-5 mr-5 text-[#FFDAB3] text-md uppercase"> Employee Dashboard </h1>
                     {navItems.map((item) => {
                         const isActive = pathname === item.path;
 
@@ -36,4 +36,4 @@ const AdminControl = () => {
     );
 };
 
-export default AdminControl;
+export default EmployeeControl;
