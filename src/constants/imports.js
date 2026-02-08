@@ -1,6 +1,6 @@
 import { Link, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useContext, useEffect } from 'react';
-import EmployeeDetails from "../components/Dashboard/Admin/EmployeeDetails";
+import EmployeeDetails from "../components/Dashboard/Admin/EmployeeAdDetails";
 import CreateTask from "../components/Dashboard/Admin/Createtask";
 import Header from "../components/Basics/Header";
 import TaskListNo from "../components/Dashboard/Employee/TaskListNo";

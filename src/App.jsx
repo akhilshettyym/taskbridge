@@ -11,7 +11,9 @@ import EmployeeManagement from "./components/Dashboard/Admin/EmployeeManagement"
 import EmpTaskStatus from "./components/Dashboard/Employee/EmpTaskStatus";
 import TaskLifeCycle from "./components/Dashboard/Employee/TaskLifeCycle";
 import { useNavigate } from "react-router-dom";
-import Details from "./components/Dashboard/Employee/Details";
+import AdminDetails from "./components/Dashboard/Admin/AdminDetails";
+import EmployeeEmpDetails from "./components/Dashboard/Employee/EmployeeEmpDetails";
+import EmployeeAdDetails from "./components/Dashboard/Admin/EmployeeAdDetails";
 
 const App = () => {
   const navigate = useNavigate();
@@ -103,8 +105,9 @@ const App = () => {
         <Route path="/admin/dashboard" element={<AdminRoute> {loggedInUserData && (<Dashboard data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} </AdminRoute>} />
         <Route path="/admin/tasks" element={loggedInUserData && (<CreatedTasks data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
         <Route path="/admin/status" element={loggedInUserData && (<TaskStatus data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
-        <Route path="/admin/employees" element={loggedInUserData && (<EmployeeDetails data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
+        <Route path="/admin/employees" element={loggedInUserData && (<EmployeeAdDetails data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
         <Route path="/admin/management" element={loggedInUserData && (<EmployeeManagement data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
+        <Route path="/admin/details" element={loggedInUserData && (<AdminDetails data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
         <Route path="/employee/taskstatus" element={
           user?.role === "employee" && loggedInUserData ? (
             <EmpTaskStatus data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />
@@ -115,7 +118,7 @@ const App = () => {
         <Route path="/employee/newtasks" element={loggedInUserData && (<NewTask data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
         <Route path="/employee/inprogress" element={loggedInUserData && (<InProgress data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
         <Route path="/employee/tasklifecycle" element={loggedInUserData && (<TaskLifeCycle data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
-        <Route path="/employee/details" element={loggedInUserData && (<Details data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
+        <Route path="/employee/details" element={loggedInUserData && (<EmployeeEmpDetails data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} />
       </Routes>
     </>
   );

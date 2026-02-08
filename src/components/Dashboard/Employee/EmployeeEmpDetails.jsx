@@ -10,7 +10,7 @@ const LOCK_TIME = 5 * 60 * 1000;
 
 const inputClass = "mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition";
 
-const Details = ({ data, handleLogout, orgData }) => {
+const EmployeeEmpDetails = ({ data, handleLogout, orgData }) => {
   const [taskbridge, setTaskbridge] = useState(JSON.parse(localStorage.getItem("taskbridge")));
 
   const [formData, setFormData] = useState({
@@ -186,4 +186,4 @@ const Details = ({ data, handleLogout, orgData }) => {
   );
 };
 
-export default Details;
+export default EmployeeEmpDetails;

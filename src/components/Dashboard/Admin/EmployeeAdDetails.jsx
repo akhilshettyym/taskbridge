@@ -3,9 +3,9 @@ import { AuthContext, PriorityTag, TaskCount, useContext, useEffect, useState, a
 import DateConversion from "../../Basics/DateConversion";
 import AdminControl from "./AdminControl";
 
-const EmployeeDetails = ({ data, handleLogout, orgData }) => {
-    const authData = useContext(AuthContext);
+const EmployeeAdDetails = ({ data, handleLogout, orgData }) => {
 
+    const authData = useContext(AuthContext);
     const employees = authData?.employees ?? [];
 
     return (
@@ -81,4 +81,4 @@ const EmployeeDetails = ({ data, handleLogout, orgData }) => {
     );
 };
 
-export default EmployeeDetails;
+export default EmployeeAdDetails;
