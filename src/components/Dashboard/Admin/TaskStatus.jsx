@@ -6,6 +6,7 @@ import PriorityTag from "../../Basics/PriorityTag";
 import DateConversion from "../../Basics/DateConversion";
 import RemoveTask from "../../Basics/RemoveTask";
 import EditTaskModal from "./EditTaskModal";
+import { BiSolidError } from "react-icons/bi";
 
 const TaskStatus = ({ data, handleLogout, orgData }) => {
   const authData = useContext(AuthContext);
@@ -80,10 +81,27 @@ const TaskStatus = ({ data, handleLogout, orgData }) => {
                       <span className="ml-2 text-[#FFDAB3]"> {task.description || "No description provided"} </span>
                     </div>
 
-                    <div className="text-xs text-[#F8F8F2]/70"> Assigned to:
-                      <span className="ml-2 uppercase text-[#FFDAB3] font-semibold">
-                        {getEmployeeName(task.assignedTo)}
-                      </span>
+                    <div className="text-xs text-[#F8F8F2]/70 flex items-center justify-between">
+                      <div> Assigned to:
+                        <span className="ml-2 uppercase text-[#FFDAB3] font-semibold">
+                          {getEmployeeName(task.assignedTo)}
+                        </span>
+                      </div>
+
+                      {task?.failureReason && task.failureReason.trim() !== "" && (
+                        <div className="relative group">
+                          <span className="text-red-500 cursor-help transition-colors hover:text-red-400">
+                            <BiSolidError size={20} />
+                          </span>
+
+                          <div className="absolute z-20 right-0 bottom-full mb-2 hidden group-hover:block w-80 max-w-[90vw] px-3 py-2.5 bg-[#1B1F1A] text-[#F8F8F2] text-xs rounded-lg border-2 border-red-500/40 shadow-xl whitespace-pre-wrap break-words">
+                            <div className="font-semibold text-red-400 mb-1 flex items-center gap-1.5">
+                              <BiSolidError size={18} /> Failure Reason
+                            </div>
+                            <div className="text-[#FFDAB3]/95 leading-relaxed"> {task.failureReason} </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 

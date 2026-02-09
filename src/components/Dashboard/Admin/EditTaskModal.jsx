@@ -18,65 +18,17 @@ const EditTaskModal = ({ task, onClose }) => {
         assignedTo: task.assignedTo || "",
     });
 
+    const normalizeTaskNumbers = (nums = {}) => ({
+        newTask: nums.newTask || 0,
+        active: nums.active || 0,
+        completed: nums.completed || 0,
+        failed: nums.failed || 0,
+    });
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
-
-    // const handleSave = () => {
-    //     const taskbridge = getLocalStorage();
-
-    //     const oldAssignedTo = task.assignedTo;
-    //     const newAssignedTo = formData.assignedTo;
-
-    //     const updatedAdmin = {
-    //         ...taskbridge.admin,
-    //         tasks: taskbridge.admin.tasks.map((t) =>
-    //             t.id === task.id ? { ...t, ...formData } : t
-    //         ),
-    //     };
-
-    //     let updatedEmployees = taskbridge.employees.map((emp) => {
-    //         if (emp.id === oldAssignedTo && oldAssignedTo !== newAssignedTo) {
-    //             return {
-    //                 ...emp,
-    //                 tasks: emp.tasks.filter((t) => t.id !== task.id),
-    //             };
-    //         }
-
-    //         if (emp.id === newAssignedTo) {
-    //             const employeeTasks = emp.tasks || [];
-    //             const existingTaskIndex = employeeTasks.findIndex((t) => t.id === task.id);
-
-    //             let updatedTasks;
-    //             if (existingTaskIndex !== -1) {
-    //                 updatedTasks = employeeTasks.map((t, i) =>
-    //                     i === existingTaskIndex ? { ...t, ...formData } : t
-    //                 );
-    //             } else {
-    //                 updatedTasks = [...employeeTasks, { ...task, ...formData }];
-    //             }
-
-    //             return {
-    //                 ...emp,
-    //                 tasks: updatedTasks,
-    //             };
-    //         }
-
-    //         return emp;
-    //     });
-
-    //     const updatedTaskbridge = {
-    //         ...taskbridge,
-    //         admin: updatedAdmin,
-    //         employees: updatedEmployees,
-    //     };
-
-    //     updateAuthData(updatedTaskbridge);
-    //     toast.success("Task updated successfully");
-    //     onClose();
-    // };
-
 
     const handleSave = () => {
         const taskbridge = getLocalStorage();
@@ -91,6 +43,7 @@ const EditTaskModal = ({ task, onClose }) => {
             ...task,
             ...formData,
             status: shouldResetStatus ? "new" : formData.status,
+            failureReason: shouldResetStatus ? "" : task.failureReason,
         };
 
         const updatedAdmin = {
@@ -101,16 +54,18 @@ const EditTaskModal = ({ task, onClose }) => {
         };
 
         const updatedEmployees = taskbridge.employees.map((emp) => {
+            const nums = normalizeTaskNumbers(emp.taskNumbers);
+
             if (emp.id === oldAssignedTo && oldAssignedTo !== newAssignedTo) {
                 return {
                     ...emp,
                     tasks: emp.tasks.filter((t) => t.id !== task.id),
                     taskNumbers: {
-                        ...emp.taskNumbers,
-                        failedTask:
+                        ...nums,
+                        failed:
                             task.status === "failed"
-                                ? Math.max(0, emp.taskNumbers.failedTask - 1)
-                                : emp.taskNumbers.failedTask,
+                                ? Math.max(nums.failed - 1, 0)
+                                : nums.failed,
                     },
                 };
             }
@@ -121,14 +76,16 @@ const EditTaskModal = ({ task, onClose }) => {
                 return {
                     ...emp,
                     tasks: exists
-                        ? emp.tasks.map((t) => (t.id === task.id ? finalTaskData : t))
-                        : [...(emp.tasks || []), finalTaskData],
+                        ? emp.tasks.map((t) =>
+                            t.id === task.id ? finalTaskData : t
+                        )
+                        : [...emp.tasks, finalTaskData],
                     taskNumbers: {
-                        ...emp.taskNumbers,
+                        ...nums,
                         newTask:
                             task.status === "failed" && !exists
-                                ? emp.taskNumbers.newTask + 1
-                                : emp.taskNumbers.newTask,
+                                ? nums.newTask + 1
+                                : nums.newTask,
                     },
                 };
             }
@@ -136,22 +93,20 @@ const EditTaskModal = ({ task, onClose }) => {
             return emp;
         });
 
-        const updatedTaskbridge = {
+        updateAuthData({
             ...taskbridge,
             admin: updatedAdmin,
             employees: updatedEmployees,
-        };
-
-        updateAuthData(updatedTaskbridge);
+        });
 
         toast.success(
             shouldResetStatus
                 ? "Task reassigned and reset to NEW"
                 : "Task updated successfully"
         );
-
         onClose();
     };
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black-500 backdrop-blur-sm px-4">
             <div className="w-full max-w-2xl bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] max-h-[75vh] flex flex-col">

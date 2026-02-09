@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import RemoveEmp from "../../Basics/RemoveEmp";
 import { getLocalStorage, setLocalStorage } from "../../../utils/localStorage";
 import toast from "react-hot-toast";
+import EditEmployeeDets from "../../Basics/EditEmployeeDets";
 
 const AddEmployees = ({ employees, setEmployees }) => {
 
@@ -50,6 +51,7 @@ const AddEmployees = ({ employees, setEmployees }) => {
                 <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{renderName}</h2>
                 <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.position}</h2>
                 <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.email}</h2>
+                <EditEmployeeDets emp={emp} setEmployees={setEmployees} />
                 <RemoveEmp onDelete={() => handleDelete(emp.id)} />
               </div>
             </div>
