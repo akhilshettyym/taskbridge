@@ -97,6 +97,33 @@ taskbridge : {
   createdAt: ISODate()
 }
 
+// organizations collection
+{
+  _id: ObjectId,
+  uuid: "...",
+  orgName: "...",
+  orgDomain: "...",
+  orgCountry: "...",
+  orgCity: "...",
+  orgDescription: "...",
+  createdAt: ISODate(),
+  createdBy: userId
+}
+
+// tasks collection
+{
+  _id: ObjectId,
+  uuid: "...",
+  title: "...",
+  category: "...",
+  description: "...",
+  organizationId: ObjectId,
+  assignedTo: userId,
+  dueDate: ISODate(),
+  priority: "HIGH" | "MEDIUM" | "LOW",
+  status: "NEW" | "IN_PROGRESS" | "COMPLETED" | "FAILED",
+  createdAt: ISODate()
+}
 ```
 
 ---
