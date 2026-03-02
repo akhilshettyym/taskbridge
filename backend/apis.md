@@ -260,7 +260,7 @@ This will be my focus for now, Of creating the proper API's and making it work a
 
 
 
----------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------
 
 
 Building the Taskbridge Backend from Scratch
@@ -269,15 +269,12 @@ We will use Node.js with Express for the HTTP server and MongoDB (via Mongoose) 
 
 Tech stack & packages: Initialize a new Node project (npm init) and install dependencies:
 
-express (web framework),
+- express (web framework),
+- mongoose (MongoDB ODM),
+- dotenv (environment variables),
+- bcryptjs (password hashing),
+- jsonwebtoken (JWT),
 
-mongoose (MongoDB ODM),
-
-dotenv (environment variables),
-
-bcryptjs (password hashing),
-
-jsonwebtoken (JWT),
 
 uuid (if you want separate UUIDs),
 plus development tools like nodemon. For example, one guide shows installing Mongoose and bcrypt with npm install mongoose bcrypt.
@@ -286,6 +283,7 @@ Environment variables: Create a .env file at the root (e.g. backend/.env) to sto
 
 DB connection (src/config/db.js): Write a function connectDB() that uses Mongoose to connect. For example:
 
+```js
 const mongoose = require('mongoose');
 require('dotenv').config();
 const connectDB = async () => {
@@ -301,17 +299,20 @@ const connectDB = async () => {
   }
 };
 module.exports = connectDB;
+```
 
 Here process.env.MONGO_URI comes from .env. This follows the modern pattern of a standalone connection module. We call this function in our main file to initiate the database connection.
 
 Models (src/models): Create Mongoose schemas for User, Organization, and Task. For example, a User schema might have fields like firstName, lastName, email, passwordHash, role (enum: SUPER_ADMIN/ADMIN/EMPLOYEE), organizationId (a reference to an Organization), and permissions (an array of strings). Mark email as unique to prevent duplicates. You can add a createdAt default field. In the schema, use bcrypt in a pre-save hook (or in the controller) to hash the password before saving. For example:
 
+```js
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+```
 
 This ensures passwords are never stored in plain text. Similarly, define an Organization schema (fields: uuid, orgName, orgDomain, orgCountry, orgCity, orgDescription, createdAt, createdBy, plus maybe a status field) and a Task schema (uuid, title, category, description, organizationId, assignedTo, dueDate, priority, status, createdAt). In these schemas you can use enum to restrict role, priority, and status values, and use type: mongoose.Schema.Types.ObjectId with ref for references.
 
@@ -321,6 +322,7 @@ Routes: In src/routes/, define Express routers. For example, an orgRoutes.js mig
 
 Middleware: Write middleware in src/middleware/ for authentication and authorization. For instance, a verifyToken middleware reads the Authorization: Bearer <token> header, extracts the JWT token, and calls jwt.verify(token, secret). Upon success, it sets req.user = decodedToken so later controllers know the user’s ID/role. A simple example is:
 
+```js
 function verifyToken(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
@@ -331,12 +333,15 @@ function verifyToken(req, res, next) {
     next();
   });
 }
+```
 
 This pattern is standard in Express apps. You may also write role-checking middleware. For example, an adminOnly function can check req.user.role === 'ADMIN' (or 'SUPER_ADMIN') and reject if not, as in the DigitalOcean JWT guide.
 
 app.js and server.js: In app.js set up the Express app: load middleware (express.json() for JSON parsing), mount the routers, etc. In server.js import app and connectDB(), then call connectDB() and app.listen(PORT). For example, one tutorial calls connectDB() and then app.use(express.json()) before defining routes.
 
-Phase 2: Organization Registration (Create Org + Admin)
+---
+
+#### Phase 2: Organization Registration (Create Org + Admin)
 
 The Create Organization endpoint lets an unauthenticated user register a new organization, which automatically creates an admin user. Typical steps:
 
