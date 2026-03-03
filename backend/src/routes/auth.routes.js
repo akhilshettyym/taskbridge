@@ -1,10 +1,13 @@
 import express from "express";
-import { createOrganizationController, userLoginController } from "../controllers/auth.controllers.js";
+import { createOrganizationController, registerOrganizationController, userLoginController } from "../controllers/auth.controllers.js";
 
 const router = express.Router();
 
 /* POST /api/auth/create-organization */
 router.post("/create-organization", createOrganizationController);
+
+/* POST /api/auth/register-organization */
+router.post("/register-organization", registerOrganizationController);
 
 /* POST /api/auth/login */
 router.post("/login", userLoginController)
