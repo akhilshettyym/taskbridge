@@ -61,7 +61,7 @@ export const createTaskController = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error creating task",
+            message: "Error creating the task",
             error: error.message
         });
     }
@@ -147,7 +147,172 @@ export const updateTaskController = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error updating task",
+            message: "Error updating the task",
+            error: error.message,
+        });
+    }
+};
+
+export const acceptTaskController = async (req, res) => {
+    try {
+        const { taskId } = req.params;
+        const loggedInUser = req.user;
+
+        const task = await taskModel.findOne({
+            _id: taskId,
+            organizationId: loggedInUser.organizationId,
+        });
+
+        if (!task) {
+            return res.status(404).json({
+                success: false,
+                message: "Task not found",
+            });
+        }
+
+        if (task.assignedTo.toString() !== loggedInUser._id.toString()) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to accept this task",
+            });
+        }
+
+        if (task.status !== "NEW") {
+            return res.status(400).json({
+                success: false,
+                message: "Only NEW tasks can be accepted",
+            });
+        }
+
+        task.status = "IN_PROGRESS";
+
+        await task.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Task accepted and moved to IN_PROGRESS",
+            task,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error accepting the task",
+            error: error.message,
+        });
+    }
+};
+
+// ADD ROUTE
+export const requestTaskRejectionController = async (req, res) => {
+    try {
+        const { taskId } = req.params;
+        const { reason } = req.body;
+        const loggedInUser = req.user;
+
+        if (!reason || reason.trim().length < 10) {
+            return res.status(400).json({
+                success: false,
+                message: "Rejection reason is required (min 10 characters)"
+            });
+        }
+
+        const task = await taskModel.findOne({
+            _id: taskId,
+            organizationId: loggedInUser.organizationId
+        });
+
+        if (!task) {
+            return res.status(404).json({
+                success: false,
+                message: "Task not found"
+            });
+        }
+
+        if (task.assignedTo.toString() !== loggedInUser._id.toString()) {
+            return res.status(403).json({
+                success: false,
+                message: "Not authorized"
+            });
+        }
+
+        if (task.status !== "NEW") {
+            return res.status(400).json({
+                success: false,
+                message: "Only NEW tasks can be rejected"
+            });
+        }
+
+        task.status = "REJECTION_REQUESTED";
+
+        task.rejection = {
+            requestedBy: loggedInUser._id,
+            reason,
+            requestedAt: new Date()
+        };
+
+        await task.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Rejection request submitted to admin",
+            task
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error requesting rejection",
+            error: error.message
+        });
+    }
+};
+
+export const markAsCompletedController = async (req, res) => {
+    try {
+        const { taskId } = req.params;
+        const loggedInUser = req.user;
+
+        const task = await taskModel.findOne({
+            _id: taskId,
+            organizationId: loggedInUser.organizationId,
+        });
+
+        if (!task) {
+            return res.status(404).json({
+                success: false,
+                message: "Task not found",
+            });
+        }
+
+        if (task.assignedTo.toString() !== loggedInUser._id.toString()) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to accept this task",
+            });
+        }
+
+        if (task.status !== "IN_PROGRESS") {
+            return res.status(403).json({
+                success: false,
+                message: "Only tasks IN_PROGRESS can be marked as COMPLETED",
+            });
+        }
+
+        task.status = "COMPLETED";
+
+        await task.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Task moved to COMPLETED",
+            task,
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error marking the task as completed",
             error: error.message,
         });
     }
@@ -179,7 +344,7 @@ export const deleteTaskController = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "Error deleting task",
+            message: "Error deleting the task",
             error: error.message,
         });
     }

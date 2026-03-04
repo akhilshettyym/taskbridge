@@ -42,6 +42,14 @@ UPDATE ADMIN - PATCH - localhost:3000/api/admin/update-admin/:adminId
 
 ---
 
+REQUEST REJECTION - PATCH - localhost:3000/api/tasks/reject-task/:taskId
+
+---
+
+REVIEW REJECTION - PATCH - localhost:3000/api/admin/review-task-rejection/:taskId
+
+---
+
 #### POST create-organization - localhost:3000/api/auth/create-organization
 
 ```json
@@ -230,3 +238,21 @@ axios.interceptors.response.use(
 - Refresh tokens
 - Token Blacklisting
 - or store active sessions in DB
+
+
+
+
+{
+ "reason": "I already have 6 high priority tasks and cannot deliver this on time."
+}
+
+
+{
+ "action": "APPROVE"
+}
+
+
+{
+ "action": "REJECT",
+ "adminReason": "Workload is manageable. Please prioritize properly."
+}

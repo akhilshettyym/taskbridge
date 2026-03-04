@@ -70,12 +70,62 @@ const taskSchema = new mongoose.Schema(
         status: {
             type: String,
             enum: {
-                values: ["NEW", "IN-PROGRESS", "COMPLETED", "FAILED"],
-                message: "{VALUE} is not a valid status. Must be NEW, IN-PROGRESS, COMPLETED, or FAILED",
+                values: ["NEW", "IN_PROGRESS", "COMPLETED", "REJECTION_REQUESTED", "FAILED"],
+                message: "{VALUE} is not a valid status. Must be NEW, IN_PROGRESS, COMPLETED, REJECTION_REQUESTED, or FAILED",
             },
             default: "NEW",
             uppercase: true,
         },
+
+        // rejection: {
+        //     requestedBy: {
+        //         type: mongoose.Schema.Types.ObjectId,
+        //         ref: "User",
+        //     },
+        //     reason: {
+        //         type: String,
+        //         trim: true,
+        //     },
+        //     requestedAt: Date,
+
+        //     reviewedBy: {
+        //         type: mongoose.Schema.Types.ObjectId,
+        //         ref: "User",
+        //     },
+        //     reviewReason: String,
+        //     reviewedAt: Date,
+        //     decision: {
+        //         type: String,
+        //         enum: ["APPROVED", "REJECTED"],
+        //     }
+        // },
+
+        rejection: {
+            reason: {
+                type: String
+            },
+            requestedBy: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            },
+            requestedAt: {
+                type: Date
+            },
+            status: {
+                type: String,
+                enum: ["PENDING", "APPROVED", "REJECTED"]
+            },
+            reviewedBy: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            },
+            reviewedAt: {
+                type: Date
+            },
+            adminReason: {
+                type: String
+            }
+        }
     },
     {
         timestamps: true,
