@@ -1,5 +1,5 @@
 import express from "express";
-import { createOrganizationController, userLoginController } from "../controllers/auth.controllers.js";
+import { createOrganizationController, userLoginController, userLogoutController } from "../controllers/auth.controllers.js";
 
 const router = express.Router();
 
@@ -10,6 +10,6 @@ router.post("/create-organization", createOrganizationController);
 router.post("/login", userLoginController);
 
 /* POST /api/auth/logout */
-// router.post("/logout", userLogoutController);
+router.post("/logout", userLogoutController);
 
 export default router;

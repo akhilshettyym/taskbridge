@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
 import crypto from "node:crypto";
 
 const userSchema = new mongoose.Schema(
@@ -84,6 +84,17 @@ const userSchema = new mongoose.Schema(
             type: [String],
             default: [],
             // add enum if permissions are fixed set
+        },
+
+        employmentStatus: {
+            type: String,
+            enum: {
+                values: ["ACTIVE", "IN-ACTIVE"],
+                message: "{VALUE} is not a valid employment status",
+            },
+            default: "ACTIVE",
+            uppercase: true,
+            index: true,
         },
     },
     {

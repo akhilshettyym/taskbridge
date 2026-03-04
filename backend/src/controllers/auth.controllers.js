@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import userModel from "../models/user.model.js";
 import orgModel from "../models/org.model.js";
-import { ROLE_PERMISSIONS } from "../constants/rolePermissions.js";
+import { ROLE_PERMISSIONS } from "../constants/permissions.js";
 
 async function createOrganizationController(req, res) {
     const session = await mongoose.startSession();
@@ -163,6 +163,13 @@ async function userLoginController(req, res) {
             });
         }
 
+        if (user.employmentStatus === "IN-ACTIVE") {
+            return res.status(403).json({
+                success: false,
+                message: "Your account has been deactivated. Contact system administrator."
+            });
+        }
+
         if (user.role !== "SUPER_ADMIN") {
 
             if (!user.organizationId) {
@@ -230,4 +237,26 @@ async function userLoginController(req, res) {
     }
 }
 
-export { createOrganizationController, userLoginController };
+async function userLogoutController(req, res) {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Logged out successfully",
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Server error during logout",
+            error: error.message,
+        });
+    }
+}
+
+export { createOrganizationController, userLoginController, userLogoutController };

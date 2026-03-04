@@ -1,12 +1,13 @@
-import { ROLE_PERMISSIONS } from "../constants/rolePermissions.js";
 import userModel from "../models/user.model.js";
+import { ROLE_PERMISSIONS } from "../constants/permissions.js";
 
 export const createSuperAdmin = async () => {
     try {
-        const email = process.env.SUPER_ADMIN_EMAIL.toLowerCase();
+        const firstNameFromEnv = process.env.SUPER_ADMIN_FIRST_NAME;
+        const emailFromEnv = process.env.SUPER_ADMIN_EMAIL.toLowerCase();
         const passwordFromEnv = process.env.SUPER_ADMIN_PASSWORD;
 
-        if (!email || !passwordFromEnv) {
+        if (!emailFromEnv || !passwordFromEnv) {
             console.log("SUPER_ADMIN credentials missing");
             return;
         }
@@ -15,9 +16,9 @@ export const createSuperAdmin = async () => {
 
         if (!existingSuperAdmin) {
             await userModel.create({
-                firstName: "Akhil",
-                lastName: "Shetty",
-                email,
+                firstName: firstNameFromEnv,
+                lastName: "SHETTY",
+                email: emailFromEnv,
                 password: passwordFromEnv,
                 role: "SUPER_ADMIN",
                 dateOfBirth: new Date("2003-03-29"),
@@ -28,7 +29,8 @@ export const createSuperAdmin = async () => {
 
             console.log("Super Admin created");
         } else {
-            existingSuperAdmin.email = email;
+            existingSuperAdmin.firstName = firstNameFromEnv;
+            existingSuperAdmin.email = emailFromEnv;
             existingSuperAdmin.password = passwordFromEnv;
             await existingSuperAdmin.save();
 

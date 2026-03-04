@@ -1,8 +1,8 @@
 import userModel from "../models/user.model.js";
-import organizationModel from "../models/org.model.js";
-import { ROLE_PERMISSIONS } from "../constants/rolePermissions.js";
+import orgModel from "../models/org.model.js";
+import { ROLE_PERMISSIONS } from "../constants/permissions.js";
 
-const addEmployeeController = async (req, res) => {
+export const addEmployeeController = async (req, res) => {
     try {
         const { firstName, lastName, email, password, dateOfBirth, designation } = req.body;
 
@@ -43,7 +43,7 @@ const addEmployeeController = async (req, res) => {
             });
         }
 
-        const organization = await organizationModel.findById(req.user.organizationId);
+        const organization = await orgModel.findById(req.user.organizationId);
 
         if (!organization) {
             return res.status(404).json({
@@ -95,4 +95,50 @@ const addEmployeeController = async (req, res) => {
     }
 };
 
-export { addEmployeeController };
+export const deactivateEmployeeController = async (req, res) => {
+    try {
+        const { employeeId } = req.params;
+        const loggedInUser = req.user;
+
+        const employee = await userModel.findOne({
+            _id: employeeId,
+            organizationId: loggedInUser.organizationId,
+        });
+
+        if (!employee) {
+            return res.status(404).json({
+                success: false,
+                message: "Employee not found or not authorized",
+            });
+        }
+
+        if (employee.role === "ADMIN") {
+            return res.status(400).json({
+                success: false,
+                message: "Cannot remove organization admin",
+            });
+        }
+
+        if (employee.employmentStatus === "IN-ACTIVE") {
+            return res.status(400).json({
+                success: false,
+                message: "Employee already removed",
+            });
+        }
+
+        employee.employmentStatus = "IN-ACTIVE";
+        await employee.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Employee removed successfully",
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error removing employee",
+            error: error.message,
+        });
+    }
+};

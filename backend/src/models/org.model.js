@@ -48,7 +48,7 @@ const organizationSchema = new mongoose.Schema(
         status: {
             type: String,
             enum: {
-                values: ["PENDING", "ACTIVE", "REJECTED"],
+                values: ["PENDING", "ACTIVE", "REJECTED", "REVOKED"],
                 message: "{VALUE} is not a valid status. Must be PENDING, ACTIVE or REJECTED",
             },
             default: "PENDING",

@@ -569,3 +569,9 @@ axios.interceptors.response.use(
 );
 ```
 -------------------------------------------------------------------------------------------------------------------
+
+
+
+- Refresh tokens
+- Token Blacklisting
+- or store active sessions in DB
