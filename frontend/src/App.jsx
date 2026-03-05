@@ -1,4 +1,5 @@
-import { useState, useEffect, useContext, AuthContext, Navigate, Route, Routes, useNavigate, Landing, RegisterOrg, getOrganizationData, CreatedTasks, Dashboard, TaskStatus, EmployeeManagement, EmpTaskStatus, TaskLifeCycle, AdminDetails, EmployeeEmpDetails, EmployeeAdDetails, SignIn, SignUp, NewTask, InProgress, Toaster, toast } from "./constants/imports";
+import { useState, useEffect, useContext, AuthContext, Navigate, Route, Routes, useNavigate, Landing, RegisterOrg, getOrganizationData, CreatedTasks, Dashboard, TaskStatus, EmployeeManagement, EmpTaskStatus, TaskLifeCycle, AdminDetails, EmployeeEmpDetails, EmployeeAdDetails, SignIn, NewTask, InProgress, Toaster, toast } from "./constants/imports";
+import CreateOrganizationPage from "./pages/CreateOrganizationPage";
 
 const App = () => {
   const navigate = useNavigate();
@@ -84,7 +85,11 @@ const App = () => {
       <Routes>
         <Route path="/" element={!user ? <Landing /> : <Navigate to={getDashboardRoute(user)} />} />
         <Route path="/signin" element={!user ? <SignIn handleLogin={handleLogin} /> : <Navigate to={getDashboardRoute(user)} />} />
-        <Route path="/signup" element={!user ? <SignUp /> : <Navigate to={getDashboardRoute(user)} />} />
+
+
+        <Route path="/create-organization" element={!user ? <CreateOrganizationPage /> : <Navigate to="/" />} />
+
+
         <Route path="/register-org" element={<RegisterOrg />} />
 
         <Route path="/admin/dashboard" element={<AdminRoute> {loggedInUserData && (<Dashboard data={loggedInUserData} handleLogout={handleLogout} orgData={orgData} />)} </AdminRoute>} />

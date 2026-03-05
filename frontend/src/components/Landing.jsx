@@ -28,7 +28,7 @@ const Landing = () => {
           </button>
         </div>
 
-        <p className="mt-6 text-sm text-[#FFDAB3]/50 uppercase tracking-wide cursor-pointer hover:text-[#FFDAB3] transition" onClick={() => navigate("/signup")}> New organization? Create one → </p>
+        <p className="mt-6 text-sm text-[#FFDAB3]/50 uppercase tracking-wide cursor-pointer hover:text-[#FFDAB3] transition" onClick={() => navigate("/create-organization")}> New organization? Create one → </p>
       </div>
     </div>
   );

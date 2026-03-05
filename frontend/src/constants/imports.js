@@ -12,7 +12,7 @@ import { AuthContext } from "../context/AuthProvider";
 
 import Landing from "../components/Landing";
 import SignIn from "../components/Auth/SignIn";
-import SignUp from "../components/Auth/SignUp";
+// import SignUp from "../components/Auth/CreateOrganizationForm.jsx";
 import RegisterOrg from "../components/Auth/RegisterOrg";
 
 import Header from "../components/Basics/Header";
@@ -53,7 +53,7 @@ import { getLocalStorage, setLocalStorage, generateSequentialId, getOrganization
 export {
     useRef, useState, useEffect, useContext,
 
-    Landing, SignIn, SignUp, RegisterOrg, Toaster, toast,
+    Landing, SignIn, RegisterOrg, Toaster, toast,
     
     Link, useNavigate, useLocation, Navigate, Route, Routes,
 
