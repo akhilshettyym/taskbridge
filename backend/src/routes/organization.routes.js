@@ -1,7 +1,7 @@
 import express from "express";
 import authMiddleware from "../middleware/auth.middleware.js";
 import { requireAdmin, requireSuperAdmin } from "../middleware/role.middleware.js";
-import { approveOrganization, reactivateOrganization, rejectOrganization, revokeOrganization, updateOrganizationController } from "../controllers/organization.controller.js";
+import { approveOrganization, getOrganizationDetails, reactivateOrganization, rejectOrganization, revokeOrganization, updateOrganizationController } from "../controllers/organization.controller.js";
 import { requirePermission } from "../middleware/permission.middleware.js";
 import { PERMISSIONS } from "../constants/permissions.js";
 
@@ -21,5 +21,9 @@ router.patch("/re-activate-org/:orgId", authMiddleware, requireSuperAdmin, requi
 
 /* PATCH /api/org/update-organization/:orgId */
 router.patch("/update-org/:orgId", authMiddleware, requireAdmin, requirePermission(PERMISSIONS.UPDATE_ORGANIZATION), updateOrganizationController);
+
+
+/* GET /api/org/get-organization-details */
+router.get("/get-organization-details", authMiddleware, requirePermission(PERMISSIONS.VIEW_ORGANIZATION), getOrganizationDetails);
 
 export default router;

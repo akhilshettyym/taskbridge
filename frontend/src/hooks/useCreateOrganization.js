@@ -76,7 +76,7 @@ const useCreateOrganization = () => {
                 localStorage.setItem("tb_user", JSON.stringify(user || {}));
             }
 
-            navigate("/register-org");
+            navigate("/complete-organization");
 
         } catch (error) {
             const message = error?.response?.data?.message || error.message || "Something went wrong";

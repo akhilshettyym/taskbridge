@@ -62,8 +62,7 @@ export const addEmployeeController = async (req, res) => {
             if (employeeCount >= 3) {
                 return res.status(403).json({
                     success: false,
-                    message:
-                        "Organization approval status is pending. You can only add up to 3 employees until approval.",
+                    message: "Organization approval status is pending. You can only add up to 3 employees until approval.",
                 });
             }
         }

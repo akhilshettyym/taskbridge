@@ -77,11 +77,17 @@ const CreateOrganizationForm = () => {
                             <input name="orgName" type="text" placeholder="Enter organization name" className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#F8F8F2] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
                         </div>
                     </div>
-
+                    
                     <div className="w-full md:w-[48%] flex flex-col gap-6">
                         <div>
                             <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Organization Country </label>
-                            <input name="orgCountry" type="text" placeholder="Enter organization country" className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#F8F8F2] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+                            <select name="orgCountry" defaultValue="" className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#F8F8F2] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition">
+                                <option value="" disabled> Select organization country </option>
+                                <option value="IN">INDIA</option>
+                                <option value="US">USA</option>
+                                <option value="CA">CANADA</option>
+                                <option value="UK">UNITED KINGDOM</option>
+                            </select>
                         </div>
                     </div>
 
