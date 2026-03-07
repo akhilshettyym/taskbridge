@@ -13,7 +13,7 @@ const RegisterOrg = () => {
 
     if (!taskbridge?.admin || !taskbridge?.organization) {
       toast.error("Please create an organization first.");
-      navigate("/signup");
+      navigate("/create-organization");
       return;
     }
 
