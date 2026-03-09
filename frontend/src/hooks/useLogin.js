@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { logIn } from "../api/auth";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const useLogin = () => {
 
@@ -24,15 +25,20 @@ const useLogin = () => {
     try {
       setLoading(true);
 
-      const payload = { email, password };
+      const payload = {
+        email: email.trim(),
+        password
+      };
       const response = await logIn(payload);
-      console.log("Login success:", response);  // Remove later
+      console.log("Login success:", response);
       const role = response?.user?.role;
 
       if (role === "ADMIN") {
-        navigate("/admin/dashboard");
+        navigate("/admin/admin-dashboard");
       } else if (role === "EMPLOYEE") {
-        navigate("/employee/taskstatus");
+        navigate("/employee/employee-dashboard");
+      } else {
+        navigate("/superadmin/superadmin-dashboard")
       }
 
       setEmail("");
@@ -40,6 +46,8 @@ const useLogin = () => {
 
     } catch (error) {
       console.error("Login failed", error);
+      const message = error.response?.data?.message || "Something went wrong during login";
+      toast.error(message);
 
     } finally {
       setLoading(false);

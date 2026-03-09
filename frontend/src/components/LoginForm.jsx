@@ -22,7 +22,7 @@ const LoginForm = () => {
           <PasswordToggle value={password} onChange={onPasswordChange} placeholder="Enter your password" className="w-80 bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-5 py-3 text-[#F8F8F2] outline-none placeholder:text-gray-400 focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
         </div>
 
-        <button type="submit" disabled={loading} className="mt-4 w-full bg-[#FFDAB3] text-[#1B211A] font-semibold py-3 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> {loading ? "Logging In..." : "LogIn"} </button>
+        <button type="submit" disabled={loading} className="mt-4 w-full bg-[#FFDAB3] text-[#1B211A] font-semibold py-3 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> {loading ? "Logging In..." : "Login"} </button>
 
         <p className="text-sm text-gray-400 uppercase"> Not a registered user ?
           <Link to="/create-organization" className="ml-2 text-sm text-gray-400 hover:text-[#FFDAB3] hover:underline transition-colors uppercase"> Sign Up </Link>

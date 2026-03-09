@@ -111,7 +111,7 @@ const CreateOrganizationForm = () => {
                             {loading ? "Creating..." : "Create Organization"}
                         </button>
 
-                        <Link to="/login" className="mt-4 text-sm text-gray-400 hover:text-[#FFDAB3] hover:underline transition-colors uppercase"> Already registered ? Sign In </Link>
+                        <Link to="/login" className="mt-4 text-sm text-gray-400 hover:text-[#FFDAB3] hover:underline transition-colors uppercase"> Already registered ? Login </Link>
                     </div>
 
                 </form>

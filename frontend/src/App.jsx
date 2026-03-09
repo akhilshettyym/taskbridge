@@ -8,7 +8,6 @@ import EmployeeDashBoardPage from "./pages/EmployeeDashBoardPage";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterOrganizationPage from "./pages/RegisterOrganizationPage";
-import SuperAdminDashboard from "./pages/SuperAdminDashboard";
 import AdminProfilePage from "./pages/AdminProfilePage";
 import AdminTasksPage from "./pages/AdminTasksPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
@@ -16,7 +15,7 @@ import EmployeeNewTasksPage from "./pages/EmployeeNewTasksPage";
 import EmployeeCompFailedTasksPage from "./pages/EmployeeCompFailedTasksPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import EmployeeInProgressTasksPage from "./pages/EmployeeInprogressTasksPage";
-// import SuperAdminControl from "./utils/superAdminControl";
+import SuperAdminDashboardPage from "./pages/SuperAdmin/SuperAdminDashboardPage";
 
 const App = () => {
   const navigate = useNavigate();
@@ -116,9 +115,6 @@ const App = () => {
         {/* Login / Super-Admin / Admin / Employee */}
         <Route path="/login" element={<LoginPage />} />
 
-        {/* Super Admin Control */}
-        <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
-
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 
         {/* ADMIN CONTROL */}
@@ -159,6 +155,13 @@ const App = () => {
 
         {/* /employee/employee-details */}
         <Route path="/employee/employee-details" element={<EmployeeProfilePage />} />
+
+        {/* ----------------------------------------------------------------------------------------------------------------------- */}
+
+        {/* SUPER ADMIN CONTROl */}
+        
+        {/* /superadmin/superadmin-dashboard */}
+        <Route path="/superadmin/superadmin-dashboard" element={<SuperAdminDashboardPage />} />
 
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 

@@ -1,17 +1,15 @@
 const Header = ({ data, handleLogout, orgData }) => {
 
-    if (!data) {
-        return <div className="text-white">Loading...</div>
-    }
+    const firstName = data?.firstName ?? "Akhil";
+    const lastName = data?.lastName ?? "Shetty";
+    const renderName = `${firstName} ${lastName}`.trim() || "Welcome";
 
-    const firstName = data.firstName
-    const lastName = data.lastName
-    const renderName = `${firstName} ${lastName}`;
+    const orgName = orgData?.name ?? "Organization"
 
     return (
         <div className="bg-[#1B211A] p-3 rounded-2xl border border-[#FFDAB3] shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <h1 className="ml-5 text-2xl text-[#FFDAB3] font-semibold uppercase"> {orgData?.name ?? "Organization"} </h1>
+                <h1 className="ml-5 text-2xl text-[#FFDAB3] font-semibold uppercase"> {orgName} </h1>
                 <div className="flex items-center gap-6">
                     {renderName && (<h2 className="text-md font-medium text-[#FFDAB3] uppercase"> {renderName} </h2>)}
 

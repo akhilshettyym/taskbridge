@@ -50,6 +50,7 @@ export default function AuthProvider({ children }) {
     else localStorage.removeItem("tb_user");
   }, [auth]);
 
+
   // localStorage.clear()
 
   // const logout = async () => {

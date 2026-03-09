@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState, DatePicker, generateSequentialId, getLocalStorage, AuthContext, toast } from "../constants/imports";
 
 const AdminCreateTaskForm = () => {
+    
     const [employees, setEmployees] = useState([]);
 
     const { updateAuthData } = useContext(AuthContext);
@@ -149,3 +150,183 @@ const AdminCreateTaskForm = () => {
 };
 
 export default AdminCreateTaskForm;
+
+
+
+
+
+// import {
+//  useState,
+//  useEffect,
+//  DatePicker,
+//  toast
+// } from "../constants/imports";
+// import useCreateTask from "../hooks/useCreateTask";
+
+// const AdminCreateTaskForm = ({ employees }) => {
+//  const { createTaskHandler, loading } = useCreateTask();
+//  const [creationDate] = useState(new Date());
+//  const [dueDate, setDueDate] = useState(null);
+//  const [formData, setFormData] = useState({
+//    title: "",
+//    assignedTo: "",
+//    category: "",
+//    priority: "Medium",
+//    description: "",
+//  });
+//  const handleChange = (e) => {
+//    const { name, value } = e.target;
+//    setFormData((prev) => ({
+//      ...prev,
+//      [name]: value,
+//    }));
+//  };
+//  const handleCreateTask = async (e) => {
+//    e.preventDefault();
+//    if (!formData.assignedTo || !dueDate) {
+//      toast.error("Please fill all required fields");
+//      return;
+//    }
+//    try {
+//      await createTaskHandler({
+//        title: formData.title,
+//        category: formData.category,
+//        description: formData.description,
+//        assignedTo: formData.assignedTo,
+//        dueDate,
+//        priority: formData.priority,
+//      });
+//      setDueDate(null);
+//      setFormData({
+//        title: "",
+//        assignedTo: "",
+//        category: "",
+//        priority: "Medium",
+//        description: "",
+//      });
+//    } catch (error) {
+//      console.error(error);
+//    }
+//  };
+//  return (
+// <div className="pb-10">
+// <hr className="my-5 border border-[#FFDAB3]/40" />
+// <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center">
+//        Create Tasks
+// </h1>
+// <hr className="my-5 border border-[#FFDAB3]/40" />
+// <div className="w-full flex justify-center">
+// <form
+//          onSubmit={handleCreateTask}
+//          className="w-full bg-[#1B211A] p-6 rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8"
+// >
+//          {/* LEFT SIDE */}
+// <div className="w-full md:w-[48%] flex flex-col gap-6">
+// <div>
+// <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80">
+//                Task Title
+// </label>
+// <input
+//                required
+//                name="title"
+//                type="text"
+//                placeholder="Design dashboard UI"
+//                value={formData.title}
+//                onChange={handleChange}
+//                className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3]"
+//              />
+// </div>
+// <div>
+// <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80">
+//                Assign To
+// </label>
+// <select
+//                required
+//                name="assignedTo"
+//                value={formData.assignedTo}
+//                onChange={handleChange}
+//                className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3]"
+// >
+// <option value="">Select an employee</option>
+//                {employees?.map((emp) => (
+// <option key={emp._id} value={emp._id}>
+//                    {emp.firstName} {emp.lastName}
+// </option>
+//                ))}
+// </select>
+// </div>
+// <div>
+// <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80">
+//                Category
+// </label>
+// <input
+//                required
+//                name="category"
+//                type="text"
+//                value={formData.category}
+//                onChange={handleChange}
+//                className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3]"
+//              />
+// </div>
+// <div>
+// <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80">
+//                Creation Date
+// </label>
+// <DatePicker
+//                selected={creationDate}
+//                disabled
+//                dateFormat="dd/MM/yyyy"
+//                className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3]"
+//              />
+// </div>
+// </div>
+//          {/* RIGHT SIDE */}
+// <div className="w-full md:w-[48%] flex flex-col gap-6">
+// <div>
+// <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80">
+//                Priority
+// </label>
+// <select
+//                name="priority"
+//                value={formData.priority}
+//                onChange={handleChange}
+//                className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3]"
+// >
+// <option value="High">High</option>
+// <option value="Medium">Medium</option>
+// <option value="Low">Low</option>
+// </select>
+// </div>
+// <textarea
+//              required
+//              name="description"
+//              rows="5"
+//              placeholder="Task description..."
+//              value={formData.description}
+//              onChange={handleChange}
+//              className="w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3]"
+//            />
+// <DatePicker
+//              selected={dueDate}
+//              onChange={setDueDate}
+//              placeholderText="Select due date"
+//              minDate={new Date()}
+//              dateFormat="dd/MM/yyyy"
+//              className="w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3]"
+//            />
+// </div>
+// <div className="w-full flex justify-center pt-4">
+// <button
+//              disabled={loading}
+//              type="submit"
+//              className="bg-[#FFDAB3] text-[#1B211A] font-bold px-12 py-3 rounded-full"
+// >
+//              {loading ? "Creating..." : "Create Task"}
+// </button>
+// </div>
+// </form>
+// </div>
+// </div>
+//  );
+// };
+// export default AdminCreateTaskForm;

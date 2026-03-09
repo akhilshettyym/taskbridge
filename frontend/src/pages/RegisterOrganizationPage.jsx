@@ -22,7 +22,7 @@ const RegisterOrganizationPage = () => {
                     Once approved, you can sign in using your credentials and access the dashboard.
                 </p>
 
-                <button onClick={() => navigate("/login")} className="bg-[#FFDAB3] text-[#1B211A] font-bold px-8 py-3 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> Go To Sign In </button>
+                <button onClick={() => navigate("/login")} className="bg-[#FFDAB3] text-[#1B211A] font-bold px-8 py-3 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> Go To Login </button>
 
             </div>
         </div>

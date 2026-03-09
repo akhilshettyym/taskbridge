@@ -5,6 +5,7 @@ import orgModel from "../models/org.model.js";
 import { ROLE_PERMISSIONS } from "../constants/permissions.js";
 
 async function createOrganizationController(req, res) {
+    
     const session = await mongoose.startSession();
 
     try {
