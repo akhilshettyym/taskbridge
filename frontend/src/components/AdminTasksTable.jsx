@@ -1,11 +1,32 @@
-import { useState, useContext, AuthContext, DateConversion, PriorityTag  } from "../constants/imports";
+import { toast } from "react-hot-toast";
+import { getTaskDetails } from "../api/tasks";
+import { useState, useContext, AuthContext, DateConversion, PriorityTag } from "../constants/imports";
 import AdminEditTaskModal from "./AdminEditTaskModal";
+import { useEffect } from "react";
 
 const AdminTasksTable = () => {
 
-    const authData = useContext(AuthContext);
+    const [tasks, setTasks] = useState([]);
+    console.log("TASKS", tasks);
 
-    const admin = authData?.admin ?? {};
+    const fetchTasksDetails = async () => {
+        try {
+            const response = await getTaskDetails();
+            if (response?.success) {
+                setTasks(response.tasks || []);
+            } else {
+                toast.error(response?.message || "Failed to load tasks");
+            }
+        } catch (error) {
+            console.error("Failed to fetch tasks", error);
+            toast.error("Could not fetch tasks");
+        }
+    }
+
+    useEffect(() => {
+        fetchTasksDetails();
+    }, []);
+
     const [editingTask, setEditingTask] = useState(null);
 
     return (
@@ -26,10 +47,10 @@ const AdminTasksTable = () => {
 
                 <hr className="my-2 border border-[#FFDAB3]/40" />
 
-                {(!admin?.tasks || admin.tasks.length === 0) ? (
+                {(!tasks || tasks.length === 0) ? (
                     <div className="text-center py-8 text-[#F8F8F2]/60"> No tasks created yet </div>
                 ) : (
-                    admin?.tasks.map((task) => (
+                    tasks.map((task) => (
                         <div key={task.id} className="bg-[#0F1412] py-3 px-5 flex items-center rounded-2xl mb-3 border border-[#FFDAB3]/20">
                             <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">{task.title}</span>
                             <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">{task.category}</span>
@@ -41,16 +62,16 @@ const AdminTasksTable = () => {
                                 <DateConversion convertDate={task?.dueDate} />
                             </span>
                             <div className="w-1/6 flex justify-center">
-                                <PriorityTag priorityMsg={task.priority} />
+                                <PriorityTag priorityMsg={task?.priority} />
                             </div>
 
                             <div className="relative inline-block group">
-                                <button onClick={() => task.status === "new" && setEditingTask(task)} disabled={task.status !== "new"} className={`py-1 px-4 text-sm rounded-md border font-semibold transition ${task.status === "new"
+                                <button onClick={() => task.status === "NEW" && setEditingTask(task)} disabled={task.status !== "NEW"} className={`py-1 px-4 text-sm rounded-md border font-semibold transition ${task.status === "NEW"
                                     ? "border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"
                                     : "border-[#555] text-[#777] bg-[#2A2A2A] cursor-not-allowed opacity-60"
                                     }`}> Edit </button>
 
-                                {task.status !== "new" && (
+                                {task.status !== "NEW" && (
                                     <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-10 bg-[#1B211A] text-[#FFDAB3]/90 text-xs px-3 py-1.5 rounded border border-[#FFDAB3]/30 whitespace-nowrap shadow-md"> Only new tasks can be edited
                                     </div>
                                 )}

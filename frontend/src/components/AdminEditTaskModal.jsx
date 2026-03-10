@@ -1,183 +1,193 @@
-import { useState, useContext, AuthContext, getLocalStorage, toast } from "../constants/imports";
+import { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-hot-toast";
+import { getOrganizationUsers } from "../api/employee";
+import { updateTask } from "../api/tasks";
 
-const AdminEditTaskModal = ({ task, onClose }) => {
-    const { updateAuthData, employees } = useContext(AuthContext);
+const AdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
 
-    const adminTasks = location.pathname.startsWith("/admin/tasks");
+    const [employees, setEmployees] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
-        title: task.title,
-        category: task.category,
-        priority: task.priority,
-        description: task.description,
-        dueDate: task.dueDate,
-        status: task.status,
-        assignedTo: task.assignedTo || "",
+        title: task?.title || "",
+        category: task?.category || "",
+        description: task?.description || "",
+        priority: task?.priority || "Medium",
+        assignedTo: task?.assignedTo || "",
+        dueDate: task?.dueDate ? new Date(task.dueDate) : null,
     });
 
-    const normalizeTaskNumbers = (nums = {}) => ({
-        newTask: nums.newTask || 0,
-        active: nums.active || 0,
-        completed: nums.completed || 0,
-        failed: nums.failed || 0,
-    });
+    const fetchEmployees = async () => {
+        try {
+            const response = await getOrganizationUsers();
+            if (response?.success) {
+                setEmployees(response.users || []);
+            } else {
+                toast.error(response?.message || "Failed to load employees");
+            }
+        } catch (error) {
+            console.error("Failed to fetch employees:", error);
+            toast.error("Could not fetch employees");
+        }
+    };
+
+    useEffect(() => {
+        fetchEmployees();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
-    const handleSave = () => {
-        const taskbridge = getLocalStorage();
+    const handleDateChange = (date) => {
+        setFormData((prev) => ({ ...prev, dueDate: date }));
+    };
 
-        const oldAssignedTo = task.assignedTo;
-        const newAssignedTo = formData.assignedTo;
+const handleUpdateTask = async (e) => {
+    e.preventDefault();
+    if (loading) return;
 
-        const shouldResetStatus =
-            task.status === "failed" && newAssignedTo;
+    setLoading(true);
 
-        const finalTaskData = {
-            ...task,
-            ...formData,
-            status: shouldResetStatus ? "new" : formData.status,
-            failureReason: shouldResetStatus ? "" : task.failureReason,
+    try {
+        if (!formData.title?.trim()) {
+            throw new Error("Task title is required");
+        }
+        if (!formData.category?.trim()) {
+            throw new Error("Category is required");
+        }
+        if (!formData.priority) {
+            throw new Error("Priority is required");
+        }
+
+        if (formData.dueDate && formData.dueDate < new Date()) {
+            console.warn("Due date is in the past");
+        }
+
+        const payload = {
+            title: formData.title.trim(),
+            category: formData.category.trim(),
+            description: formData.description?.trim() || "",
+            assignedTo: formData.assignedTo || null, 
+            priority: formData.priority,
+            dueDate: formData.dueDate ? formData.dueDate.toISOString() : null,
         };
 
-        const updatedAdmin = {
-            ...taskbridge.admin,
-            tasks: taskbridge.admin.tasks.map((t) =>
-                t.id === task.id ? finalTaskData : t
-            ),
-        };
 
-        const updatedEmployees = taskbridge.employees.map((emp) => {
-            const nums = normalizeTaskNumbers(emp.taskNumbers);
+        const taskId = task?._id || task?.id;
+        if (!taskId) {
+            throw new Error("Cannot update task: missing task ID");
+        }
 
-            if (emp.id === oldAssignedTo && oldAssignedTo !== newAssignedTo) {
-                return {
-                    ...emp,
-                    tasks: emp.tasks.filter((t) => t.id !== task.id),
-                    taskNumbers: {
-                        ...nums,
-                        failed:
-                            task.status === "failed"
-                                ? Math.max(nums.failed - 1, 0)
-                                : nums.failed,
-                    },
-                };
-            }
-
-            if (emp.id === newAssignedTo) {
-                const exists = emp.tasks.some((t) => t.id === task.id);
-
-                return {
-                    ...emp,
-                    tasks: exists
-                        ? emp.tasks.map((t) =>
-                            t.id === task.id ? finalTaskData : t
-                        )
-                        : [...emp.tasks, finalTaskData],
-                    taskNumbers: {
-                        ...nums,
-                        newTask:
-                            task.status === "failed" && !exists
-                                ? nums.newTask + 1
-                                : nums.newTask,
-                    },
-                };
-            }
-
-            return emp;
+        const response = await updateTask({
+            taskId,
+            ...payload,
         });
 
-        updateAuthData({
-            ...taskbridge,
-            admin: updatedAdmin,
-            employees: updatedEmployees,
-        });
+        if (!response?.success) {
+            throw new Error(response?.message || "Failed to update task");
+        }
 
-        toast.success(
-            shouldResetStatus
-                ? "Task reassigned and reset to NEW"
-                : "Task updated successfully"
-        );
+        toast.success("Task updated successfully");
+
+        const updatedTask = response.task || response.updatedTask || { ...task, ...payload };
+        onTaskUpdated?.(updatedTask);
+
         onClose();
+    } catch (error) {
+        let msg = "Something went wrong while updating task";
+
+        if (error.response?.data?.message) {
+            msg = error.response.data.message;
+        } else if (error.message) {
+            msg = error.message;
+        }
+
+        console.error("Task update failed:", error);
+        toast.error(msg);
+    } finally {
+        setLoading(false);
+    }
+};
+
+    const renderEmployeeOptions = () => {
+        if (!employees?.length) {
+            return <option disabled value="">No employees available</option>;
+        }
+        return employees.map((emp) => (
+            <option key={emp._id || emp.id} value={emp._id || emp.id}>
+                {emp.firstName} {emp.lastName}
+            </option>
+        ));
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black-500 backdrop-blur-sm px-4">
-            <div className="w-full max-w-2xl bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] max-h-[75vh] flex flex-col">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
+            <div className="w-full max-w-2xl bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] max-h-[85vh] flex flex-col overflow-hidden">
 
-                <div className="px-6 pt-3">
+                <div className="px-6 pt-4 pb-2">
                     <h1 className="font-bold text-[#FFDAB3] text-xl uppercase text-center"> Edit Task </h1>
                     <hr className="mt-3 border border-[#FFDAB3]/40" />
                 </div>
 
-                <div className="overflow-y-auto px-6 pb-6">
-                    <div className="flex flex-wrap gap-8">
-                        <div className="w-full flex flex-col gap-6 mt-5">
-                            <div>
-                                <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Task Title </label>
-                                <input name="title" value={formData.title} onChange={handleChange} className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
-                            </div>
+                <form onSubmit={handleUpdateTask} className="flex flex-col flex-1 overflow-hidden">
+                    <div className="overflow-y-auto px-6 pb-6 flex-1">
+                        <div className="flex flex-wrap gap-8">
 
-                            <div>
-                                <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Category </label>
-                                <input name="category" value={formData.category} onChange={handleChange} className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
-                            </div>
+                            <div className="w-full md:w-[100%] flex flex-col gap-6">
+                                <div className="mt-3">
+                                    <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Task Title </label>
+                                    <input required name="title" value={formData.title} onChange={handleChange} className="mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+                                </div>
 
-                            <div className="relative">
-                                <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Priority </label>
-                                <select name="priority" value={formData.priority} onChange={handleChange} className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] appearance-none outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition">
-                                    <option>High</option>
-                                    <option>Medium</option>
-                                    <option>Low</option>
-                                </select>
-                                <span className="pointer-events-none absolute right-6 top-[54%] text-[#FFDAB3]/60"> ↓ </span>
-                            </div>
-                        </div>
+                                <div className="relative">
+                                    <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Assign To </label>
+                                    <select name="assignedTo" value={formData.assignedTo} onChange={handleChange} className="mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition">
+                                        <option value=""> Unassigned </option>
+                                        {renderEmployeeOptions()}
+                                    </select>
+                                    <span className="pointer-events-none absolute right-6 top-[54%] text-[#FFDAB3]/60"> ↓ </span>
+                                </div>
 
-                        <div className="w-full flex flex-col gap-6">
-                            <div className="relative">
-                                <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Status </label>
-                                <select value={formData.status} disabled className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/20 rounded-2xl px-4 py-3 text-[#FFDAB3]/70 appearance-none outline-none cursor-not-allowed opacity-70">
-                                    <option value={formData.status}>
-                                        {formData.status === "new" && "New"}
-                                        {formData.status === "inprogress" && "In Progress"}
-                                        {formData.status === "completed" && "Completed"}
-                                        {formData.status === "failed" && "Failed"}
-                                    </option>
-                                </select>
-                                <span className="pointer-events-none absolute right-6 top-[54%] text-[#FFDAB3]/40"> ↓ </span>
-                            </div>
+                                <div>
+                                    <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Category </label>
+                                    <input required name="category" value={formData.category} onChange={handleChange} className="mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+                                </div>
 
-                            <div className="relative">
-                                <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Assign To </label>
-                                <select name="assignedTo" value={formData.assignedTo || ""} onChange={handleChange} disabled={adminTasks} className={`mt-2 w-full bg-[#0F1412] border rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition pr-10 appearance-none ${adminTasks ? "border-[#FFDAB3]/20 text-[#FFDAB3]/70 cursor-not-allowed opacity-70"
-                                    : "border-[#FFDAB3]/30 cursor-pointer"
-                                    }`}>
-                                    <option value="">Unassigned</option>
-                                    {employees?.map((emp) => (
-                                        <option key={emp.id} value={emp.id}>
-                                            {emp.firstName} {emp.lastName}
-                                        </option>
-                                    ))}
-                                </select>
-                                <span className="pointer-events-none absolute right-6 top-[54%] text-[#FFDAB3]/60"> ↓ </span>
-                            </div>
+                                <div className="relative">
+                                    <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Priority </label>
+                                    <select required name="priority" value={formData.priority} onChange={handleChange} className="mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition pr-10">
+                                        <option value="High"> High </option>
+                                        <option value="Medium"> Medium </option>
+                                        <option value="Low"> Low </option>
+                                    </select>
+                                    <span className="pointer-events-none absolute right-6 top-[54%] text-[#FFDAB3]/60"> ↓ </span>
+                                </div>
 
-                            <div>
-                                <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Task Description </label>
-                                <textarea name="description" rows={5} value={formData.description} onChange={handleChange} className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+                                <div className="flex flex-col">
+                                    <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80 mb-2"> Task Description </label>
+                                    <textarea name="description" rows={5} value={formData.description} onChange={handleChange} placeholder="Clearly describe the task, expectations, and any important details..." className="mt-1 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+                                </div>
+
+                                <div className="mt-2">
+                                    <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Due Date </label>
+                                    <div className="mt-2">
+                                        <DatePicker selected={formData.dueDate} onChange={handleDateChange} placeholderText="Select due date" dateFormat="dd/MM/yyyy" minDate={new Date()} wrapperClassName="w-full" className="w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 pr-10 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="px-6 py-3 border-t border-[#FFDAB3]/20 flex justify-center gap-6">
-                    <button onClick={onClose} className="px-8 rounded-full border border-[#FFDAB3]/40 text-[#FFDAB3] font-semibold uppercase hover:bg-[#FFDAB3]/10 transition"> Cancel </button>
-                    <button onClick={handleSave} className="bg-[#FFDAB3] text-[#1B211A] text-md font-bold px-10 py-1 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> Save </button>
-                </div>
+                    <div className="px-6 py-4 border-t border-[#FFDAB3]/20 flex justify-center gap-6 shrink-0">
+                        <button type="button" onClick={onClose} disabled={loading} className="px-8 py-2 rounded-full border border-[#FFDAB3]/40 text-[#FFDAB3] font-semibold uppercase hover:bg-[#FFDAB3]/10 transition disabled:opacity-50"> Cancel </button>
+
+                        <button type="submit" disabled={loading} className="bg-[#FFDAB3] text-[#1B211A] font-bold px-10 py-2 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase disabled:opacity-60"> {loading ? "Updating..." : "Update"} </button>
+                    </div>
+                </form>
             </div>
         </div>
     );

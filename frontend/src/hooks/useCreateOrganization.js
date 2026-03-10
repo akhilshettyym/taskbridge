@@ -64,7 +64,7 @@ const useCreateOrganization = () => {
             const payload = { firstName, lastName, email, password, confirmPassword, dateOfBirth, designation, orgName, orgDomain, orgDescription, orgCountry };
 
             const response = await createOrganization(payload);
-            
+
             if (!response?.success) {
                 throw new Error(response?.message || "Could not create organization");
             }
@@ -73,13 +73,6 @@ const useCreateOrganization = () => {
             toast.success(message || "Organization created successfully");
 
             dispatch(setCredentials({ token, user }));
-
-            // if (setAuth) {
-            //     setAuth({ token, user });
-            // } else {
-            //     localStorage.setItem("tb_token", token || "");
-            //     localStorage.setItem("tb_user", JSON.stringify(user || {}));
-            // }
 
             navigate("/complete-organization");
 

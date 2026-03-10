@@ -1,7 +1,7 @@
 import express from "express";
 import { PERMISSIONS } from "../constants/permissions.js";
 import authMiddleware from "../middleware/auth.middleware.js";
-import { acceptTaskController, createTaskController, deleteTaskController, markAsCompletedController, markTaskAsFailedController, requestTaskRejectionController, updateTaskController } from "../controllers/task.controllers.js";
+import { acceptTaskController, createTaskController, deleteTaskController, getTaskDetails, markAsCompletedController, markTaskAsFailedController, requestTaskRejectionController, updateTaskController } from "../controllers/task.controllers.js";
 import { requirePermission } from "../middleware/permission.middleware.js";
 import { requireAdmin, requireEmployee } from "../middleware/role.middleware.js";
 
@@ -27,5 +27,9 @@ router.patch("/mark-as-completed/:taskId", authMiddleware, requireEmployee, requ
 
 /* PATCH /api/tasks/mark-as-failed/:taskId */
 router.patch("/mark-as-failed/:taskId", authMiddleware, requireEmployee, requirePermission(PERMISSIONS.MARK_AS_FAILED), markTaskAsFailedController);
+
+
+/* GET /api/tasks/get-tasks-details */
+router.get("/get-tasks-details", authMiddleware, requirePermission(PERMISSIONS.VIEW_TASKS), getTaskDetails);
 
 export default router;
