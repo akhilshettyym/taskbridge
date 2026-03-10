@@ -1,56 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { getOrganizationUsers } from "../api/employee";
+import { useEffect } from "react";
 import AddEmployeeForm from "./AddEmployeeForm";
 import { renderEmployeeDetails } from "./AddedEmployees";
-import { getOrganizationDetails } from "../api/organization";
-import { useMemo } from "react";
+import useCompleteOrganization from "../hooks/useCompleteOrganization";
 
 const CompleteOrganizationDetails = () => {
 
-    const navigate = useNavigate();
-
-    const [employees, setEmployees] = useState([]);
-    const [organization, setOrganization] = useState(null);
-
-    const admin = useMemo(() => employees.find((emp) => emp.role === "ADMIN"), [employees]);
-
-    const fetchEmployees = async () => {
-        try {
-            const response = await getOrganizationUsers();
-            setEmployees(response?.users || []);
-        } catch (error) {
-            console.error("Failed to fetch employees", error);
-            toast.error("Could not fetch employees");
-        }
-    };
-
-    const fetchOrganization = async () => {
-        try {
-            const orgResponse = await getOrganizationDetails();
-            setOrganization(orgResponse?.organization);
-        } catch (error) {
-            console.error("Failed to fetch Organization details", error);
-            toast.error("Could not fetch organization");
-        }
-    };
-
-    const formattedDOB = admin?.dateOfBirth
-        ? new Date(admin.dateOfBirth).toLocaleDateString()
-        : "";
-
-    const orgCountry = {
-        IN: "India",
-        US: "United States",
-        UK: "United Kingdom",
-        CA: "Canada"
-    }[organization?.orgCountry];
-
-    const handleRegisterOrg = () => {
-        toast.success("Organization Registered Successfully..");
-        navigate("/register-organization");
-    };
+    const { admin, employees, orgCountry, organization, formattedDOB, fetchEmployees, fetchOrganization, handleRegisterOrg } = useCompleteOrganization();
 
     useEffect(() => {
         fetchEmployees();

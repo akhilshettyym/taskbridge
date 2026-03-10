@@ -16,10 +16,14 @@ import EmployeeCompFailedTasksPage from "./pages/EmployeeCompFailedTasksPage";
 import EmployeeProfilePage from "./pages/EmployeeProfilePage";
 import EmployeeInProgressTasksPage from "./pages/EmployeeInprogressTasksPage";
 import SuperAdminDashboardPage from "./pages/SuperAdmin/SuperAdminDashboardPage";
+import { useSelector } from "react-redux";
 
 const App = () => {
   const navigate = useNavigate();
-  const authData = useContext(AuthContext);
+
+  // const authData = useContext(AuthContext);
+  const authData = useSelector((state) => state.auth);
+  
   const orgData = getOrganizationData();
 
   const [user, setUser] = useState(null);
@@ -159,7 +163,7 @@ const App = () => {
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 
         {/* SUPER ADMIN CONTROl */}
-        
+
         {/* /superadmin/superadmin-dashboard */}
         <Route path="/superadmin/superadmin-dashboard" element={<SuperAdminDashboardPage />} />
 

@@ -2,12 +2,15 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, AuthContext } from "../constants/imports";
 import { createOrganization } from "../api/auth";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../slices/authSlice";
 
 const useCreateOrganization = () => {
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const { setAuth } = useContext(AuthContext) || {};
+    const dispatch = useDispatch();
+    // const { setAuth } = useContext(AuthContext) || {};
 
     const handleConfirmPasswordBlur = (e) => {
         const confirmPassword = e.target.value;
@@ -69,12 +72,14 @@ const useCreateOrganization = () => {
             const { token, user, message } = response;
             toast.success(message || "Organization created successfully");
 
-            if (setAuth) {
-                setAuth({ token, user });
-            } else {
-                localStorage.setItem("tb_token", token || "");
-                localStorage.setItem("tb_user", JSON.stringify(user || {}));
-            }
+            dispatch(setCredentials({ token, user }));
+
+            // if (setAuth) {
+            //     setAuth({ token, user });
+            // } else {
+            //     localStorage.setItem("tb_token", token || "");
+            //     localStorage.setItem("tb_user", JSON.stringify(user || {}));
+            // }
 
             navigate("/complete-organization");
 
