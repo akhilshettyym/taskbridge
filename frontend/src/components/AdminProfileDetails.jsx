@@ -1,4 +1,7 @@
+import { useMemo } from "react";
 import { useState, useEffect, Header, AdminControl, toast } from "../constants/imports";
+import { getOrganizationUsers } from "../api/employee";
+import { getOrganizationDetails } from "../api/organization";
 
 const MAX_ATTEMPTS = 3;
 const LOCK_TIME = 5 * 60 * 1000;
@@ -8,12 +11,15 @@ const inputClass = "mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFD
 const disabledInput = `${inputClass} opacity-60 cursor-not-allowed`;
 
 const AdminProfileDetails = ({ data, handleLogout, orgData }) => {
+
     const [taskbridge, setTaskbridge] = useState(
         JSON.parse(localStorage.getItem("taskbridge"))
     );
 
-    const admin = taskbridge?.admin;
-    const organization = taskbridge?.organization;
+    const [employees, setEmployees] = useState([]);
+    const [organization, setOrganization] = useState([]);
+
+    const admin = useMemo(() => employees.find((emp) => emp.role === "ADMIN"), [employees]);
 
     const [formData, setFormData] = useState({
         firstName: "",
@@ -142,17 +148,95 @@ const AdminProfileDetails = ({ data, handleLogout, orgData }) => {
         }
     };
 
+
+
+
+
+    const fetchEmployees = async () => {
+        try {
+            const response = await getOrganizationUsers();
+            setEmployees(response?.users || []);
+        } catch (error) {
+            console.error("Failed to fetch employees", error);
+            toast.error("Could not fetch employees");
+        }
+    };
+
+    const fetchOrganization = async () => {
+        try {
+            const orgResponse = await getOrganizationDetails();
+            setOrganization(orgResponse?.organization);
+        } catch (error) {
+            console.error("Failed to fetch Organization details", error);
+            toast.error("Could not fetch organization");
+        }
+    };
+
+    const formattedDOB = admin?.dateOfBirth ? new Date(admin.dateOfBirth).toLocaleDateString() : "";
+
+    const orgCountry = {
+        IN: "India",
+        US: "United States",
+        UK: "United Kingdom",
+        CA: "Canada"
+    }[organization?.orgCountry];
+
+    useEffect(() => {
+        fetchEmployees();
+        fetchOrganization();
+    }, []);
+
+
     return (
         <>
             <hr className="my-5 border border-[#FFDAB3]/40" />
             <h1 className="text-center font-bold text-[#FFDAB3] text-xl uppercase"> Admin Details </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />
 
-            <div className="bg-[#1B211A] p-4 rounded-2xl border border-[#FFDAB3]/30 mb-6 flex items-center text-sm text-[#FFDAB3]">
-                <div className="w-1/3 text-left uppercase font-semibold"> ID : <span className="font-semibold">{admin?.id}</span></div>
-                <div className="w-1/3 text-center text-md"> Email :{" "}<span className="font-semibold lowercase"> {admin?.email} </span></div>
-                <div className="w-1/3 text-right uppercase font-semibold"> Org ID : <span className="font-semibold">{organization?.id}</span></div>
+
+            <div className="w-full bg-[#1B211A] p-10 justify-center rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8 mb-10">
+                <div className="w-full flex justify-between items-center">
+                    <h2 className="text-xl uppercase tracking-wide text-[#FFDAB3]"> Organization and Admin details </h2>
+                </div>
+
+                <div className="w-full md:w-[48%] flex flex-col gap-6">
+                    <div className="flex flex-col">
+                        <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Name : <span className="text-lg font-semibold text-[#FFDAB3]">{organization?.orgName} </span> </label>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Country : <span className="text-lg font-semibold text-[#FFDAB3]"> {orgCountry} </span> </label>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin Name : <span className="text-lg capitalize font-semibold text-[#FFDAB3]"> {admin ? `${admin.firstName} ${admin.lastName}` : ""} </span></label>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin DOB : <span className="text-lg font-semibold text-[#FFDAB3]">{formattedDOB}</span></label>
+                    </div>
+                </div>
+
+                <div className="w-full md:w-[48%] flex flex-col gap-6">
+                    <div className="flex flex-col">
+                        <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Domain : <span className="text-lg lowercase font-semibold text-[#FFDAB3]"> {organization?.orgDomain} </span></label>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin Email : <span className="text-lg lowercase font-semibold text-[#FFDAB3]"> {admin?.email} </span></label>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin Designation : <span className="text-lg font-semibold text-[#FFDAB3]"> {admin?.designation} </span></label>
+                    </div>
+
+                    <div className="flex flex-col">
+                        <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Description : <span className="text-lg capitalize font-semibold text-[#FFDAB3]"> {organization?.orgDescription} </span> </label>
+                    </div>
+                </div>
             </div>
+
+
 
             <form onSubmit={handleSubmit} className="bg-[#1B211A] p-6 rounded-2xl border border-[#FFDAB3]/40 flex flex-wrap gap-6">
                 <div className="w-full md:w-[48%]">
@@ -161,19 +245,12 @@ const AdminProfileDetails = ({ data, handleLogout, orgData }) => {
 
                     <label className="mt-4 block uppercase text-[#FFDAB3]/80"> Email </label>
                     <input disabled value={admin?.email} className={disabledInput} />
-
-                    <label className="mt-4 block uppercase text-[#FFDAB3]/80"> Current Password * </label>
-                    <input type="password" className={inputClass} value={formData.currentPassword} onChange={(e) => setFormData({ ...formData, currentPassword: e.target.value })} />
                 </div>
 
                 <div className="w-full md:w-[48%]">
                     <label className="uppercase text-[#FFDAB3]/80">Last Name</label>
                     <input className={inputClass} value={formData.lastName}
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })} />
-
-                    <label className="mt-4 block uppercase text-[#FFDAB3]/80"> New Password (optional) </label>
-                    <input type="password" className={inputClass} value={formData.newPassword}
-                        onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })} />
                 </div>
 
                 <div className="w-full border-t border-[#FFDAB3]/30 pt-6">

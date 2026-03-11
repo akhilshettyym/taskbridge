@@ -46,72 +46,72 @@ const AdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
         setFormData((prev) => ({ ...prev, dueDate: date }));
     };
 
-const handleUpdateTask = async (e) => {
-    e.preventDefault();
-    if (loading) return;
+    const handleUpdateTask = async (e) => {
+        e.preventDefault();
+        if (loading) return;
 
-    setLoading(true);
+        setLoading(true);
 
-    try {
-        if (!formData.title?.trim()) {
-            throw new Error("Task title is required");
+        try {
+            if (!formData.title?.trim()) {
+                throw new Error("Task title is required");
+            }
+            if (!formData.category?.trim()) {
+                throw new Error("Category is required");
+            }
+            if (!formData.priority) {
+                throw new Error("Priority is required");
+            }
+
+            if (formData.dueDate && formData.dueDate < new Date()) {
+                console.warn("Due date is in the past");
+            }
+
+            const payload = {
+                title: formData.title.trim(),
+                category: formData.category.trim(),
+                description: formData.description?.trim() || "",
+                assignedTo: formData.assignedTo || null,
+                priority: formData.priority,
+                dueDate: formData.dueDate ? formData.dueDate.toISOString() : null,
+            };
+
+
+            const taskId = task?._id || task?.id;
+
+            if (!taskId) {
+                throw new Error("Cannot update task: missing task ID");
+            }
+
+            const response = await updateTask({ taskId, ...payload });
+
+            if (!response?.success) {
+                throw new Error(response?.message || "Failed to update task");
+            }
+
+            toast.success("Task updated successfully");
+
+            const updatedTask = response.task || response.updatedTask || { ...task, ...payload };
+            onTaskUpdated?.(updatedTask);
+
+            onClose();
+
+        } catch (error) {
+            let msg = "Something went wrong while updating task";
+
+            if (error.response?.data?.message) {
+                msg = error.response.data.message;
+            } else if (error.message) {
+                msg = error.message;
+            }
+
+            console.error("Task update failed:", error);
+            toast.error(msg);
+
+        } finally {
+            setLoading(false);
         }
-        if (!formData.category?.trim()) {
-            throw new Error("Category is required");
-        }
-        if (!formData.priority) {
-            throw new Error("Priority is required");
-        }
-
-        if (formData.dueDate && formData.dueDate < new Date()) {
-            console.warn("Due date is in the past");
-        }
-
-        const payload = {
-            title: formData.title.trim(),
-            category: formData.category.trim(),
-            description: formData.description?.trim() || "",
-            assignedTo: formData.assignedTo || null, 
-            priority: formData.priority,
-            dueDate: formData.dueDate ? formData.dueDate.toISOString() : null,
-        };
-
-
-        const taskId = task?._id || task?.id;
-
-        if (!taskId) {
-            throw new Error("Cannot update task: missing task ID");
-        }
-
-        const response = await updateTask({ taskId, ...payload });
-
-        if (!response?.success) {
-            throw new Error(response?.message || "Failed to update task");
-        }
-
-        toast.success("Task updated successfully");
-
-        const updatedTask = response.task || response.updatedTask || { ...task, ...payload };
-        onTaskUpdated?.(updatedTask);
-
-        onClose();
-
-    } catch (error) {
-        let msg = "Something went wrong while updating task";
-
-        if (error.response?.data?.message) {
-            msg = error.response.data.message;
-        } else if (error.message) {
-            msg = error.message;
-        }
-
-        console.error("Task update failed:", error);
-        toast.error(msg);
-        
-    } finally {
-        setLoading(false);
-    }
-};
+    };
 
     const renderEmployeeOptions = () => {
         if (!employees?.length) {
@@ -167,16 +167,16 @@ const handleUpdateTask = async (e) => {
                                     <span className="pointer-events-none absolute right-6 top-[54%] text-[#FFDAB3]/60"> ↓ </span>
                                 </div>
 
-                                <div className="flex flex-col">
-                                    <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80 mb-2"> Task Description </label>
-                                    <textarea name="description" rows={5} value={formData.description} onChange={handleChange} placeholder="Clearly describe the task, expectations, and any important details..." className="mt-1 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
-                                </div>
-
                                 <div className="mt-2">
                                     <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Due Date </label>
                                     <div className="mt-2">
                                         <DatePicker selected={formData.dueDate} onChange={handleDateChange} placeholderText="Select due date" dateFormat="dd/MM/yyyy" minDate={new Date()} wrapperClassName="w-full" className="w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 pr-10 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
                                     </div>
+                                </div>
+
+                                <div className="flex flex-col">
+                                    <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80 mb-2"> Task Description </label>
+                                    <textarea name="description" rows={5} value={formData.description} onChange={handleChange} placeholder="Clearly describe the task, expectations, and any important details..." className="mt-1 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
                                 </div>
                             </div>
                         </div>

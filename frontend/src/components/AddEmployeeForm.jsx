@@ -56,7 +56,7 @@ const AddEmployeeForm = ({ refreshEmployees }) => {
                 </form>
             </div>
             
-            <hr className="my-6 border-2 border-[#FFDAB3]/40" />
+            <hr className="my-6 border border-[#FFDAB3]/40" />
 
         </>
     );

@@ -1,5 +1,5 @@
 import { updateEmployee } from "../../api/employee";
-import { useState, toast } from "../../constants/imports";
+import { useState, toast, DatePicker } from "../../constants/imports";
 
 const EditEmployeeDets = ({ emp, setEmployees }) => {
 
@@ -9,6 +9,8 @@ const EditEmployeeDets = ({ emp, setEmployees }) => {
     const [formData, setFormData] = useState({
         firstName: emp.firstName || "",
         lastName: emp.lastName || "",
+        email: emp.email || "",
+        dateOfBirth: emp?.dateOfBirth ? new Date(emp.dateOfBirth) : null,
         designation: emp.designation || ""
     });
 
@@ -21,9 +23,13 @@ const EditEmployeeDets = ({ emp, setEmployees }) => {
         }));
     };
 
-    const handleUpdateEmployee = async (e) => {
-        e.preventDefault();
+    const handleDateChange = (date) => {
+        setFormData((prev) => ({ ...prev, dateOfBirth: date }));
+    };
 
+    const handleUpdateEmployee = async (e) => {
+
+        e.preventDefault();
         if (loading) return;
 
         setLoading(true);
@@ -38,6 +44,14 @@ const EditEmployeeDets = ({ emp, setEmployees }) => {
                 throw new Error("Last Name is required");
             }
 
+            if (!formData.email?.trim()) {
+                throw new Error("Email is required");
+            }
+
+            if (!formData.dateOfBirth) {
+                throw new Error("Date of birth is required");
+            }
+
             if (!formData.designation?.trim()) {
                 throw new Error("Designation is required");
             }
@@ -45,6 +59,8 @@ const EditEmployeeDets = ({ emp, setEmployees }) => {
             const payload = {
                 firstName: formData.firstName.trim(),
                 lastName: formData.lastName.trim(),
+                email: formData.email.trim().toLowerCase(),
+                dateOfBirth: formData.dateOfBirth.toISOString(),
                 designation: formData.designation.trim()
             };
 
@@ -105,10 +121,11 @@ const EditEmployeeDets = ({ emp, setEmployees }) => {
                             <hr className="mt-3 border border-[#FFDAB3]/40" />
                         </div>
 
-
                         <form onSubmit={handleUpdateEmployee} className="flex flex-col flex-1 overflow-hidden">
+
                             <div className="overflow-y-auto px-6 pb-6 flex-1">
                                 <div className="flex flex-col gap-6">
+
                                     <div>
                                         <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> First Name </label>
                                         <input required name="firstName" value={formData.firstName} onChange={handleChange} className="mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
@@ -123,17 +140,28 @@ const EditEmployeeDets = ({ emp, setEmployees }) => {
                                         <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Designation </label>
                                         <input required name="designation" value={formData.designation} onChange={handleChange} className="mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
                                     </div>
+
+                                    <div>
+                                        <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Email </label>
+                                        <input required name="email" value={formData.email} onChange={handleChange} className="mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+                                    </div>
+
+                                    <div>
+                                        <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Date Of Birth </label>
+                                        <div className="mt-2">
+                                            <DatePicker selected={formData.dateOfBirth} onChange={handleDateChange} placeholderText="Select date of birth" dateFormat="dd/MM/yyyy" maxDate={new Date()} wrapperClassName="w-full" className="w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 pr-10 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
 
                             <div className="px-6 py-4 border-t border-[#FFDAB3]/20 flex justify-center gap-6 shrink-0">
                                 <button type="button" onClick={() => setOpen(false)} disabled={loading} className="px-8 py-2 rounded-full border border-[#FFDAB3]/40 text-[#FFDAB3] font-semibold uppercase hover:bg-[#FFDAB3]/10 transition disabled:opacity-50"> Cancel </button>
 
                                 <button type="submit" disabled={loading} className="bg-[#FFDAB3] text-[#1B211A] font-bold px-10 py-2 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase disabled:opacity-60"> {loading ? "Updating..." : "Update"} </button>
                             </div>
-                        </form>
 
+                        </form>
                     </div>
                 </div>
             )}
