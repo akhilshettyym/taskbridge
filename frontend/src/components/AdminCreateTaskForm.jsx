@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useCreateTask from "../hooks/useCreateTask";
+import CustomTooltip from "./Basics/CustomTooltip";
 
 const AdminCreateTaskForm = () => {
 
@@ -16,6 +17,11 @@ const AdminCreateTaskForm = () => {
             <hr className="my-5 border border-[#FFDAB3]/40" />
             <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> Create Tasks </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />
+
+            <div className="flex items-center gap-2 mb-5">
+                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Create new task </h1>
+                <CustomTooltip id="task-status-failed-tooltip" message="Triage and assign the new task based on severity." place="right" />
+            </div>
 
             <div className="w-full flex justify-center">
                 <form onSubmit={handleCreateTask} className="w-full bg-[#1B211A] p-6 rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8">

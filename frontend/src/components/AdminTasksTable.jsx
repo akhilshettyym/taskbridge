@@ -1,13 +1,14 @@
 import { toast } from "react-hot-toast";
 import { getTaskDetails } from "../api/tasks";
-import { useState, useContext, AuthContext, DateConversion, PriorityTag } from "../constants/imports";
+import { useState, DateConversion, PriorityTag } from "../constants/imports";
 import AdminEditTaskModal from "./AdminEditTaskModal";
 import { useEffect } from "react";
+import CustomTooltip from "./Basics/CustomTooltip";
 
 const AdminTasksTable = () => {
 
     const [tasks, setTasks] = useState([]);
-    console.log("TASKS", tasks);
+    const [editingTask, setEditingTask] = useState(null);
 
     const fetchTasksDetails = async () => {
         try {
@@ -27,13 +28,17 @@ const AdminTasksTable = () => {
         fetchTasksDetails();
     }, []);
 
-    const [editingTask, setEditingTask] = useState(null);
 
     return (
         <div className="pb-10">
             <hr className="my-5 border border-[#FFDAB3]/40" />
             <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> Created Tasks </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />
+
+            <div className="flex items-center gap-2">
+                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Tasks Created </h1>
+                <CustomTooltip id="task-status-failed-tooltip" message="Review the draft tasks below for accuracy and completeness." place="right" />
+            </div>
 
             <div className="bg-[#1B211A] rounded-2xl p-4 mt-5 border border-[#FFDAB3]/30 shadow-inner">
                 <div className="bg-[#FFDAB3]/20 py-3 px-5 flex items-center rounded-2xl mb-3 border border-[#FFDAB3]/10">
