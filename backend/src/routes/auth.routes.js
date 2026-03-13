@@ -1,5 +1,7 @@
 import express from "express";
-import { createOrganizationController, userLoginController, userLogoutController } from "../controllers/auth.controllers.js";
+import { createOrganizationController } from "../controllers/AuthControllers/createOrganization.controller.js";
+import { userLoginController } from "../controllers/AuthControllers/userLogin.controller.js";
+import { userLogoutController } from "../controllers/AuthControllers/userLogout.controller.js";
 
 const router = express.Router();
 

@@ -1,9 +1,16 @@
 import express from "express";
 import { PERMISSIONS } from "../constants/permissions.js";
 import authMiddleware from "../middleware/auth.middleware.js";
-import { acceptTaskController, createTaskController, deleteTaskController, getTaskDetails, markAsCompletedController, markTaskAsFailedController, requestTaskRejectionController, updateTaskController } from "../controllers/task.controllers.js";
 import { requirePermission } from "../middleware/permission.middleware.js";
 import { requireAdmin, requireEmployee } from "../middleware/role.middleware.js";
+import { createTaskController } from "../controllers/TaskControllers/createTask.controller.js";
+import { updateTaskController } from "../controllers/TaskControllers/updateTask.controller.js";
+import { deleteTaskController } from "../controllers/TaskControllers/deleteTask.controller.js";
+import { acceptTaskController } from "../controllers/TaskControllers/acceptTask.controller.js";
+import { requestTaskRejectionController } from "../controllers/TaskControllers/requestTaskRejection.controller.js";
+import { markTaskAsCompletedController } from "../controllers/TaskControllers/markTaskAsCompleted.controller.js";
+import { markTaskAsFailedController } from "../controllers/TaskControllers/markTaskAsFailed.controller.js";
+import { getTaskDetailsController } from "../controllers/TaskControllers/getTaskDetails.controller.js";
 
 const router = express.Router();
 
@@ -23,13 +30,13 @@ router.patch("/accept-task/:taskId", authMiddleware, requireEmployee, requirePer
 router.patch("/reject-task/:taskId", authMiddleware, requireEmployee, requirePermission(PERMISSIONS.REQUEST_REJECT_TASK), requestTaskRejectionController);
 
 /* PATCH /api/tasks/mark-as-completed/:taskId */
-router.patch("/mark-as-completed/:taskId", authMiddleware, requireEmployee, requirePermission(PERMISSIONS.MARK_AS_COMPLETED), markAsCompletedController);
+router.patch("/mark-as-completed/:taskId", authMiddleware, requireEmployee, requirePermission(PERMISSIONS.MARK_AS_COMPLETED), markTaskAsCompletedController);
 
 /* PATCH /api/tasks/mark-as-failed/:taskId */
 router.patch("/mark-as-failed/:taskId", authMiddleware, requireEmployee, requirePermission(PERMISSIONS.MARK_AS_FAILED), markTaskAsFailedController);
 
 
 /* GET /api/tasks/get-tasks-details */
-router.get("/get-tasks-details", authMiddleware, requirePermission(PERMISSIONS.VIEW_TASKS), getTaskDetails);
+router.get("/get-tasks-details", authMiddleware, requirePermission(PERMISSIONS.VIEW_TASKS), getTaskDetailsController);
 
 export default router;

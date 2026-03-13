@@ -24,7 +24,7 @@ const AdminInactiveEmployees = ({ inactiveEmp = [], setInactiveEmp }) => {
 
                 {inactiveEmp.length === 0 && (
                     <div className="bg-[#1B211A] rounded-2xl p-10 mt-5 border border-[#FFDAB3]/30 shadow-inner">
-                        <p className="text-center text-[#F8F8F2]/60">No In-active employees found.</p>
+                        <p className="text-center text-[#F8F8F2]/60"> No Inactive employees found. </p>
                     </div>
                 )}
 
@@ -34,10 +34,10 @@ const AdminInactiveEmployees = ({ inactiveEmp = [], setInactiveEmp }) => {
                     return (
                         <div key={emp.id} className="bg-[#1B211A] rounded-2xl p-2 mt-5 border border-[#FFDAB3]/30 shadow-inner">
                             <div className="bg-[#2C3930]/30 py-3 px-5 flex items-center rounded-2xl">
-                                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold"> EmpId : {index + 1 || ""}</h2>
-                                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{renderName}</h2>
-                                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.designation}</h2>
-                                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.email}</h2>
+                                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold"> EmpId : {index + 1 || ""} </h2>
+                                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold"> {renderName} </h2>
+                                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold"> {emp.designation} </h2>
+                                <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold"> {emp.email} </h2>
                                 <AdminReactivateEmployee empId={emp.id || emp._id} />
                             </div>
                         </div>

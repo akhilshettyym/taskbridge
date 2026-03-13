@@ -38,6 +38,7 @@ const AdminAddedEmployees = ({ employees, setEmployees }) => {
           </div>
         );
       })}
+      
     </div>
   );
 };

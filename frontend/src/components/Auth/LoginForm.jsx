@@ -13,13 +13,13 @@ const LoginForm = () => {
         <div className="w-full">
           <label className="block text-md uppercase tracking-wide text-[#FFDAB3]/80 mb-2"> Email Address </label>
 
-          <input value={email} onChange={onEmailChange} required type="email" placeholder="Enter your email" className="w-80 bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-5 py-3 text-[#F8F8F2] outline-none placeholder:text-gray-400 focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+          <input value={email} onChange={onEmailChange} required type="email" placeholder="Enter your email" className="w-80 bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-5 py-3 text-[#FFDAB3] outline-none placeholder:text-gray-400 focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
         </div>
 
         <div className="w-full">
           <label className="block text-md uppercase tracking-wide text-[#FFDAB3]/80 mb-2"> Password </label>
 
-          <PasswordToggle value={password} onChange={onPasswordChange} placeholder="Enter your password" className="w-80 bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-5 py-3 text-[#F8F8F2] outline-none placeholder:text-gray-400 focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
+          <PasswordToggle value={password} onChange={onPasswordChange} placeholder="Enter your password" className="w-80 bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-5 py-3 text-[#FFDAB3] outline-none placeholder:text-gray-400 focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
         </div>
 
         <button type="submit" disabled={loading} className="mt-4 w-full bg-[#FFDAB3] text-[#1B211A] font-semibold py-3 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> {loading ? "Logging In..." : "Login"} </button>

@@ -1,9 +1,14 @@
 import express from "express";
 import authMiddleware from "../middleware/auth.middleware.js";
 import { requireAdmin, requireSuperAdmin } from "../middleware/role.middleware.js";
-import { approveOrganization, getOrganizationDetails, reactivateOrganization, rejectOrganization, revokeOrganization, updateOrganizationController } from "../controllers/organization.controller.js";
 import { requirePermission } from "../middleware/permission.middleware.js";
 import { PERMISSIONS } from "../constants/permissions.js";
+import { approveOrganization } from "../controllers/OrganizationControllers/approveOrganization.controller.js";
+import { rejectOrganization } from "../controllers/OrganizationControllers/rejectOrganization.controller.js";
+import { revokeOrganization } from "../controllers/OrganizationControllers/revokeOrganization.controller.js";
+import { reactivateOrganization } from "../controllers/OrganizationControllers/reactivateOrganization.controller.js";
+import { updateOrganizationController } from "../controllers/OrganizationControllers/updateOrganization.controller.js";
+import { getOrganizationDetails } from "../controllers/OrganizationControllers/getOrganizationDetails.controller.js";
 
 const router = express.Router();
 

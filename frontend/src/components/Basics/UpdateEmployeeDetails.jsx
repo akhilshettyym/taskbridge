@@ -1,4 +1,5 @@
 import { DatePicker } from "../../constants/imports";
+import "react-datepicker/dist/react-datepicker.css";
 import useUpdateEmployeeDetails from "../../hooks/useUpdateEmployeeDetails";
 
 const UpdateEmployeeDetails = ({ emp, setEmployees }) => {
@@ -25,7 +26,7 @@ const UpdateEmployeeDetails = ({ emp, setEmployees }) => {
                             <div className="overflow-y-auto px-6 pb-6 flex-1">
                                 <div className="flex flex-col gap-6">
 
-                                    <div>
+                                    <div className="mt-3">
                                         <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> First Name </label>
                                         <input required name="firstName" value={formData.firstName} onChange={handleChange} className="mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
                                     </div>

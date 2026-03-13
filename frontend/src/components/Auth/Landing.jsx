@@ -1,7 +1,7 @@
 import { useNavigate } from "../../constants/imports";
 
 const Landing = () => {
-  
+
   const navigate = useNavigate();
 
   return (

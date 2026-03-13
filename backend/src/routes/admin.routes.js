@@ -2,8 +2,9 @@ import express from "express";
 import { PERMISSIONS } from "../constants/permissions.js";
 import authMiddleware from "../middleware/auth.middleware.js";
 import { requirePermission } from "../middleware/permission.middleware.js";
-import { reviewTaskRejectionController, updateAdminController } from "../controllers/admin.controllers.js";
 import { requireAdmin } from "../middleware/role.middleware.js";
+import { updateAdminController } from "../controllers/AdminControllers/updateAdmin.controller.js";
+import { reviewTaskRejectionController } from "../controllers/AdminControllers/reviewTaskRejection.controller.js";
 
 const router = express.Router();
 

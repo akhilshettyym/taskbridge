@@ -8,7 +8,7 @@ const useTaskStatusTable = () => {
     const [tasks, setTasks] = useState([]);
     const [employees, setEmployees] = useState([]);
     const [editingTask, setEditingTask] = useState(null);
-
+    const [selectedTask, setSelectedTask] = useState(null);
     const status = tasks?.status?.toLowerCase();
     const failedTasks = tasks?.filter((task) => task?.status === "FAILED") || [];
     const nonFailedTasks = tasks?.filter((task) => task?.status !== "FAILED") || [];
@@ -46,7 +46,7 @@ const useTaskStatusTable = () => {
         return emp ? `${emp.firstName} ${emp.lastName}` : "Unassigned";
     };
 
-    return { status, failedTasks, nonFailedTasks, editingTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName };
+    return { status, failedTasks, nonFailedTasks, editingTask, selectedTask, setSelectedTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName };
 }
 
 export default useTaskStatusTable;

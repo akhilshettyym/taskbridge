@@ -1,10 +1,7 @@
-import { useState, useEffect, toast } from "../../constants/imports";
-import { getOrganizationUsers } from "../../api/employee";
-import { getOrganizationDetails } from "../../api/organization";
+import { useEffect } from "../../constants/imports";
 import CustomTooltip from "../Basics/CustomTooltip";
 import UpdateAdminDetails from "../Basics/UpdateAdminDetails";
 import UpdateOrganizationDetails from "../Basics/UpdateOrganizationDetails";
-import { useMemo } from "react";
 import useAdminProfileDetails from "../../hooks/useAdminProfileDetails";
 
 const AdminProfileDetails = () => {
@@ -27,7 +24,7 @@ const AdminProfileDetails = () => {
                 <CustomTooltip id="admin-details-tooltip" message="Amend administrator details as well as organization information." place="right" />
             </div>
 
-            <div className="w-full bg-[#1B211A] p-10 rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8 mb-10">
+            <div className="w-full bg-[#1B211A] p-8 rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8 mb-10">
 
                 <div className="w-full">
                     <h2 className="text-xl uppercase tracking-wide text-[#FFDAB3]"> Organization and Admin details </h2>

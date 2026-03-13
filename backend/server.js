@@ -3,9 +3,12 @@ import app from "./src/app.js";
 import connectDB from "./src/config/db.js";
 import startOverdueTaskJob from "./src/jobs/taskOverdue.js";
 import { createSuperAdmin } from "./src/utils/createSuperAdmin.js";
+import startInactiveEmployeeCleanupJob from './src/jobs/inactiveEmployee.js';
 
 connectDB();
 startOverdueTaskJob();
+startInactiveEmployeeCleanupJob();
+
 await createSuperAdmin();
 
 app.listen(process.env.PORT, () => {

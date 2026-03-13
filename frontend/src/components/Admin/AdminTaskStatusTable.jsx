@@ -1,13 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PriorityTag, DateConversion, BiSolidError } from "../../constants/imports";
 import AdminEditTaskModal from "./AdminEditTaskModal";
 import CustomTooltip from "../Basics/CustomTooltip";
 import useTaskStatusTable from "../../hooks/useTaskStatusTable";
 import AdminRemoveTask from "./AdminRemoveTask";
+import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
 
 const AdminTaskStatusTable = () => {
 
-  const { status, failedTasks, nonFailedTasks, editingTask, setTasks, setEditingTask, fetchTasksDetails, fetchEmployees, getEmployeeName } = useTaskStatusTable();
+  const { status, failedTasks, nonFailedTasks, editingTask, selectedTask, setSelectedTask, setTasks, setEditingTask, fetchTasksDetails, fetchEmployees, getEmployeeName } = useTaskStatusTable();
 
   useEffect(() => {
     fetchTasksDetails();
@@ -35,7 +36,9 @@ const AdminTaskStatusTable = () => {
         ) : (
           <div className="bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
               {failedTasks.map((task, index) => {
+
                 const status = task?.status?.toLowerCase();
                 const taskKey = task?._id || task?.id;
 
@@ -107,29 +110,39 @@ const AdminTaskStatusTable = () => {
                     <div className="px-4 py-2 border-t border-[#FFDAB3]/20 bg-[#1B211A] flex justify-between items-center rounded-b-2xl">
                       <span className="text-xs text-[#F8F8F2]/60"> Task ID : {index + 1} </span>
                       <div className="flex items-center gap-3">
-                        <AdminRemoveTask taskId={taskKey} />
+
+
                         <div className="relative group">
                           <div className="relative group inline-block">
+
+                        <button onClick={() => setSelectedTask(task)} className="mr-3 py-1 px-4 text-sm rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> View </button>
+
                             <button onClick={() => setEditingTask(task)} className="py-1 px-4 text-sm rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> Edit </button>
                           </div>
                         </div>
+
+                        <AdminRemoveTask taskId={taskKey} />
                       </div>
                     </div>
 
                   </div>
-                );
+                )
               })}
             </div>
           </div>
         )}
+
+        {selectedTask && (
+          <AdminTaskDetailsModal task={selectedTask} onClose={() => setSelectedTask(null)} getEmployeeName={getEmployeeName} />
+        )}
+
         {editingTask && (
           <AdminEditTaskModal task={editingTask} onClose={() => setEditingTask(null)} onTaskUpdated={(updatedTask) => {
             setTasks((prev) => prev.map((t) =>
               (t._id || t.id) === (updatedTask._id || updatedTask.id)
                 ? updatedTask
                 : t));
-          }}
-          />
+          }} />
         )}
       </div>
 
@@ -213,12 +226,19 @@ const AdminTaskStatusTable = () => {
                   <span className="text-xs text-[#F8F8F2]/60"> Task ID : {index + 1 || ""} </span>
 
                   <div className="flex items-center gap-3">
+                    <button onClick={() => setSelectedTask(task)} className="py-1 px-4 text-sm rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> View </button>
+
                     <AdminRemoveTask taskId={task.id || task._id} />
                   </div>
 
                 </div>
               </div>
             ))}
+
+            {selectedTask && (
+              <AdminTaskDetailsModal task={selectedTask} onClose={() => setSelectedTask(null)} getEmployeeName={getEmployeeName} />
+            )}
+
           </div>
         </div>
       )}

@@ -1,7 +1,6 @@
 import EmployeeTaskListNo from "./EmployeeTaskListNo";
 import EmployeeTaskCard from "./EmployeeTaskCard";
 
-
 const EmployeeComFailedTasks = ({ data }) => {
 
     const completedTasks = data?.tasks?.filter((task) => task.status === "completed") ?? [];

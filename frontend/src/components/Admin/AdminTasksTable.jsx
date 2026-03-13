@@ -68,6 +68,7 @@ const AdminTasksTable = () => {
                             {editingTask && (
                                 <AdminEditTaskModal task={editingTask} onClose={() => setEditingTask(null)} />
                             )}
+                            
                         </div>
                     ))
                 )}

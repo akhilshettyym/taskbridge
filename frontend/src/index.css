@@ -119,3 +119,45 @@ body {
 .react-datepicker-popper {
   z-index: 9999;
 }
+
+.react-datepicker__year-dropdown {
+  background-color: #1B211A;
+  border: 1px solid rgba(255, 218, 179, 0.25);
+  border-radius: 0.5rem;
+  color: #F8F8F2;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 4px;
+  padding: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.react-datepicker__year-option {
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.react-datepicker__year-option:hover {
+  background-color: rgba(255, 218, 179, 0.15);
+}
+
+.react-datepicker__year-option--selected {
+  background-color: #FFDAB3 !important;
+  color: #1B211A !important;
+  font-weight: 600;
+}
+
+.react-datepicker__year-dropdown::before,
+.react-datepicker__year-dropdown::after {
+  border-bottom-color: #1B211A;
+}
+
+.react-datepicker__year-read-view {
+  color: #FFDAB3;
+}
+
+.react-datepicker__year-read-view--down-arrow {
+  border-top-color: #FFDAB3;
+}

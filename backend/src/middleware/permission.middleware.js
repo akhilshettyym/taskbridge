@@ -1,4 +1,5 @@
 export const requirePermission = (permission) => {
+
     return (req, res, next) => {
         if (!req.user || !Array.isArray(req.user.permissions)) {
             return res.status(403).json({

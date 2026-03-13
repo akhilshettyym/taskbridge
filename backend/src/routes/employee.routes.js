@@ -2,8 +2,13 @@ import express from "express";
 import { PERMISSIONS } from "../constants/permissions.js";
 import authMiddleware from "../middleware/auth.middleware.js";
 import { requirePermission } from "../middleware/permission.middleware.js";
-import { addEmployeeController, updateEmployeeController, deactivateEmployeeController, getOrganizationUsers, getOrganizationInactiveUsers, reactivateEmployeeController } from "../controllers/employee.controllers.js";
 import { requireAdmin } from "../middleware/role.middleware.js";
+import { addEmployeeController } from "../controllers/EmployeeControllers/addEmployee.controller.js";
+import { updateEmployeeController } from "../controllers/EmployeeControllers/updateEmployee.controller.js";
+import { deactivateEmployeeController } from "../controllers/EmployeeControllers/deactivateEmployee.controller.js";
+import { reactivateEmployeeController } from "../controllers/EmployeeControllers/reactivateEmployee.controller.js";
+import { getOrganizationUsers } from "../controllers/EmployeeControllers/getOrgUsers.controller.js";
+import { getOrganizationInactiveUsers } from "../controllers/EmployeeControllers/getOrgInactiveUsers.controller.js";
 
 const router = express.Router();
 
