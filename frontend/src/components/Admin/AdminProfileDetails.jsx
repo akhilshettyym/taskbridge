@@ -3,6 +3,7 @@ import CustomTooltip from "../Basics/CustomTooltip";
 import AdminUpdateAdminDetails from "./AdminUpdateAdminDetails";
 import AdminUpdateOrganizationDetails from "./AdminUpdateOrganizationDetails";
 import useAdminProfileDetails from "../../hooks/AdminHooks/useAdminProfileDetails";
+import { useSelector } from "react-redux";
 
 const AdminProfileDetails = () => {
 

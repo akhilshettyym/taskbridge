@@ -2,6 +2,8 @@ import { useState } from "react";
 import { getOrganizationUsers } from "../../api/employee";
 import toast from "react-hot-toast";
 import { createTask } from "../../api/tasks";
+import { useDispatch } from "react-redux";
+import { createTaskSuccess } from "../../slices/taskSlice";
 
 const useAdminCreateTaskForm = () => {
 
@@ -9,6 +11,7 @@ const useAdminCreateTaskForm = () => {
     const [dueDate, setDueDate] = useState(null);
     const [loading, setLoading] = useState(false);
     const [creationDate] = useState(new Date());
+    const dispatch = useDispatch();
 
     const fetchEmployees = async () => {
         try {
@@ -53,6 +56,8 @@ const useAdminCreateTaskForm = () => {
             if (!response?.success) {
                 throw new Error(response?.message || "Could not create task");
             }
+
+            dispatch(createTaskSuccess(response.task));
 
             toast.success(response.message || "Task created successfully");
             e.target.reset();

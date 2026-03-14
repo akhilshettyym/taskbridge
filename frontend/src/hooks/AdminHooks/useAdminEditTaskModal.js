@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { getOrganizationUsers } from "../../api/employee";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { updateTask } from "../../api/tasks";
+import { updateTaskSuccess } from "../../slices/taskSlice";
 
 const useAdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
 
     const [employees, setEmployees] = useState([]);
     const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
         title: task?.title || "",
@@ -46,18 +50,17 @@ const useAdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
         setLoading(true);
 
         try {
+
             if (!formData.title?.trim()) {
                 throw new Error("Task title is required");
             }
+
             if (!formData.category?.trim()) {
                 throw new Error("Category is required");
             }
+
             if (!formData.priority) {
                 throw new Error("Priority is required");
-            }
-
-            if (formData.dueDate && formData.dueDate < new Date()) {
-                console.warn("Due date is in the past");
             }
 
             const payload = {
@@ -66,7 +69,9 @@ const useAdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
                 description: formData.description?.trim() || "",
                 assignedTo: formData.assignedTo || null,
                 priority: formData.priority,
-                dueDate: formData.dueDate ? formData.dueDate.toISOString() : null,
+                dueDate: formData.dueDate
+                    ? formData.dueDate.toISOString()
+                    : null,
             };
 
             const taskId = task?._id || task?.id;
@@ -81,31 +86,31 @@ const useAdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
                 throw new Error(response?.message || "Failed to update task");
             }
 
+            const updatedTask =
+                response.task ||
+                response.updatedTask ||
+                { ...task, ...payload };
+
+            dispatch(updateTaskSuccess(updatedTask));
+
             toast.success("Task updated successfully");
 
-            const updatedTask = response.task || response.updatedTask || { ...task, ...payload };
             onTaskUpdated?.(updatedTask);
-
             onClose();
 
         } catch (error) {
-            let msg = "Something went wrong while updating task";
 
-            if (error.response?.data?.message) {
-                msg = error.response.data.message;
-            } else if (error.message) {
-                msg = error.message;
-            }
+            const msg =
+                error?.response?.data?.message ||
+                error.message ||
+                "Something went wrong while updating task";
 
-            console.error("Task update failed:", error);
             toast.error(msg);
 
         } finally {
             setLoading(false);
         }
     };
-
-
 
     return { employees, loading, formData, fetchEmployees, handleChange, handleDateChange, handleUpdateTask };
 }
