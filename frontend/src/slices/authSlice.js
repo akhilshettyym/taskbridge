@@ -1,36 +1,53 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const storedUser = JSON.parse(localStorage.getItem("user"));
+
 const initialState = {
-    token: localStorage.getItem("tb_token") || null,
-    user: JSON.parse(localStorage.getItem("tb_user") || "null"),
+  user: storedUser?.user || null,
+  token: storedUser?.token || null,
+  role: storedUser?.role || null,
+
+  loading: false,
+  error: null,
 };
 
 const authSlice = createSlice({
-    name: "auth",
-    initialState,
+  name: "auth",
+  initialState,
 
-    reducers: {
-        setCredentials: (state, action) => {
-            const { token, user } = action.payload;
+  reducers: {
 
-            state.token = token;
-            state.user = user;
+    setCredentials: (state, action) => {
+      const { user, token, role } = action.payload;
 
-            localStorage.setItem("tb_token", token);
-            localStorage.setItem("tb_user", JSON.stringify(user));
-        },
+      state.user = user;
+      state.token = token;
+      state.role = role;
 
-        // add logout later
-        // logout: (state) => {
-        //     state.token = null;
-        //     state.user = null;
-
-        //     localStorage.removeItem("tb_token");
-        //     localStorage.removeItem("tb_user");
-        // },
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          user,
+          token,
+          role,
+        })
+      );
     },
+
+    logout: (state) => {
+      state.user = null;
+      state.token = null;
+      state.role = null;
+
+      localStorage.removeItem("user");
+    },
+
+    clearAuthError: (state) => {
+      state.error = null;
+    },
+  },
 });
 
-export const { setCredentials } = authSlice.actions;
+export const { setCredentials, logout, clearAuthError } = authSlice.actions;
 
 export default authSlice.reducer;

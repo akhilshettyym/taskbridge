@@ -25,8 +25,6 @@ const AdminEmployeeManager = () => {
                 <CustomTooltip id="add-employees-tooltip" message="You can update the organization roster by adding more employees." place="right" />
             </div>
 
-            {console.log(employees)}
-
             <AdminAddEmployeeForm refreshEmployees={fetchEmployees} />
 
             <div className="flex items-center gap-2">

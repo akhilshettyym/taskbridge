@@ -28,14 +28,13 @@ const useLoginForm = () => {
     try {
       setLoading(true);
 
-      const payload = {
-        email: email.trim(),
-        password
-      };
+      const payload = { email: email.trim(), password };
 
       const response = await login(payload);
-      console.log("Login success:", response);
-      const role = response?.user?.role;
+
+      const token = response?.token;
+      const user = response?.user;
+      const role = user?.role;
 
       if (role === "ADMIN") {
         navigate("/admin/admin-dashboard");
@@ -45,13 +44,12 @@ const useLoginForm = () => {
         navigate("/superadmin/superadmin-dashboard")
       }
 
-      // const token = response?.token;
-      // const user = response?.user;
-
-      dispatch(setCredentials({ token, user }));
+      dispatch(setCredentials({ token, user, role }));
 
       setEmail("");
       setPassword("");
+
+      toast.success("Login successful");
 
     } catch (error) {
       console.error("Login failed", error);

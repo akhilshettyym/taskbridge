@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { deleteTask } from "../../api/tasks";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { deleteTaskSuccess } from "../../slices/taskSlice";
 
-const useAdminDeleteTask = () => {
+const useAdminDeleteTask = ({ taskId }) => {
+
+    const dispatch = useDispatch();
 
     const [loading, setLoading] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
@@ -23,6 +27,8 @@ const useAdminDeleteTask = () => {
             if (!response?.success) {
                 throw new Error(response?.message || "Failed to delete task");
             }
+
+            dispatch(deleteTaskSuccess(taskId));
 
             toast.success("Task deleted successfully");
             setShowConfirm(false);
