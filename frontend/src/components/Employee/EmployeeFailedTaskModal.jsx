@@ -7,27 +7,44 @@ const EmployeeFailedTaskModal = ({ onClose, onSave }) => {
     const wordCount = reason.trim().split(/\s+/).filter(Boolean).length;
     const lineCount = reason.split("\n").filter(Boolean).length;
 
-    const isValid = /^[a-zA-Z\s\n.,'-]+$/.test(reason) && (wordCount >= 15 || lineCount >= 2);
+    const isValid =
+        /^[a-zA-Z\s\n.,'-]+$/.test(reason) &&
+        (wordCount >= 15 || lineCount >= 2);
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
-            <div className="w-full max-w-xl bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/40 p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 py-6">
 
-                <h2 className="text-xl font-bold uppercase text-[#FFDAB3] text-center"> Reason for Failure </h2>
+            <div className="w-full max-w-xl bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_50px_rgba(0,0,0,0.7)] flex flex-col overflow-hidden">
 
-                <textarea rows={6} value={reason} onChange={(e) => setReason(e.target.value)} className="mt-4 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none" placeholder="Explain why this task failed..." />
+                <div className="px-6 py-3 border-b border-[#FFDAB3]/30 flex items-center justify-between">
+                    <h2 className="font-bold text-[#FFDAB3] text-lg uppercase tracking-wide"> Reason for Rejection </h2>
+                    <button onClick={onClose} className="text-[#FFDAB3] text-2xl hover:text-red-400 transition-colors"
+                        aria-label="Close modal" > ✕ </button>
+                </div>
 
-                <p className="mt-2 text-xs text-[#FFDAB3]/60">
-                    Minimum 15 words or 2 lines. Only meaningful text allowed.
-                </p>
+                <div className="p-6 space-y-4">
+                    <div>
+                        <label className="block text-sm uppercase text-[#FFDAB3]/80 mb-2 font-medium"> Explain the rejection </label>
 
-                <div className="mt-6 flex justify-center gap-4">
-                    <button onClick={onClose} className="px-8 py-2 rounded-full border border-[#FFDAB3]/40 text-[#FFDAB3]"> Cancel </button>
+                        <textarea rows={5} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Explain why this task is being rejected..." className="w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3] outline-none resize-none focus:border-[#FFDAB3]" />
+                    </div>
 
-                    <button disabled={!isValid} onClick={() => onSave(reason)} className={`px-8 py-2 rounded-full font-bold uppercase transition ${isValid
-                        ? "bg-[#FFDAB3] text-[#1B211A]"
+
+                    <div className="flex justify-between text-xs text-[#FFDAB3]/60">
+                        <span> Minimum 15 words or 2 lines </span>
+                        <span> {wordCount} words • {lineCount} lines </span>
+                    </div>
+                </div>
+
+                <div className="px-6 py-3 border-t border-[#FFDAB3]/30 flex justify-end gap-4 text-sm">
+                    <button onClick={onClose} className="px-6 py-2 rounded-lg border border-[#FFDAB3]/40 text-[#FFDAB3] font-semibold uppercase hover:bg-[#FFDAB3]/10 transition"> Cancel </button>
+
+                    <button disabled={!isValid} onClick={() => onSave(reason)} className={`px-6 py-2 rounded-lg font-bold uppercase transition ${isValid
+                        ? "bg-[#FFDAB3] text-[#1B211A] hover:brightness-110 active:scale-95"
                         : "bg-[#2A2A2A] text-[#777] cursor-not-allowed"
-                        }`}> Save </button>
+                        }`}>
+                        Reject
+                    </button>
                 </div>
             </div>
         </div>

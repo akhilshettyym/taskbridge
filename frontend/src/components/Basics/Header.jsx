@@ -25,9 +25,7 @@ const Header = () => {
         }
 
         return "Organization";
-
     }, [organization, user]);
-
 
     const fetchOrganization = async () => {
         try {

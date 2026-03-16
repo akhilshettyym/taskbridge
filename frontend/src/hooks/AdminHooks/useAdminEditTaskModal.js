@@ -100,11 +100,7 @@ const useAdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
 
         } catch (error) {
 
-            const msg =
-                error?.response?.data?.message ||
-                error.message ||
-                "Something went wrong while updating task";
-
+            const msg = error?.response?.data?.message || error.message || "Something went wrong while updating task";
             toast.error(msg);
 
         } finally {

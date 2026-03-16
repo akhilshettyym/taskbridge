@@ -5,6 +5,7 @@ import { getTaskDetails } from "../../api/tasks";
 import { getOrganizationUsers } from "../../api/employee";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import CustomTooltip from "../Basics/CustomTooltip";
 
 const EmployeeNewTask = () => {
 
@@ -66,12 +67,17 @@ const EmployeeNewTask = () => {
     [getMyTasks]);
 
   return (
-    <>
+    <div className="pb-10">
       <hr className="my-5 border border-[#FFDAB3]/40" />
       <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> New Tasks </h1>
       <hr className="my-5 border border-[#FFDAB3]/40" />
 
       <EmployeeTaskListNo tasks={employeeTasks} />
+
+      <div className="flex items-center gap-2 mt-5">
+        <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Newly Assigned Tasks </h1>
+        <CustomTooltip id="new-tasks-tooltip" message="Please review newly assigned tasks to accept or decline with a brief justification." place="right" />
+      </div>
 
       <div className="mt-5 bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
         {employeeNewTasks.length === 0 ? (
@@ -81,12 +87,12 @@ const EmployeeNewTask = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
             {employeeNewTasks.map((task, index) => (
-              <EmployeeTaskCard key={task._id || task.id} index={index+1} task={task} />
+              <EmployeeTaskCard key={task._id || task.id} index={index + 1} task={task} />
             ))}
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

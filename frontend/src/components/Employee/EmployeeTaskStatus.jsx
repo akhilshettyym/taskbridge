@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import DateConversion from "../Basics/DateConversion";
 import PriorityTag from "../Basics/PriorityTag";
 import EmployeeTaskDetailsModal from "./EmployeeTaskDetailsModal";
+import CustomTooltip from "../Basics/CustomTooltip";
 
 const EmployeeTaskStatus = () => {
 
@@ -70,6 +71,11 @@ const EmployeeTaskStatus = () => {
       <hr className="my-5 border border-[#FFDAB3]/40" />
 
       <EmployeeTaskListNo tasks={employeeTasks} />
+
+      <div className="flex items-center gap-2 mt-5">
+        <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Tasks in queue </h1>
+        <CustomTooltip id="task-status-tooltip" message="Track your task assignments and deadlines from this panel." place="right" />
+      </div>
 
       <div className="mt-5 bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
         {employeeTasks.length === 0 ? (

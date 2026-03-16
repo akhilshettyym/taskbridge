@@ -38,7 +38,7 @@ const AdminAddedEmployees = ({ employees, setEmployees }) => {
 
               <AdminUpdateEmployeeDetails emp={emp} setEmployees={setEmployees} />
 
-              <button onClick={() => setSelectedEmployee(emp)} className="mr-3 py-1 px-5 text-sm rounded-md border font-semibold transition border-[#957C62] bg-[#FFDAB3] text-[#2C3930] hover:bg-[#957C62] hover:text-white"> View </button>
+              <button onClick={() => setSelectedEmployee(emp)} className="mr-3 py-2 px-5 text-xs rounded-md border font-semibold transition border-[#957C62] bg-[#FFDAB3] text-[#2C3930] hover:bg-[#957C62] hover:text-white"> View </button>
 
             </div>
           </div>
