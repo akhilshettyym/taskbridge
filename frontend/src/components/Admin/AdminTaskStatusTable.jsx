@@ -5,7 +5,6 @@ import CustomTooltip from "../Basics/CustomTooltip";
 import useAdminTaskStatusTable from "../../hooks/AdminHooks/useAdminTaskStatusTable";
 import AdminRemoveTask from "./AdminRemoveTask";
 import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
-import { useSelector } from "react-redux";
 
 const AdminTaskStatusTable = () => {
 

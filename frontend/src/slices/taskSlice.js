@@ -12,23 +12,14 @@ const taskSlice = createSlice({
 
   reducers: {
 
-    /**
-     * Load all tasks
-     */
     setAllTasks: (state, action) => {
       state.tasks = action.payload;
     },
 
-    /**
-     * Create task
-     */
     createTaskSuccess: (state, action) => {
       state.tasks.unshift(action.payload);
     },
 
-    /**
-     * Update task
-     */
     updateTaskSuccess: (state, action) => {
       const index = state.tasks.findIndex(
         (task) =>
@@ -44,9 +35,6 @@ const taskSlice = createSlice({
       }
     },
 
-    /**
-     * Delete task
-     */
     deleteTaskSuccess: (state, action) => {
       state.tasks = state.tasks.filter(
         (task) =>
@@ -55,16 +43,10 @@ const taskSlice = createSlice({
       );
     },
 
-    /**
-     * Loading
-     */
     setTaskLoading: (state, action) => {
       state.loading = action.payload;
     },
 
-    /**
-     * Error
-     */
     setTaskError: (state, action) => {
       state.error = action.payload;
     },
