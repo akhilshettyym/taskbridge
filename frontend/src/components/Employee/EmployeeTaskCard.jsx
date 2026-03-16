@@ -3,7 +3,7 @@ import { useState, DateConversion, PriorityTag, toast } from "../../constants/im
 import EmployeeFailedTaskModal from "./EmployeeFailedTaskModal";
 import { BiSolidError } from "react-icons/bi";
 import EmployeeTaskDetailsModal from "./EmployeeTaskDetailsModal";
-import { acceptTask } from "../../api/tasks";
+import { acceptTask, markAsCompleted } from "../../api/tasks";
 
 const EmployeeTaskCard = ({ task, index }) => {
 
@@ -51,7 +51,35 @@ const EmployeeTaskCard = ({ task, index }) => {
 
   const handleRejectTask = async () => {
 
-  }
+  };
+
+  const handleMarkAsCompleted = async () => {
+    if (loading) return;
+
+    setLoading(true);
+
+    try {
+      const taskId = task?._id || task?.id;
+
+      const response = await markAsCompleted({ taskId });
+
+      if (!response?.success) {
+        throw new Error(response?.message || "Failed to update task");
+      }
+
+      toast.success("Task marked as completed");
+    } catch (error) {
+      const msg = error?.response?.data?.message || error.message || "Something went wrong while marking task as completed";
+      toast.error(msg);
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleMarkAsFailed = async () => {
+    
+  };
 
   const renderButtons = () => {
 
@@ -69,7 +97,7 @@ const EmployeeTaskCard = ({ task, index }) => {
       case "IN_PROGRESS":
         return (
           <div className="grid grid-cols-2 gap-3 w-full">
-            <button className="py-2 px-5 rounded-md text-xs font-semibold bg-green-500 text-white border border-green-500 uppercase hover:bg-green-700 transition"> Complete </button>
+            <button onClick={handleMarkAsCompleted} className="py-2 px-5 rounded-md text-xs font-semibold bg-green-500 text-white border border-green-500 uppercase hover:bg-green-700 transition"> Complete </button>
 
             <button onClick={() => setShowFailModal(true)} className="py-2 px-5 rounded-md text-xs font-semibold bg-red-500 text-white border border-red-500 uppercase hover:bg-red-700 transition"> Fail </button>
           </div>
