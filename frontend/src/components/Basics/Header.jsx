@@ -16,6 +16,9 @@ const Header = () => {
     const lastName = user?.lastName || "";
     const renderName = `${firstName} ${lastName}`.trim();
 
+    // const superAdmin = useSelector((state) => state.auth?.user?.role);
+    // console.log(superAdmin)
+
     const orgName = useMemo(() => {
         const orgId = organization?._id || organization?.id;
         const userOrgId = user?.organizationId;

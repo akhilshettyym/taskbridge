@@ -21,7 +21,7 @@ import EmployeeDashBoardPage from "./pages/EmployeePages/EmployeeDashBoardPage";
 import EmployeeCompFailedTasksPage from "./pages/EmployeePages/EmployeeCompFailedTasksPage";
 import EmployeeInProgressTasksPage from "./pages/EmployeePages/EmployeeInprogressTasksPage";
 
-// import SuperAdminDashboardPage from "./pages/SuperAdmin/SuperAdminDashboardPage";
+import SuperAdminDashboardPage from "./pages/SuperAdminPages/SuperAdminDashboardPage";
 
 const App = () => {
   
@@ -93,7 +93,7 @@ const App = () => {
         {/* SUPER ADMIN CONTROl */}
 
         {/* /superadmin/superadmin-dashboard */}
-        {/* <Route path="/superadmin/superadmin-dashboard" element={<SuperAdminDashboardPage />} /> */}
+        <Route path="/superadmin/superadmin-dashboard" element={<SuperAdminDashboardPage />} />
 
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 

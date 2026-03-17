@@ -4,10 +4,12 @@ import { useEffect } from "react";
 import CustomTooltip from "../Basics/CustomTooltip";
 import useAdminTasksTable from "../../hooks/AdminHooks/useAdminTasksTable";
 import { useSelector } from "react-redux";
+import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
 
 const AdminTasksTable = () => {
 
     const { fetchTasksDetails, tasks, editingTask, setEditingTask } = useAdminTasksTable();
+
 
     useEffect(() => {
         fetchTasksDetails();
@@ -19,7 +21,9 @@ const AdminTasksTable = () => {
             <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> Created Tasks </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />
 
-            <div className="flex items-center gap-2">
+<EmployeeTaskListNo tasks={tasks} />
+
+            <div className="flex items-center gap-2 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Tasks Created </h1>
                 <CustomTooltip id="created-tasks-tooltip" message="Review the draft tasks below for accuracy and completeness." place="right" />
             </div>

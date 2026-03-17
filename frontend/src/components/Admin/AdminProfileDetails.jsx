@@ -1,16 +1,36 @@
-import { useEffect } from "../../constants/imports";
+import { toast, useEffect } from "../../constants/imports";
 import CustomTooltip from "../Basics/CustomTooltip";
 import AdminUpdateAdminDetails from "./AdminUpdateAdminDetails";
 import AdminUpdateOrganizationDetails from "./AdminUpdateOrganizationDetails";
 import useAdminProfileDetails from "../../hooks/AdminHooks/useAdminProfileDetails";
 import { useSelector } from "react-redux";
+import { getTaskDetails } from "../../api/tasks";
+import { useMemo, useState } from "react";
+import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
 
 const AdminProfileDetails = () => {
 
+    const [tasks, setTasks] = useState([]);
+
     const { organization, admin, activeTab, setActiveTab, formattedDOB, orgCountry, fetchEmployees, fetchOrganization } = useAdminProfileDetails();
+
+    const fetchTasksDetails = async () => {
+        try {
+            const response = await getTaskDetails();
+            if (response?.success) {
+                setTasks(response.tasks || []);
+            } else {
+                toast.error(response?.message || "Failed to load tasks");
+            }
+        } catch (error) {
+            console.error("Failed to fetch tasks", error);
+            toast.error("Could not fetch tasks");
+        }
+    };
 
     useEffect(() => {
         fetchEmployees();
+        fetchTasksDetails();
         fetchOrganization();
     }, []);
 
@@ -20,7 +40,9 @@ const AdminProfileDetails = () => {
             <h1 className="text-center font-bold text-[#FFDAB3] text-xl uppercase"> Admin Details </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />
 
-            <div className="flex items-center gap-2 mb-5">
+            <EmployeeTaskListNo tasks={tasks} />
+
+            <div className="flex items-center gap-2 mb-5 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Update Admin / Org details </h1>
                 <CustomTooltip id="admin-details-tooltip" message="Amend administrator details as well as organization information." place="right" />
             </div>
