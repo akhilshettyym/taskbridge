@@ -46,7 +46,7 @@ const useAdminTaskStatusTable = () => {
         return emp ? `${emp.firstName} ${emp.lastName}` : "Unassigned";
     };
 
-    return { status, failedTasks, nonFailedTasks, editingTask, selectedTask, setSelectedTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName };
+    return { tasks, status, failedTasks, nonFailedTasks, editingTask, selectedTask, setSelectedTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName };
 }
 
 export default useAdminTaskStatusTable;

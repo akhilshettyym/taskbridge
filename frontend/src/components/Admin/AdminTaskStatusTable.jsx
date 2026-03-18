@@ -5,10 +5,11 @@ import CustomTooltip from "../Basics/CustomTooltip";
 import useAdminTaskStatusTable from "../../hooks/AdminHooks/useAdminTaskStatusTable";
 import AdminRemoveTask from "./AdminRemoveTask";
 import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
+import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
 
 const AdminTaskStatusTable = () => {
 
-  const { status, failedTasks, nonFailedTasks, editingTask, selectedTask, setSelectedTask, setTasks, setEditingTask, fetchTasksDetails, fetchEmployees, getEmployeeName } = useAdminTaskStatusTable();
+  const { tasks, status, failedTasks, nonFailedTasks, editingTask, selectedTask, setSelectedTask, setTasks, setEditingTask, fetchTasksDetails, fetchEmployees, getEmployeeName } = useAdminTaskStatusTable();
 
   useEffect(() => {
     fetchTasksDetails();
@@ -22,9 +23,10 @@ const AdminTaskStatusTable = () => {
       <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> Task Status </h1>
       <hr className="my-5 border border-[#FFDAB3]/40" />
 
-      <div className="mb-5">
+      <EmployeeTaskListNo tasks={tasks} />
 
-        <div className="flex items-center gap-2 mb-5">
+      <div>
+        <div className="flex items-center gap-2 mb-5 mt-5">
           <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Failed Tasks </h1>
           <CustomTooltip id="task-status-failed-tooltip" message="Review failed tasks below to delete or edit for reassignment." place="right" />
         </div>
@@ -115,7 +117,7 @@ const AdminTaskStatusTable = () => {
                         <div className="relative group">
                           <div className="relative group inline-block">
 
-                        <button onClick={() => setSelectedTask(task)} className="mr-3 py-2 px-5 text-xs rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> View </button>
+                            <button onClick={() => setSelectedTask(task)} className="mr-3 py-2 px-5 text-xs rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> View </button>
 
                             <button onClick={() => setEditingTask(task)} className="py-1 px-4 text-sm rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> Edit </button>
                           </div>

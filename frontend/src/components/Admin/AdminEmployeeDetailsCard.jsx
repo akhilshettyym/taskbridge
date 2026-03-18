@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { DateConversion, TaskCount, PriorityTag } from "../../constants/imports";
 import CustomTooltip from "../Basics/CustomTooltip";
 import useAdminEmployeeDetailsCard from "../../hooks/AdminHooks/useAdminEmployeeDetailsCard";
+import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
 
 const AdminEmployeeDetailsCard = () => {
 
@@ -21,7 +22,9 @@ const AdminEmployeeDetailsCard = () => {
             <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex justify-center"> Employee Details </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />
 
-            <div className="flex items-center gap-2">
+            <EmployeeTaskListNo tasks={tasks} />
+
+            <div className="flex items-center gap-2 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Employees / assigned tasks</h1>
                 <CustomTooltip id="employee-details-tooltip" message="View employee profiles and their assigned tasks." place="right" />
 

@@ -1,5 +1,5 @@
 import { useState, useEffect, Navigate, Route, Routes, useNavigate, getOrganizationData, Toaster, toast } from "./constants/imports";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import AdminTasksPage from "./pages/AdminPages/AdminTasksPage";
 import AdminProfilePage from "./pages/AdminPages/AdminProfilePage";
@@ -22,8 +22,18 @@ import EmployeeCompFailedTasksPage from "./pages/EmployeePages/EmployeeCompFaile
 import EmployeeInProgressTasksPage from "./pages/EmployeePages/EmployeeInprogressTasksPage";
 
 import SuperAdminDashboardPage from "./pages/SuperAdminPages/SuperAdminDashboardPage";
+import { fetchOrganization } from "./slices/organizationSlice";
 
 const App = () => {
+
+  const dispatch = useDispatch();
+  const { loaded } = useSelector((state) => state.organization);
+
+  useEffect(() => {
+    if (!loaded) {
+      dispatch(fetchOrganization());
+    }
+  }, [loaded, dispatch]);
   
 
   return (

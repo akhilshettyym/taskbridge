@@ -1,56 +1,59 @@
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../api/auth";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getOrganizationDetails } from "../../api/organization";
 import { useEffect, useMemo, useState } from "react";
+import { clearOrganization } from "../../slices/organizationSlice";
 
 const Header = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const user = useSelector((state) => state.auth.user);
-    const [organization, setOrganization] = useState(null);
+
+    const organization = useSelector((state) => state.organization?.data);
+
+    // const [organization, setOrganization] = useState(null);
 
     const firstName = user?.firstName || "User";
     const lastName = user?.lastName || "";
     const renderName = `${firstName} ${lastName}`.trim();
 
-    // const superAdmin = useSelector((state) => state.auth?.user?.role);
-    // console.log(superAdmin)
+    // const orgName = useMemo(() => {
+    //     const orgId = organization?._id || organization?.id;
+    //     const userOrgId = user?.organizationId;
 
-    const orgName = useMemo(() => {
-        const orgId = organization?._id || organization?.id;
-        const userOrgId = user?.organizationId;
+    //     if (orgId && userOrgId && orgId === userOrgId) {
+    //         return organization?.orgName || organization?.name;
+    //     }
 
-        if (orgId && userOrgId && orgId === userOrgId) {
-            return organization?.orgName || organization?.name;
-        }
+    //     return "Organization";
+    // }, [organization, user]);
 
-        return "Organization";
-    }, [organization, user]);
+    // const fetchOrganization = async () => {
+    //     try {
+    //         const response = await getOrganizationDetails();
 
-    const fetchOrganization = async () => {
-        try {
-            const response = await getOrganizationDetails();
+    //         if (response?.success) {
+    //             setOrganization(response.organization || null);
+    //         }
+    //     } catch (error) {
+    //         console.error("Failed to fetch organization", error);
+    //         toast.error("Could not fetch organization details");
+    //     }
+    // };
 
-            if (response?.success) {
-                setOrganization(response.organization || null);
-            }
-        } catch (error) {
-            console.error("Failed to fetch organization", error);
-            toast.error("Could not fetch organization details");
-        }
-    };
-
-    useEffect(() => {
-        fetchOrganization();
-    }, []);
+    // useEffect(() => {
+    //     fetchOrganization();
+    // }, []);
 
 
     const handleLogout = async () => {
         try {
             await logout();
+            dispatch(clearOrganization());
             toast.success("You've been logged out successfully");
             navigate("/", { replace: true });
         } catch (err) {
@@ -62,7 +65,7 @@ const Header = () => {
         <div className="bg-[#1B211A] p-3 rounded-2xl border border-[#FFDAB3] shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
 
-                <h1 className="ml-5 text-2xl text-[#FFDAB3] font-semibold uppercase"> {orgName} </h1>
+                <h1 className="ml-5 text-2xl text-[#FFDAB3] font-semibold uppercase"> {organization?.orgName} </h1>
 
                 <div className="flex items-center gap-6">
                     {renderName && (
