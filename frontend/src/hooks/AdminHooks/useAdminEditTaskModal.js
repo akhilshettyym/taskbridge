@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { getOrganizationUsers } from "../../api/employee";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
@@ -12,13 +12,26 @@ const useAdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
     const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
-        title: task?.title || "",
-        category: task?.category || "",
-        description: task?.description || "",
-        priority: task?.priority || "Medium",
-        assignedTo: task?.assignedTo || "",
-        dueDate: task?.dueDate ? new Date(task.dueDate) : null,
+        title: "",
+        category: "",
+        description: "",
+        priority: "Medium",
+        assignedTo: "",
+        dueDate: null,
     });
+
+    useEffect(() => {
+        if (!task) return;
+
+        setFormData({
+            title: task?.title || "",
+            category: task?.category || "",
+            description: task?.description || "",
+            priority: task?.priority || "Medium",
+            assignedTo: task?.assignedTo || "",
+            dueDate: task?.dueDate ? new Date(task.dueDate) : null,
+        });
+    }, [task]);
 
     const fetchEmployees = async () => {
         try {
