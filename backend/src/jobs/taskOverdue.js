@@ -17,7 +17,7 @@ const startOverdueTaskJob = () => {
                 {
                     $set: {
                         status: "FAILED",
-                        "taskLifeCycle.failure.reason": "Task automatically failed because due date expired",
+                        "taskLifeCycle.failure.reason": "Automatically failed — due date has passed.",
                         "taskLifeCycle.failure.failedAt": new Date()
                     }
                 }

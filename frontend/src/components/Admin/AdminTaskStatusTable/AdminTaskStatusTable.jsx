@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import useAdminTaskStatusTable from "../../hooks/AdminHooks/useAdminTaskStatusTable";
-import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
-import AdminTaskStatusFailed from "./AdminTaskStatusFailed";
+import useAdminTaskStatusTable from "../../../hooks/AdminHooks/useAdminTaskStatusTable";
+import EmployeeTaskListNo from "../../Employee/EmployeeTaskListNo";
+import AdminTaskStatusFailedTasks from "./AdminTaskStatusFailedTasks";
 import AdminTaskStatusCreatedTasks from "./AdminTaskStatusCreatedTasks";
 import AdminTaskStatusReqRejection from "./AdminTaskStatusReqRejection";
+import AdminTaskStatusInProgressTasks from "./AdminTaskStatusInProgressTasks";
+import AdminTaskStatusCompletedTasks from "./AdminTaskStatusCompletedTasks";
 
 const AdminTaskStatusTable = () => {
-  const { tasks, status, failedTasks, editingTask, allCreatedTasks, selectedTask, requestedRejectionTasks, setSelectedTask, setTasks, setEditingTask, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData } = useAdminTaskStatusTable();
+  const { tasks, status, failedTasks, editingTask, allCreatedTasks, inProgressTasks, completedTasks, selectedTask, requestedRejectionTasks, setSelectedTask, setTasks, setEditingTask, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData } = useAdminTaskStatusTable();
 
   const [activeTab, setActiveTab] = useState("created-tasks");
 
@@ -31,6 +33,20 @@ const AdminTaskStatusTable = () => {
               ? "bg-[#FFDAB3] text-[#1B211A]"
               : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
             }`}> Created Tasks </button>
+        
+        <button onClick={() => setActiveTab("inprogress-tasks")}
+          className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
+            ${activeTab === "inprogress-tasks"
+              ? "bg-[#FFDAB3] text-[#1B211A]"
+              : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
+            }`}> In-Progress Tasks </button>
+        
+        <button onClick={() => setActiveTab("completed-tasks")}
+          className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
+            ${activeTab === "completed-tasks"
+              ? "bg-[#FFDAB3] text-[#1B211A]"
+              : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
+            }`}> Completed Tasks </button>
 
         <button onClick={() => setActiveTab("failed-tasks")}
           className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
@@ -51,8 +67,16 @@ const AdminTaskStatusTable = () => {
         <AdminTaskStatusCreatedTasks refreshEmployeesData={refreshEmployeesData} status={status} allCreatedTasks={allCreatedTasks} selectedTask={selectedTask} setSelectedTask={setSelectedTask} fetchTasksDetails={fetchTasksDetails} fetchEmployees={fetchEmployees} getEmployeeName={getEmployeeName} />
       )}
 
+      {activeTab === "inprogress-tasks" && (
+        <AdminTaskStatusInProgressTasks refreshEmployeesData={refreshEmployeesData} status={status} inProgressTasks={inProgressTasks} selectedTask={selectedTask} setSelectedTask={setSelectedTask} fetchTasksDetails={fetchTasksDetails} fetchEmployees={fetchEmployees} getEmployeeName={getEmployeeName} />
+      )}
+
+      {activeTab === "completed-tasks" && (
+        <AdminTaskStatusCompletedTasks refreshEmployeesData={refreshEmployeesData} status={status} completedTasks={completedTasks} selectedTask={selectedTask} setSelectedTask={setSelectedTask} fetchTasksDetails={fetchTasksDetails} fetchEmployees={fetchEmployees} getEmployeeName={getEmployeeName} />
+      )}
+
       {activeTab === "failed-tasks" && (
-        <AdminTaskStatusFailed refreshEmployeesData={refreshEmployeesData} editingTask={editingTask} failedTasks={failedTasks} setSelectedTask={setSelectedTask} setTasks={setTasks} setEditingTask={setEditingTask} fetchTasksDetails={fetchTasksDetails} fetchEmployees={fetchEmployees} getEmployeeName={getEmployeeName} />
+        <AdminTaskStatusFailedTasks refreshEmployeesData={refreshEmployeesData} editingTask={editingTask} failedTasks={failedTasks} setSelectedTask={setSelectedTask} setTasks={setTasks} setEditingTask={setEditingTask} fetchTasksDetails={fetchTasksDetails} fetchEmployees={fetchEmployees} getEmployeeName={getEmployeeName} />
       )}
 
       {activeTab === "request-rejection" && (

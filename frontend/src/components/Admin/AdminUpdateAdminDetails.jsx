@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import useAdminUpdateAdminDetails from '../../hooks/AdminHooks/useAdminUpdateAdminDetails';
+import CustomTooltip from '../Basics/CustomTooltip';
 
 const AdminUpdateAdminDetails = ({ refreshAdminData }) => {
 
@@ -13,6 +14,12 @@ const AdminUpdateAdminDetails = ({ refreshAdminData }) => {
 
     return (
         <div className='pb-10'>
+
+            <div className="flex items-center gap-2 mb-5 mt-5">
+                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Update Admin Details </h1>
+                <CustomTooltip id="update-admin-tooltip" message="You can update the admin details." place="right" />
+            </div>
+
             <div className="w-full flex justify-center">
                 <form onSubmit={handleUpdateAdmin} className="w-full bg-[#1B211A] p-8 rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8">
 

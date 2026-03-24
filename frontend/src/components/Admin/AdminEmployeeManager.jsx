@@ -11,9 +11,10 @@ import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
 const AdminEmployeeManager = () => {
 
     const [tasks, setTasks] = useState([]);
+    const [activeTab, setActiveTab] = useState("active");
 
     const { employees, inactiveEmp, setInactiveEmp, setEmployees, fetchEmployees, fetchInactiveEmployees, refreshEmployeesData } = useAdminEmployeeManager();
-    
+
     const fetchTasksDetails = async () => {
         try {
             const response = await getTaskDetails();
@@ -43,30 +44,39 @@ const AdminEmployeeManager = () => {
             <EmployeeTaskListNo tasks={tasks} />
 
             <div className="flex items-center gap-2 mb-5 mt-5">
-                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Add more employees to the Org. </h1>
+                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Add more employees to the Org. </h1>
                 <CustomTooltip id="add-employees-tooltip" message="You can update the organization roster by adding more employees." place="right" />
             </div>
 
             <AdminAddEmployeeForm refreshEmployees={fetchEmployees} />
 
-            <div className="flex items-center gap-2">
-                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Update / Remove Employees from the Org. </h1>
-                <CustomTooltip id="remove-employees-tooltip" message="Employees may be deactivated and later reactivated, but accounts remaining inactive for more than 30 days will be permanently deleted." place="right" />
+            <div className="flex gap-4 mt-8 mb-5">
+                <button onClick={() => setActiveTab("active")} className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
+                        ${activeTab === "active"
+                        ? "bg-[#FFDAB3] text-[#1B211A]"
+                        : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
+                    }`}>
+                    Active Employees
+                </button>
+
+                <button onClick={() => setActiveTab("inactive")} className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
+                        ${activeTab === "inactive"
+                        ? "bg-[#FFDAB3] text-[#1B211A]"
+                        : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
+                    }`}>
+                    Inactive Employees
+                </button>
             </div>
 
-            <AdminAddedEmployees refreshEmployees={refreshEmployeesData} employees={employees} setEmployees={setEmployees} />
+            {activeTab === "active" && (
+                <AdminAddedEmployees refreshEmployees={refreshEmployeesData} employees={employees} setEmployees={setEmployees} />
+            )}
 
-            <hr className="my-5 border border-[#FFDAB3]/40" />
-
-            <div className="flex items-center gap-2 mb-5">
-                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Deactivated Employees </h1>
-                <CustomTooltip id="deactivated-employees-tooltip" message="Employees who were deactivated can be reactivated, but accounts remaining inactive for more than 30 days will be permanently deleted." place="right" />
-            </div>
-
-            <AdminInactiveEmployees refreshEmployees={refreshEmployeesData} inactiveEmp={inactiveEmp} setInactiveEmp={setInactiveEmp} />
-
+            {activeTab === "inactive" && (
+                <AdminInactiveEmployees refreshEmployees={refreshEmployeesData} inactiveEmp={inactiveEmp} setInactiveEmp={setInactiveEmp} />
+            )}
         </>
-    )
-}
+    );
+};
 
 export default AdminEmployeeManager;

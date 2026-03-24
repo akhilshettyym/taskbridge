@@ -1,4 +1,5 @@
 import { useRef, useEffect } from "../../constants/imports";
+import CustomTooltip from "../Basics/CustomTooltip";
 import AdminReactivateEmployee from "./AdminReactivateEmployee";
 
 const AdminInactiveEmployees = ({ inactiveEmp = [], setInactiveEmp, refreshEmployees }) => {
@@ -12,6 +13,12 @@ const AdminInactiveEmployees = ({ inactiveEmp = [], setInactiveEmp, refreshEmplo
 
     return (
         <div className="pb-10">
+
+            <div className="flex items-center gap-2 mb-5">
+                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Deactivated Employees </h1>
+                <CustomTooltip id="deactivated-employees-tooltip" message="Employees who were deactivated can be reactivated, but accounts remaining inactive for more than 30 days will be permanently deleted." place="right" />
+            </div>
+
             <div className="bg-[#1B211A] rounded-2xl p-4 mt-5 border border-[#FFDAB3]/30 shadow-inner">
 
                 <div className="py-3 px-5 flex items-center rounded-2xl border-2 border-[#EEEFE0]/50">

@@ -1,33 +1,33 @@
 import { useEffect, useState } from "react";
-import { PriorityTag, DateConversion, BiSolidError } from "../../constants/imports";
-import CustomTooltip from "../Basics/CustomTooltip";
-import AdminRemoveTask from "./AdminRemoveTask";
-import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
+import { PriorityTag, DateConversion, BiSolidError } from "../../../constants/imports";
+import CustomTooltip from "../../Basics/CustomTooltip";
+import AdminRemoveTask from "../AdminRemoveTask";
+import AdminTaskDetailsModal from "../AdminTaskDetailsModal";
 
-const AdminTaskStatusReqRejection = ({ status, requestedRejectionTasks, fetchTasksDetails, fetchEmployees, getEmployeeName }) => {
+const AdminTaskStatusCompletedTasks = ({ status, completedTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
 
     const [selectedTask, setSelectedTask] = useState(null);
 
-    useEffect(() => {
-        fetchTasksDetails();
-        fetchEmployees();
-    }, []);
+    // useEffect(() => {
+    //     fetchTasksDetails();
+    //     fetchEmployees();
+    // }, []);
 
     return (
         <div>
             <div className="flex items-center gap-2 mb-5">
-                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Request Rejection </h1>
-                <CustomTooltip id="task-status-request-rejection-tooltip" message="You can check the reason for task rejection and then either approve it or comment back." place="right" />
+                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Completed Tasks </h1>
+                <CustomTooltip id="task-status-alltasks-tooltip" message="You can delete any task, regardless of status. The task will be permanently deleted and cannot be recovered." place="right" />
             </div>
 
-            {requestedRejectionTasks.length === 0 ? (
+            {completedTasks.length === 0 ? (
                 <div className="bg-[#1B211A] rounded-2xl p-10 mt-5 border border-[#FFDAB3]/30 shadow-inner">
-                    <p className="text-center text-[#F8F8F2]/60"> No rejected tasks. </p>
+                    <p className="text-center text-[#F8F8F2]/60"> No tasks created yet. </p>
                 </div>
             ) : (
                 <div className="bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {requestedRejectionTasks.map((task, index) => (
+                        {completedTasks.map((task, index) => (
                             <div key={task.id} className="bg-[#FFDAB3]/10 rounded-2xl border border-[#FFDAB3]/30 hover:border-[#FFDAB3]/50 transition flex flex-col">
                                 <div className="px-2 py-2 border-b border-[#FFDAB3]/20">
                                     <div className="flex items-center justify-between px-4 py-2 bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/25">
@@ -39,14 +39,16 @@ const AdminTaskStatusReqRejection = ({ status, requestedRejectionTasks, fetchTas
                                 <div className="px-4 py-3 flex flex-col gap-2 text-sm text-[#F8F8F2]/80 flex-1">
                                     <div className="flex justify-between items-center">
                                         <span className="uppercase font-medium">Status</span>
-                                        <span className={`px-4 py-1 rounded-full font-bold uppercase border text-xs ${{
-                                            new: "bg-amber-100 text-amber-700 border-amber-200",
-                                            inprogress: "bg-blue-100 text-blue-700 border-blue-200",
-                                            completed: "bg-emerald-100 text-emerald-700 border-emerald-200",
-                                            failed: "bg-red-100 text-red-700 border-red-200",
-                                        }[status] ||
-                                            "bg-gray-100 text-gray-600 border-gray-200"
-                                            }`}> {task.status}
+                                        <span
+                                            className={`px-4 py-1 rounded-full font-bold uppercase border text-xs ${{
+                                                    new: "bg-amber-100 text-amber-700 border-amber-200",
+                                                    in_progress: "bg-blue-100 text-blue-700 border-blue-200",
+                                                    completed: "bg-emerald-100 text-emerald-700 border-emerald-200",
+                                                    failed: "bg-red-100 text-red-700 border-red-200",
+                                                }[task.status?.toLowerCase()] ||
+                                                "bg-gray-100 text-gray-600 border-gray-200"
+                                                }`}
+                                        >{task.status}
                                         </span>
                                     </div>
 
@@ -93,7 +95,9 @@ const AdminTaskStatusReqRejection = ({ status, requestedRejectionTasks, fetchTas
                                     <span className="text-xs text-[#F8F8F2]/60"> Task ID : {index + 1 || ""} </span>
 
                                     <div className="flex items-center gap-3">
-                                        <button onClick={() => setSelectedTask(task)} className="py-2 px-7 text-xs rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> View </button>
+                                        <button onClick={() => setSelectedTask(task)} className="py-2 px-5 text-xs rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> View </button>
+
+                                        <AdminRemoveTask refreshEmployeesData={refreshEmployeesData} taskId={task.id || task._id} />
                                     </div>
 
                                 </div>
@@ -101,7 +105,7 @@ const AdminTaskStatusReqRejection = ({ status, requestedRejectionTasks, fetchTas
                         ))}
 
                         {selectedTask && (
-                            <AdminTaskDetailsModal task={selectedTask} onClose={() => setSelectedTask(null)} getEmployeeName={getEmployeeName} />
+                            <AdminTaskDetailsModal task={selectedTask} onClose={() => setSelectedTask(null)} getEmployeeName={getEmployeeName} fetchTasksDetails={fetchTasksDetails} />
                         )}
 
                     </div>
@@ -111,4 +115,4 @@ const AdminTaskStatusReqRejection = ({ status, requestedRejectionTasks, fetchTas
     )
 }
 
-export default AdminTaskStatusReqRejection;
+export default AdminTaskStatusCompletedTasks;

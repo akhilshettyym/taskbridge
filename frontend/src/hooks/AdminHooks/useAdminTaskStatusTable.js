@@ -10,9 +10,21 @@ const useAdminTaskStatusTable = () => {
     const [editingTask, setEditingTask] = useState(null);
     const [selectedTask, setSelectedTask] = useState(null);
     const status = tasks?.status?.toLowerCase();
-    const failedTasks = tasks?.filter((task) => task?.status === "FAILED") || [];
-    const allCreatedTasks = tasks?.filter((task) => task?.status !== "FAILED" && task?.status !== "REJECTION_REQUESTED") || [];
-    const requestedRejectionTasks = tasks?.filter((task) => task?.status === "REJECTION_REQUESTED") || [];
+
+    const failedTasks =
+        tasks?.filter((task) => task?.status === "FAILED") || [];
+
+    const allCreatedTasks =
+        tasks?.filter((task) => task) || [];
+
+    const inProgressTasks =
+        tasks?.filter((task) => task?.status === "IN_PROGRESS") || [];
+
+    const completedTasks =
+        tasks?.filter((task) => task?.status === "COMPLETED") || [];
+
+    const requestedRejectionTasks =
+        tasks?.filter((task) => task?.status === "REJECTION_REQUESTED") || [];
 
     const fetchTasksDetails = async () => {
         try {
@@ -61,7 +73,7 @@ const useAdminTaskStatusTable = () => {
         ]);
     };
 
-    return { tasks, status, failedTasks, editingTask, allCreatedTasks, selectedTask, requestedRejectionTasks, setSelectedTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData };
+    return { tasks, status, failedTasks, editingTask, allCreatedTasks, inProgressTasks, completedTasks, selectedTask, requestedRejectionTasks, setSelectedTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData };
 }
 
 export default useAdminTaskStatusTable;

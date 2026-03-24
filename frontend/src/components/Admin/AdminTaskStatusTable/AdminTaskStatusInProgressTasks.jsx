@@ -1,33 +1,33 @@
 import { useEffect, useState } from "react";
-import { PriorityTag, DateConversion, BiSolidError } from "../../constants/imports";
-import CustomTooltip from "../Basics/CustomTooltip";
-import AdminRemoveTask from "./AdminRemoveTask";
-import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
+import { PriorityTag, DateConversion, BiSolidError } from "../../../constants/imports";
+import CustomTooltip from "../../Basics/CustomTooltip";
+import AdminRemoveTask from "../AdminRemoveTask";
+import AdminTaskDetailsModal from "../AdminTaskDetailsModal";
 
-const AdminTaskStatusAllTasks = ({ status, allCreatedTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
+const AdminTaskStatusInProgress = ({ status, inProgressTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
 
     const [selectedTask, setSelectedTask] = useState(null);
 
-    useEffect(() => {
-        fetchTasksDetails();
-        fetchEmployees();
-    }, []);
+    // useEffect(() => {
+    //     fetchTasksDetails();
+    //     fetchEmployees();
+    // }, []);
 
     return (
         <div>
             <div className="flex items-center gap-2 mb-5">
-                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Created Tasks </h1>
+                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> In-Progress Tasks </h1>
                 <CustomTooltip id="task-status-alltasks-tooltip" message="You can delete any task, regardless of status. The task will be permanently deleted and cannot be recovered." place="right" />
             </div>
 
-            {allCreatedTasks.length === 0 ? (
+            {inProgressTasks.length === 0 ? (
                 <div className="bg-[#1B211A] rounded-2xl p-10 mt-5 border border-[#FFDAB3]/30 shadow-inner">
                     <p className="text-center text-[#F8F8F2]/60"> No tasks created yet. </p>
                 </div>
             ) : (
                 <div className="bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {allCreatedTasks.map((task, index) => (
+                        {inProgressTasks.map((task, index) => (
                             <div key={task.id} className="bg-[#FFDAB3]/10 rounded-2xl border border-[#FFDAB3]/30 hover:border-[#FFDAB3]/50 transition flex flex-col">
                                 <div className="px-2 py-2 border-b border-[#FFDAB3]/20">
                                     <div className="flex items-center justify-between px-4 py-2 bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/25">
@@ -113,4 +113,4 @@ const AdminTaskStatusAllTasks = ({ status, allCreatedTasks, fetchTasksDetails, f
     )
 }
 
-export default AdminTaskStatusAllTasks;
+export default AdminTaskStatusInProgress;
