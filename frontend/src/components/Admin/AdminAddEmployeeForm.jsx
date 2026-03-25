@@ -4,7 +4,7 @@ import useAdminAddEmployeeForm from "../../hooks/AdminHooks/useAdminAddEmployeeF
 
 const AdminAddEmployeeForm = ({ refreshEmployees }) => {
 
-    const { dob, setDob, loading, handleAddEmployee } = useAdminAddEmployeeForm(refreshEmployees);
+    const { dob, setDob, loading, handleAddEmployee } = useAdminAddEmployeeForm({ refreshEmployees });
 
     return (
         <>

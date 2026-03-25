@@ -8,6 +8,8 @@ const useAdminEmployeeDetailsCard = () => {
     const [tasks, setTasks] = useState([]);
     const [employees, setEmployees] = useState([]);
 
+    const activeEmployees = employees.filter((emp) => emp.employmentStatus === "ACTIVE" || "");
+
     const fetchEmployees = async () => {
         try {
             const response = await getOrganizationUsers();
@@ -36,7 +38,7 @@ const useAdminEmployeeDetailsCard = () => {
         }
     };
 
-    return { tasks, employees, fetchEmployees, fetchTasksDetails };
+    return { tasks, employees, activeEmployees, fetchEmployees, fetchTasksDetails };
 }
 
 export default useAdminEmployeeDetailsCard;

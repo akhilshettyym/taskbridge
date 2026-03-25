@@ -1,20 +1,16 @@
 import { DateConversion } from "../../constants/imports";
+import useAdminEmployeeDetailsModal from "../../hooks/AdminHooks/useAdminEmployeeDetailsModal";
 import AdminDeactivateEmployee from "./AdminDeactivateEmployee";
 
 const AdminEmployeeDetailsModal = ({ emp, onClose, refreshEmployees }) => {
 
     if (!emp) return null;
 
-    const statusStyles = {
-        ACTIVE: "bg-emerald-100 text-emerald-700 border-emerald-200",
-        "IN-ACTIVE": "bg-red-100 text-red-700 border-red-200",
-    };
-
-    const initials = `${emp.firstName?.[0] || ""}${emp.lastName?.[0] || ""}`;
+    const { statusStyles, initials, handleOnClick } = useAdminEmployeeDetailsModal({ emp });
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={onClose}>
-            <div onClick={(e) => e.stopPropagation()} className="w-[92%] max-w-3xl bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/30 shadow-2xl">
+            <div onClick={handleOnClick} className="w-[92%] max-w-3xl bg-[#1B211A] rounded-2xl border border-[#FFDAB3]/30 shadow-2xl">
 
                 <div className="flex justify-between items-start px-6 py-5 border-b border-[#FFDAB3]/25">
 

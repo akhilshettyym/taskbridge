@@ -9,6 +9,7 @@ const useAdminTaskStatusTable = () => {
     const [employees, setEmployees] = useState([]);
     const [editingTask, setEditingTask] = useState(null);
     const [selectedTask, setSelectedTask] = useState(null);
+    const [activeTab, setActiveTab] = useState("created-tasks");
     const status = tasks?.status?.toLowerCase();
 
     const failedTasks =
@@ -73,7 +74,7 @@ const useAdminTaskStatusTable = () => {
         ]);
     };
 
-    return { tasks, status, failedTasks, editingTask, allCreatedTasks, inProgressTasks, completedTasks, selectedTask, requestedRejectionTasks, setSelectedTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData };
+    return { tasks, status, failedTasks, editingTask, allCreatedTasks, inProgressTasks, completedTasks, selectedTask, requestedRejectionTasks, activeTab, setActiveTab, setSelectedTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData };
 }
 
 export default useAdminTaskStatusTable;

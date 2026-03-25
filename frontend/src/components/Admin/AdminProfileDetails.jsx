@@ -1,44 +1,13 @@
-import { toast, useEffect } from "../../constants/imports";
+import { useEffect } from "../../constants/imports";
 import CustomTooltip from "../Basics/CustomTooltip";
 import AdminUpdateAdminDetails from "./AdminUpdateAdminDetails";
 import AdminUpdateOrganizationDetails from "./AdminUpdateOrganizationDetails";
 import useAdminProfileDetails from "../../hooks/AdminHooks/useAdminProfileDetails";
-import { useSelector } from "react-redux";
-import { getTaskDetails } from "../../api/tasks";
-import { useMemo, useState } from "react";
 import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
 
 const AdminProfileDetails = () => {
 
-    const [tasks, setTasks] = useState([]);
-
-    const { organization, admin, activeTab, setActiveTab, formattedDOB, orgCountry, fetchEmployees, fetchOrganization } = useAdminProfileDetails();
-
-    const fetchTasksDetails = async () => {
-        try {
-            const response = await getTaskDetails();
-            if (response?.success) {
-                setTasks(response.tasks || []);
-            } else {
-                toast.error(response?.message || "Failed to load tasks");
-            }
-        } catch (error) {
-            console.error("Failed to fetch tasks", error);
-            toast.error("Could not fetch tasks");
-        }
-    };
-
-    const refreshOrgData = async () => {
-        await Promise.all([
-            fetchOrganization()
-        ]);
-    };
-
-    const refreshAdminData = async () => {
-        await Promise.all([
-            fetchEmployees()
-        ]);
-    };
+    const { tasks, organization, admin, activeTab, formattedDOB, orgCountry, fetchEmployees, refreshOrgData, refreshAdminData, fetchTasksDetails, fetchOrganization, handleOnClickActiveOrg, handleOnClickActiveAdmin } = useAdminProfileDetails();
 
     useEffect(() => {
         fetchEmployees();
@@ -107,8 +76,7 @@ const AdminProfileDetails = () => {
             </div>
 
             <div className="flex gap-4 mb-8">
-
-                <button onClick={() => setActiveTab("organization")}
+                <button onClick={handleOnClickActiveOrg}
                     className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
                    ${activeTab === "organization"
                             ? "bg-[#FFDAB3] text-[#1B211A]"
@@ -117,7 +85,7 @@ const AdminProfileDetails = () => {
                     Update Organization Details
                 </button>
 
-                <button onClick={() => setActiveTab("admin")}
+                <button onClick={handleOnClickActiveAdmin}
                     className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
                    ${activeTab === "admin"
                             ? "bg-[#FFDAB3] text-[#1B211A]"
@@ -125,7 +93,6 @@ const AdminProfileDetails = () => {
                         }`}>
                     Update Admin Details
                 </button>
-
             </div>
 
             {activeTab === "organization" && <AdminUpdateOrganizationDetails refreshOrgData={refreshOrgData} />}

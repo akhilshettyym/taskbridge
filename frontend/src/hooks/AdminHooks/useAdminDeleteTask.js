@@ -53,7 +53,15 @@ const useAdminDeleteTask = ({ taskId, refreshEmployeesData }) => {
         }
     };
 
-    return { loading, showConfirm, setShowConfirm, handleDeleteTask };
+    const handleOnClickDelete = () => {
+        setShowConfirm(true);
+    }
+
+    const handleOnCancel = () => {
+        !loading && setShowConfirm(false);
+    }
+
+    return { loading, showConfirm, handleDeleteTask, handleOnClickDelete, handleOnCancel };
 }
 
 export default useAdminDeleteTask;

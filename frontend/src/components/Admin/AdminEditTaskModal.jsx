@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import useAdminEditTaskModal from "../../hooks/AdminHooks/useAdminEditTaskModal";
 
 const AdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
-    
+
     const { employees, loading, formData, fetchEmployees, handleChange, handleDateChange, handleUpdateTask } = useAdminEditTaskModal({ task, onClose, onTaskUpdated });
 
     const renderEmployeeOptions = () => {
@@ -32,7 +32,6 @@ const AdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
                 </div>
 
                 <form onSubmit={handleUpdateTask} className="p-6 space-y-6">
-
                     <div className="grid grid-cols-6 gap-5">
                         <div className="col-span-3">
                             <label className="block text-sm uppercase text-[#FFDAB3]/80 mb-2 font-medium"> Task Title </label>
@@ -79,7 +78,6 @@ const AdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
 
                         <button type="submit" disabled={loading} className="bg-[#FFDAB3] text-[#1B211A] font-bold px-8 py-2 rounded-lg hover:brightness-110 active:scale-95 transition-all uppercase"> {loading ? "Updating..." : "Update Task"} </button>
                     </div>
-
                 </form>
 
             </div>

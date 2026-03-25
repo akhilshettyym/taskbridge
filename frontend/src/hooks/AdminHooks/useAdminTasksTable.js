@@ -28,7 +28,21 @@ const useAdminTasksTable = () => {
         }
     };
 
-    return { fetchTasksDetails, tasks, editingTask, setEditingTask };
+    const handleOnClickEdit = (task) => {
+        if (task.status === "NEW") {
+            setEditingTask(task);
+        }
+    };
+
+    const handleCloseEditModal = () => {
+        setEditingTask(null);
+    };
+
+    const handleTaskUpdated = (updatedTask) => {
+        setEditingTask(updatedTask);
+    };
+
+    return { fetchTasksDetails, tasks, editingTask, handleOnClickEdit, handleCloseEditModal, handleTaskUpdated };
 };
 
 export default useAdminTasksTable;

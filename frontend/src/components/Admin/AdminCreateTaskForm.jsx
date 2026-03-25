@@ -1,13 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CustomTooltip from "../Basics/CustomTooltip";
 import useAdminCreateTaskForm from "../../hooks/adminHooks/useAdminCreateTaskForm";
 import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
-import { getTaskDetails } from "../../api/tasks";
 
 const AdminCreateTaskForm = () => {
-
 
     const { tasks, employees, dueDate, loading, creationDate, fetchTasksDetails, fetchEmployees, handleOnChange, handleCreateTask } = useAdminCreateTaskForm();
 
@@ -52,7 +50,7 @@ const AdminCreateTaskForm = () => {
                         <div className="relative">
                             <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Assign To </label>
                             <select required name="assignedTo" className="mt-2 w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 text-[#FFDAB3] outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition">
-                                <option value="">Select an employee</option>
+                                <option value=""> Select an employee </option>
                                 {renderEmployeeOptions()}
                             </select>
                             <span className="pointer-events-none absolute right-6 top-[54%] text-[#FFDAB3]/60"> ↓ </span>

@@ -7,11 +7,7 @@ import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
 
 const AdminTasksTable = () => {
 
-    const { fetchTasksDetails, tasks, editingTask, setEditingTask } = useAdminTasksTable();
-
-    useEffect(() => {
-        fetchTasksDetails();
-    }, []);
+    const { fetchTasksDetails, tasks, editingTask, handleOnClickEdit, handleCloseEditModal, handleTaskUpdated } = useAdminTasksTable();
 
     const sortedTasks = useMemo(() => {
         if (!tasks) return [];
@@ -25,8 +21,13 @@ const AdminTasksTable = () => {
         });
     }, [tasks]);
 
+    useEffect(() => {
+        fetchTasksDetails();
+    }, []);
+
     return (
         <div className="pb-10">
+
             <hr className="my-5 border border-[#FFDAB3]/40" />
             <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> Created Tasks </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />
@@ -56,55 +57,61 @@ const AdminTasksTable = () => {
                         No tasks created yet
                     </div>
                 ) : (
-                    sortedTasks.map((task) => (
-                        <div key={task._id || task.id} className="bg-[#0F1412] py-3 px-5 flex items-center rounded-2xl mb-3 border border-[#FFDAB3]/20">
-                            <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
-                                {task.title}
-                            </span>
+                    sortedTasks.map((task) => {
 
-                            <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
-                                {task.category}
-                            </span>
+                        const isEditable = task.status === "NEW";
 
-                            <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
-                                {task.status}
-                            </span>
+                        return (
+                            <div key={task._id || task.id}
+                                className="bg-[#0F1412] py-3 px-5 flex items-center rounded-2xl mb-3 border border-[#FFDAB3]/20">
+                                <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
+                                    {task.title}
+                                </span>
 
-                            <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
-                                <DateConversion convertDate={task?.createdAt} />
-                            </span>
+                                <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
+                                    {task.category}
+                                </span>
 
-                            <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
-                                <DateConversion convertDate={task?.dueDate} />
-                            </span>
+                                <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
+                                    {task.status}
+                                </span>
 
-                            <div className="w-1/6 flex justify-center">
-                                <PriorityTag priorityMsg={task?.priority} />
+                                <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
+                                    <DateConversion convertDate={task?.createdAt} />
+                                </span>
+
+                                <span className="w-1/6 text-[#FFDAB3] text-sm font-medium capitalize">
+                                    <DateConversion convertDate={task?.dueDate} />
+                                </span>
+
+                                <div className="w-1/6 flex justify-center">
+                                    <PriorityTag priorityMsg={task?.priority} />
+                                </div>
+
+                                <div className="relative inline-block group">
+                                    <button onClick={() => handleOnClickEdit(task)}
+                                        disabled={!isEditable}
+                                        className={`py-1 px-4 text-sm rounded-md border font-semibold transition ${isEditable
+                                            ? "border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"
+                                            : "border-[#555] text-[#777] bg-[#2A2A2A] cursor-not-allowed opacity-60"
+                                            }`}>
+                                        Edit
+                                    </button>
+
+                                    {!isEditable && (
+                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-10 bg-[#1B211A] text-[#FFDAB3]/90 text-xs px-3 py-1.5 rounded border border-[#FFDAB3]/30 whitespace-nowrap shadow-md">
+                                            Only new tasks can be edited
+                                        </div>
+                                    )}
+                                </div>
                             </div>
-
-                            <div className="relative inline-block group">
-                                <button onClick={() =>
-                                    task.status === "NEW" && setEditingTask(task)
-                                }
-                                    disabled={task.status !== "NEW"} className={`py-1 px-4 text-sm rounded-md border font-semibold transition ${task.status === "NEW"
-                                        ? "border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"
-                                        : "border-[#555] text-[#777] bg-[#2A2A2A] cursor-not-allowed opacity-60"
-                                        }`}> Edit
-                                </button>
-
-                                {task.status !== "NEW" && (
-                                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block z-10 bg-[#1B211A] text-[#FFDAB3]/90 text-xs px-3 py-1.5 rounded border border-[#FFDAB3]/30 whitespace-nowrap shadow-md">
-                                        Only new tasks can be edited
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    ))
+                        );
+                    })
                 )}
             </div>
 
             {editingTask && (
-                <AdminEditTaskModal task={editingTask} onClose={() => setEditingTask(null)} onTaskUpdated={(updatedTask) => setEditingTask(updatedTask)} />
+                <AdminEditTaskModal task={editingTask} onClose={handleCloseEditModal} onTaskUpdated={handleTaskUpdated} />
             )}
         </div>
     );

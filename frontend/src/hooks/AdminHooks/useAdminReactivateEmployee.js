@@ -46,7 +46,15 @@ const useAdminReactivateEmployee = ({ empId, refreshEmployees }) => {
         }
     }
 
-    return { loading, showConfirm, setShowConfirm, onHandleReactivate };
+    const handleOnClickReactivate = () => {
+        setShowConfirm(true);
+    }
+
+    const handleOnCancel = () => {
+        !loading && setShowConfirm(false);
+    }
+
+    return { loading, showConfirm, onHandleReactivate, handleOnClickReactivate, handleOnCancel };
 }
 
 export default useAdminReactivateEmployee;

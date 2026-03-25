@@ -4,7 +4,7 @@ import CustomTooltip from "../Basics/CustomTooltip";
 import AdminRemoveTask from "./AdminRemoveTask";
 import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
 
-const AdminTaskStatusCompletedTasks = ({ status, completedTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
+const AdminTaskStatusCompletedTasks = ({ completedTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
 
     const [selectedTask, setSelectedTask] = useState(null);
 

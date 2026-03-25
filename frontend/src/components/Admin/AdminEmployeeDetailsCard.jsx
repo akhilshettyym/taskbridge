@@ -6,14 +6,12 @@ import EmployeeTaskListNo from "../Employee/EmployeeTaskListNo";
 
 const AdminEmployeeDetailsCard = () => {
 
-    const { tasks, employees, fetchEmployees, fetchTasksDetails } = useAdminEmployeeDetailsCard();
+    const { tasks, employees, activeEmployees, fetchEmployees, fetchTasksDetails } = useAdminEmployeeDetailsCard();
 
     useEffect(() => {
         fetchEmployees();
         fetchTasksDetails();
     }, []);
-
-    const activeEmployees = employees.filter((emp) => emp.employmentStatus === "ACTIVE" || "");
 
     return (
         <div className="pb-10">

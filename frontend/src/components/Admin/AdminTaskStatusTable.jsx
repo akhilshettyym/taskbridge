@@ -8,10 +8,8 @@ import AdminTaskStatusInProgressTasks from "./AdminTaskStatusInProgressTasks";
 import AdminTaskStatusCompletedTasks from "./AdminTaskStatusCompletedTasks";
 
 const AdminTaskStatusTable = () => {
-  
-  const { tasks, status, failedTasks, editingTask, allCreatedTasks, inProgressTasks, completedTasks, selectedTask, requestedRejectionTasks, setSelectedTask, setTasks, setEditingTask, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData } = useAdminTaskStatusTable();
 
-  const [activeTab, setActiveTab] = useState("created-tasks");
+  const { tasks, status, failedTasks, editingTask, activeTab, setActiveTab, allCreatedTasks, inProgressTasks, completedTasks, selectedTask, requestedRejectionTasks, setSelectedTask, setTasks, setEditingTask, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData } = useAdminTaskStatusTable();
 
   useEffect(() => {
     fetchTasksDetails();
@@ -34,14 +32,14 @@ const AdminTaskStatusTable = () => {
               ? "bg-[#FFDAB3] text-[#1B211A]"
               : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
             }`}> Created Tasks </button>
-        
+
         <button onClick={() => setActiveTab("inprogress-tasks")}
           className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
             ${activeTab === "inprogress-tasks"
               ? "bg-[#FFDAB3] text-[#1B211A]"
               : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
             }`}> In-Progress Tasks </button>
-        
+
         <button onClick={() => setActiveTab("completed-tasks")}
           className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
             ${activeTab === "completed-tasks"

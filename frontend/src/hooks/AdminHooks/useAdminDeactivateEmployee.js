@@ -47,7 +47,15 @@ const useAdminDeactivateEmployee = ({ empId, onClose, refreshEmployees }) => {
         }
     }
 
-    return { loading, showConfirm, setShowConfirm, onHandleRemove };
+    const handleOnClickShowConfirm = () => {
+        setShowConfirm(true);
+    }
+
+    const handleOnCancel = () => {
+        !loading && setShowConfirm(false);
+    }
+
+    return { loading, showConfirm, onHandleRemove, handleOnClickShowConfirm, handleOnCancel };
 }
 
 export default useAdminDeactivateEmployee;

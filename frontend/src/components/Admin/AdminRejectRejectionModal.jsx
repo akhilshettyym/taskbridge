@@ -1,40 +1,8 @@
-import { useState } from "react";
-import axios from "axios";
-import { reviewRejection } from "../../api/admin";
+import useAdminRejectRejectionModal from "../../hooks/AdminHooks/useAdminRejectRejectionModal";
 
 const AdminRejectRejectionModal = ({ task, onClose, onSuccess }) => {
 
-    const [reason, setReason] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    const wordCount = reason.trim().split(/\s+/).filter(Boolean).length;
-    const lineCount = reason.split("\n").filter(Boolean).length;
-    const isValid = /^[a-zA-Z\s\n.,'-]+$/.test(reason) && (wordCount >= 15 || lineCount >= 2);
-
-    const taskId = task._id || task.id;
-
-    const handleSubmit = async () => {
-        if (!isValid) return;
-
-        try {
-            setLoading(true);
-
-            await reviewRejection({
-                taskId: taskId,
-                decision: "REJECTED",
-                adminReason: reason
-            });
-
-            onSuccess();
-            onClose();
-
-        } catch (err) {
-            console.error(err);
-            alert(err?.response?.data?.message || "Error rejecting request");
-        } finally {
-            setLoading(false);
-        }
-    };
+    const { reason, loading, wordCount, lineCount, isValid, handleSubmit, handleOnChangeSetReason } = useAdminRejectRejectionModal({ task, onClose, onSuccess });
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4 py-6">
@@ -49,12 +17,13 @@ const AdminRejectRejectionModal = ({ task, onClose, onSuccess }) => {
                     <p className="text-sm text-[#FFDAB3]/90">
                         Please provide a reason for rejecting the employee's task rejection request:
                     </p>
-                    <textarea rows={5} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Explain why this task rejection request is being rejected..."
+
+                    <textarea rows={5} value={reason} onChange={handleOnChangeSetReason} placeholder="Explain why this task rejection request is being rejected..."
                         className="w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3] outline-none resize-none focus:border-[#FFDAB3]" />
 
                     <div className="flex justify-between text-xs text-[#FFDAB3]/60">
-                        <span>Minimum 15 words or 2 lines</span>
-                        <span>{wordCount} words • {lineCount} lines</span>
+                        <span> Minimum 15 words or 2 lines </span>
+                        <span>{wordCount} words • {lineCount} lines </span>
                     </div>
                 </div>
 

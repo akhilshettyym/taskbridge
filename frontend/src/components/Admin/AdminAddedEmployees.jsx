@@ -1,14 +1,12 @@
-import { useRef, useEffect } from "../../constants/imports";
-import AdminUpdateEmployeeDetails from "./AdminUpdateEmployeeDetails";
-import { useState } from "react";
-import AdminEmployeeDetailsModal from "./AdminEmployeeDetailsModal";
 import CustomTooltip from "../Basics/CustomTooltip";
+import { useEffect } from "../../constants/imports";
+import AdminEmployeeDetailsModal from "./AdminEmployeeDetailsModal";
+import AdminUpdateEmployeeDetails from "./AdminUpdateEmployeeDetails";
+import useAdminAddedEmployees from "../../hooks/AdminHooks/useAdminAddedEmployees";
 
 const AdminAddedEmployees = ({ employees, setEmployees, refreshEmployees }) => {
 
-  const prevLengthRef = useRef(0);
-
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const { prevLengthRef, selectedEmployee, handleOnClickView, handleOnCloseModal } = useAdminAddedEmployees();
 
   useEffect(() => {
     if (!employees) return;
@@ -17,7 +15,7 @@ const AdminAddedEmployees = ({ employees, setEmployees, refreshEmployees }) => {
 
   return (
     <div className="pb-10">
-      
+
       <div className="flex items-center gap-2">
         <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Update / Remove Employees from the Org. </h1>
         <CustomTooltip id="remove-employees-tooltip" message="Employees may be deactivated and later reactivated, but accounts remaining inactive for more than 30 days will be permanently deleted." place="right" />
@@ -46,7 +44,7 @@ const AdminAddedEmployees = ({ employees, setEmployees, refreshEmployees }) => {
 
                 <AdminUpdateEmployeeDetails emp={emp} setEmployees={setEmployees} />
 
-                <button onClick={() => setSelectedEmployee(emp)} className="mr-3 py-2 px-5 text-xs rounded-md border font-semibold transition border-[#957C62] bg-[#FFDAB3] text-[#2C3930] hover:bg-[#957C62] hover:text-white"> View </button>
+                <button onClick={handleOnClickView} className="mr-3 py-2 px-5 text-xs rounded-md border font-semibold transition border-[#957C62] bg-[#FFDAB3] text-[#2C3930] hover:bg-[#957C62] hover:text-white"> View </button>
 
               </div>
             </div>
@@ -54,7 +52,7 @@ const AdminAddedEmployees = ({ employees, setEmployees, refreshEmployees }) => {
         })}
 
         {selectedEmployee && (
-          <AdminEmployeeDetailsModal refreshEmployees={refreshEmployees} emp={selectedEmployee} onClose={() => setSelectedEmployee(null)} />
+          <AdminEmployeeDetailsModal refreshEmployees={refreshEmployees} emp={selectedEmployee} onClose={handleOnCloseModal} />
         )}
 
       </div>
