@@ -3,15 +3,14 @@ import { PERMISSIONS } from "../constants/permissions.js";
 import authMiddleware from "../middleware/auth.middleware.js";
 import { requireAdmin } from "../middleware/role.middleware.js";
 import { requirePermission } from "../middleware/permission.middleware.js";
+import { createTaskController } from "../controllers/AdminControllers/createTask.controller.js";
+import { updateTaskController } from "../controllers/AdminControllers/updateTask.controller.js";
+import { deleteTaskController } from "../controllers/AdminControllers/deleteTask.controller.js";
 import { updateAdminController } from "../controllers/AdminControllers/updateAdmin.controller.js";
-import { reviewTaskRejectionController } from "../controllers/AdminControllers/reviewTaskRejection.controller.js";
 import { addEmployeeController } from "../controllers/AdminControllers/addEmployee.controller.js";
-import { updateEmployeeController } from "../controllers/EmployeeControllers/updateEmployee.controller.js";
-import { deactivateEmployeeController } from "../controllers/EmployeeControllers/deactivateEmployee.controller.js";
-import { reactivateEmployeeController } from "../controllers/EmployeeControllers/reactivateEmployee.controller.js";
-import { createTaskController } from "../controllers/TaskControllers/createTask.controller.js";
-import { updateTaskController } from "../controllers/TaskControllers/updateTask.controller.js";
-import { deleteTaskController } from "../controllers/TaskControllers/deleteTask.controller.js";
+import { deactivateEmployeeController } from "../controllers/AdminControllers/deactivateEmployee.controller.js";
+import { reactivateEmployeeController } from "../controllers/AdminControllers/reactivateEmployee.controller.js";
+import { reviewTaskRejectionController } from "../controllers/AdminControllers/reviewTaskRejection.controller.js";
 
 const router = express.Router();
 
@@ -38,6 +37,5 @@ router.patch("/tasks/update-task/:taskId", authMiddleware, requireAdmin, require
 
 /* DELETE /api/admin/tasks/delete-task/:taskId */
 router.delete("/tasks/delete-task/:taskId", authMiddleware, requireAdmin, requirePermission(PERMISSIONS.DELETE_TASK), deleteTaskController);
-
 
 export default router;

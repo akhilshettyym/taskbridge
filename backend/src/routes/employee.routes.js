@@ -1,15 +1,15 @@
 import express from "express";
 import { PERMISSIONS } from "../constants/permissions.js";
 import authMiddleware from "../middleware/auth.middleware.js";
-import { requirePermission } from "../middleware/permission.middleware.js";
-import { getOrganizationUsers } from "../controllers/EmployeeControllers/getOrgUsers.controller.js";
-import { getOrganizationInactiveUsers } from "../controllers/EmployeeControllers/getOrgInactiveUsers.controller.js";
-import { acceptTaskController } from "../controllers/TaskControllers/acceptTask.controller.js";
-import { requestTaskRejectionController } from "../controllers/TaskControllers/requestTaskRejection.controller.js";
-import { markTaskAsCompletedController } from "../controllers/TaskControllers/markTaskAsCompleted.controller.js";
-import { markTaskAsFailedController } from "../controllers/TaskControllers/markTaskAsFailed.controller.js";
 import { requireEmployee } from "../middleware/role.middleware.js";
-import { updateEmployeeController } from "../controllers/EmployeeControllers/updateEmployee.controller.js";
+import { requirePermission } from "../middleware/permission.middleware.js";
+import { acceptTaskController } from "../controllers/EmployeeControllers/acceptTask.controller.js";
+import { getOrganizationUsers } from "../controllers/EmployeeControllers/getOrgUsers.controller.js";
+import { updateEmployeeController } from "../controllers/AdminControllers/updateEmployee.controller.js";
+import { markTaskAsFailedController } from "../controllers/EmployeeControllers/markTaskAsFailed.controller.js";
+import { getOrganizationInactiveUsers } from "../controllers/EmployeeControllers/getOrgInactiveUsers.controller.js";
+import { markTaskAsCompletedController } from "../controllers/EmployeeControllers/markTaskAsCompleted.controller.js";
+import { requestTaskRejectionController } from "../controllers/EmployeeControllers/requestTaskRejection.controller.js";
 
 const router = express.Router();
 

@@ -5,12 +5,12 @@ import { requireSuperAdmin } from "../middleware/role.middleware.js";
 import { requirePermission } from "../middleware/permission.middleware.js";
 import { getAllTasksDetails } from "../controllers/SuperAdminControllers/getAllTasks.controller.js";
 import { getAllEmployeesDetails } from "../controllers/SuperAdminControllers/getAllEmployees.controller.js";
-import { rejectOrganization } from "../controllers/OrganizationControllers/rejectOrganization.controller.js";
-import { revokeOrganization } from "../controllers/OrganizationControllers/revokeOrganization.controller.js";
-import { approveOrganization } from "../controllers/OrganizationControllers/approveOrganization.controller.js";
+import { rejectOrganization } from "../controllers/SuperAdminControllers/rejectOrganization.controller.js";
+import { revokeOrganization } from "../controllers/SuperAdminControllers/revokeOrganization.controller.js";
+import { approveOrganization } from "../controllers/SuperAdminControllers/approveOrganization.controller.js";
 import { getAllOrganizationDetails } from "../controllers/SuperAdminControllers/getAllOrganization.controller.js";
+import { reactivateOrganization } from "../controllers/SuperAdminControllers/reactivateOrganization.controller.js";
 import { deleteOrganizationController } from "../controllers/SuperAdminControllers/deleteOrganization.controller.js";
-import { reactivateOrganization } from "../controllers/OrganizationControllers/reactivateOrganization.controller.js";
 
 const router = express.Router();
 
