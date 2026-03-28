@@ -1,6 +1,7 @@
-import SuperAdminControlledControlPanel from "../../../components/SuperAdmin/SuperAdminController/SuperAdminControlledComponents/SuperAdminControlledControlPanel";
-import SuperAdminTotalCount from "../../../components/SuperAdmin/SuperAdminTotalCount";
 import { Header } from "../../../constants/imports";
+import SuperAdminTotalCount from "../../../components/SuperAdmin/SuperAdminTotalCount";
+import SuperAdminAdminDashboard from "../../../components/SuperAdmin/SuperAdminController/SuperAdminAdminDashboard";
+import SuperAdminControlledControlPanel from "../../../components/SuperAdmin/SuperAdminController/SuperAdminControlledComponents/SuperAdminControlledControlPanel";
 
 const SuperAdminAdminDashboardPage = () => {
 
@@ -9,6 +10,7 @@ const SuperAdminAdminDashboardPage = () => {
       <Header />
       <SuperAdminTotalCount />
       <SuperAdminControlledControlPanel />
+      <SuperAdminAdminDashboard />
     </div>
   )
 }

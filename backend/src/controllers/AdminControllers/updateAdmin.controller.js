@@ -1,67 +1,54 @@
 import userModel from "../../models/user.model.js";
 
 export const updateAdminController = async (req, res) => {
-    
     try {
         const loggedInUser = req.user;
+        const { adminId } = req.params;
+        const { firstName, lastName, email, dateOfBirth, designation } = req.body;
 
-        if (loggedInUser.role !== "ADMIN") {
-            return res.status(403).json({
-                success: false,
-                message: "Only admins can update the details",
-            });
+        let adminToUpdate;
+
+        if (loggedInUser.role === "SUPER_ADMIN" && adminId) {
+            adminToUpdate = await userModel.findById(adminId);
+        } else {
+            adminToUpdate = await userModel.findById(loggedInUser._id);
         }
 
-        const admin = await userModel.findById(loggedInUser._id);
-
-        if (!admin) {
+        if (!adminToUpdate) {
             return res.status(404).json({
                 success: false,
                 message: "Admin not found",
             });
         }
 
-        if (admin.employmentStatus !== "ACTIVE") {
+        if (adminToUpdate.employmentStatus !== "ACTIVE") {
             return res.status(400).json({
                 success: false,
                 message: "Only active admin details can be updated",
             });
         }
 
-        const { firstName, lastName, email, dateOfBirth, designation } = req.body;
-
-        if (
-            firstName === undefined &&
-            lastName === undefined &&
-            email === undefined &&
-            designation === undefined &&
-            dateOfBirth === undefined
-        ) {
+        if (firstName === undefined && lastName === undefined && email === undefined && designation === undefined && dateOfBirth === undefined) {
             return res.status(400).json({
                 success: false,
                 message: "No fields provided for update",
             });
         }
 
-        if (email && email !== admin.email) {
-            const existingEmail = await userModel.findOne({
-                email,
-                _id: { $ne: admin._id }
-            });
-
-            if (existingEmail) {
+        if (email && email !== adminToUpdate.email) {
+            const existingEmail = await userModel.findOne({ email });
+            if (existingEmail && existingEmail._id.toString() !== adminToUpdate._id.toString()) {
                 return res.status(409).json({
                     success: false,
                     message: "Email already in use",
                 });
             }
-
-            admin.email = email;
+            adminToUpdate.email = email;
         }
 
-        if (firstName !== undefined) admin.firstName = firstName;
-        if (lastName !== undefined) admin.lastName = lastName;
-        if (designation !== undefined) admin.designation = designation;
+        if (firstName !== undefined) adminToUpdate.firstName = firstName;
+        if (lastName !== undefined) adminToUpdate.lastName = lastName;
+        if (designation !== undefined) adminToUpdate.designation = designation;
 
         if (dateOfBirth !== undefined) {
             const parsedDate = new Date(dateOfBirth);
@@ -71,18 +58,25 @@ export const updateAdminController = async (req, res) => {
                     message: "Invalid DOB format",
                 });
             }
-            admin.dateOfBirth = parsedDate;
+            adminToUpdate.dateOfBirth = parsedDate;
         }
 
-        await admin.save();
+        await adminToUpdate.save();
 
         return res.status(200).json({
             success: true,
             message: "Admin details updated successfully",
-            admin,
+            admin: adminToUpdate,
         });
 
     } catch (error) {
+        if (error.code === 11000 && error.keyPattern && error.keyPattern.email) {
+            return res.status(409).json({
+                success: false,
+                message: "Email already in use",
+            });
+        }
+
         return res.status(500).json({
             success: false,
             message: "Error updating admin details",

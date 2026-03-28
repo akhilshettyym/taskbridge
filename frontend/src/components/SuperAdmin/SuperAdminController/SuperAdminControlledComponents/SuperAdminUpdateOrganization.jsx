@@ -1,77 +1,117 @@
-import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { updateOrganization } from "../../../../api/organization";
 
-const SuperAdminUpdateOrganization = () => {
+const SuperAdminUpdateOrganization = ({ organization, refreshOrganization }) => {
 
-    const handleUpdateOrganization = () => {
+    const [loading, setLoading] = useState(false);
+    const orgId = localStorage.getItem("orgId");
 
-    }
+    const [formData, setFormData] = useState({
+        orgName: "",
+        orgCountry: "",
+        orgDomain: "",
+        orgDescription: ""
+    });
 
     useEffect(() => {
-        fetchOrganization();
-    }, []);
+        if (organization) {
+            setFormData({
+                orgName: organization.orgName || "",
+                orgCountry: organization.orgCountry || "",
+                orgDomain: organization.orgDomain || "",
+                orgDescription: organization.orgDescription || ""
+            });
+        }
+    }, [organization]);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleUpdateOrganization = async (e) => {
+
+        e.preventDefault();
+        if (loading) return;
+
+        setLoading(true);
+
+        try {
+
+            const payload = {
+                orgName: formData.orgName.trim(),
+                orgCountry: formData.orgCountry.trim(),
+                orgDomain: formData.orgDomain.trim(),
+                orgDescription: formData.orgDescription.trim()
+            };
+
+            if (!orgId) throw new Error("Organization Id missing");
+
+            const response = await updateOrganization({ orgId, ...payload });
+
+            if (!response?.success) {
+                throw new Error(response?.message || "Failed to update organization");
+            }
+
+            toast.success("Organization updated successfully");
+            refreshOrganization();
+
+        } catch (error) {
+
+            const msg =
+                error.response?.data?.message ||
+                error.message ||
+                "Failed to update organization";
+
+            toast.error(msg);
+            console.error(error);
+
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
-        <div className="pb-10">
+        <form onSubmit={handleUpdateOrganization} className="w-full bg-[#1B211A] p-8 rounded-2xl border border-[#FFDAB3]/40 flex flex-wrap gap-8">
 
-            {/* <div className="flex items-center gap-2 mb-5 mt-5">
-                <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Update Organization Details </h1>
-                <CustomTooltip id="update-org-tooltip" message="You can update the organization details." place="right" />
-            </div> */}
+            <div className="w-full">
+                <h2 className="text-xl uppercase text-[#FFDAB3]"> Update Organization </h2>
+            </div>
+
+            <div className="w-full md:w-[48%]">
+                <label className="text-[#FFDAB3]/80 uppercase text-sm"> Organization Name </label>
+                <input name="orgName" value={formData.orgName} onChange={handleChange} className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3]" />
+            </div>
+
+            <div className="w-full md:w-[48%]">
+                <label className="text-[#FFDAB3]/80 uppercase text-sm"> Organization Domain </label>
+                <input name="orgDomain" value={formData.orgDomain} onChange={handleChange} className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3]" />
+            </div>
+
+            <div className="w-full">
+                <label className="text-[#FFDAB3]/80 uppercase text-sm"> Organization Country </label>
+
+                <select name="orgCountry" value={formData.orgCountry} onChange={handleChange} className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3]">
+                    <option value="IN"> INDIA </option>
+                    <option value="US"> USA </option>
+                    <option value="CA"> CANADA </option>
+                    <option value="UK"> UNITED KINGDOM </option>
+                </select>
+            </div>
+
+            <div className="w-full">
+                <label className="text-[#FFDAB3]/80 uppercase text-sm"> Description </label>
+
+                <textarea rows={4} name="orgDescription" value={formData.orgDescription} onChange={handleChange} className="mt-2 w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3]" />
+            </div>
 
             <div className="w-full flex justify-center">
-
-                <form onSubmit={handleUpdateOrganization} className="w-full bg-[#1B211A] p-8 rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8">
-
-                    <div className="w-full flex justify-between items-center">
-                        <h2 className="text-xl uppercase tracking-wide text-[#FFDAB3]"> Update Organization Details </h2>
-                    </div>
-
-                    <div className="w-full md:w-[48%] flex flex-col gap-6">
-                        <div>
-                            <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Organization Name </label>
-                            <input required name="orgName" value={formData.orgName} onChange={handleChange} className="mt-2 w-full text-[#FFDAB3] bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
-                        </div>
-                    </div>
-
-                    <div className="w-full md:w-[48%] flex flex-col gap-6">
-                        <div>
-                            <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Organization Domain </label>
-                            <input required name="orgDomain" value={formData.orgDomain} onChange={handleChange} className="mt-2 w-full text-[#FFDAB3] bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition" />
-                        </div>
-                    </div>
-
-                    <div className="w-full flex justify-center">
-                        <div className="w-[50%] flex flex-col">
-                            <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80 flex justify-center"> Organization Country </label>
-                            <div className="relative mt-2">
-                                <select name="orgCountry" value={formData.orgCountry} onChange={handleChange} className="w-full appearance-none text-[#FFDAB3] bg-[#0F1412] border border-[#FFDAB3]/30 rounded-2xl px-4 py-3 pr-10 outline-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition">
-                                    <option value="" disabled>Select organization country</option>
-                                    <option value="IN">INDIA</option>
-                                    <option value="US">USA</option>
-                                    <option value="CA">CANADA</option>
-                                    <option value="UK">UNITED KINGDOM</option>
-                                </select>
-                                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#FFDAB3]"> ↓ </span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="w-full flex justify-center">
-                        <div className="w-full flex flex-col">
-                            <label className="text-md uppercase tracking-wide text-[#FFDAB3]/80"> Organization Description </label>
-                            <textarea name="orgDescription" rows="5" value={formData.orgDescription} onChange={handleChange} placeholder="Briefly describe what your organization does" className="bg-[#0F1412] text-[#FFDAB3] border border-[#FFDAB3]/30 rounded-2xl px-4 py-4 outline-none resize-none focus:border-[#FFDAB3] focus:ring-1 focus:ring-[#FFDAB3]/50 transition mt-2" />
-                        </div>
-                    </div>
-
-                    <div className="w-full flex flex-col items-center pt-2">
-                        <button type="submit" disabled={loading} className="bg-[#FFDAB3] text-[#1B211A] font-bold px-12 py-3 rounded-full hover:brightness-110 active:scale-95 transition-all uppercase"> {loading ? "Updating..." : "Update"} </button>
-                    </div>
-
-                </form>
-
+                <button disabled={loading} className="bg-[#FFDAB3] text-black px-10 py-3 rounded-full font-semibold"> {loading ? "Updating..." : "Update Organization"} </button>
             </div>
-        </div>
-    )
-}
+
+        </form>
+    );
+};
 
 export default SuperAdminUpdateOrganization;
