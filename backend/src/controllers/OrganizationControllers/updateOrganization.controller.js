@@ -5,14 +5,28 @@ export const updateOrganizationController = async (req, res) => {
     try {
         const loggedInUser = req.user;
 
-        if (loggedInUser.role !== "ADMIN") {
+        // if (loggedInUser.role !== "ADMIN") {
+        //     return res.status(403).json({
+        //         success: false,
+        //         message: "Only admins can update organization details",
+        //     });
+        // }
+
+        if (loggedInUser.role !== "ADMIN" && loggedInUser.role !== "SUPER_ADMIN") {
             return res.status(403).json({
                 success: false,
                 message: "Only admins can update organization details",
             });
         }
 
-        const organization = await orgModel.findById(loggedInUser.organizationId);
+        // const organization = await orgModel.findById(loggedInUser.organizationId);
+
+        const orgId =
+            loggedInUser.role === "SUPER_ADMIN"
+                ? req.params.orgId
+                : loggedInUser.organizationId;
+
+        const organization = await orgModel.findById(orgId);
 
         if (!organization) {
             return res.status(404).json({

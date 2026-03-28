@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SuperAdminViewOrgModal from "./SuperAdminViewOrgModal";
 import useAllTasksDetails from "../../utils/superAdminDashboard/useAllTasksDetails";
 import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
 import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
+import { useDispatch } from "react-redux";
 
 const SuperAdminDashboard = () => {
 
+  const navigate = useNavigate();
 
   const { allOrganization, fetchAllOrganization } = useAllOrganizationDetails();
   const { allEmployees, fetchAllEmployees } = useAllEmployeeDetails();
@@ -31,6 +34,15 @@ const SuperAdminDashboard = () => {
     };
 
     return countryMap[code?.toUpperCase()] || code;
+  };
+
+  console.log("ORGID PRO", enterOrg)
+
+  const handleEnterOrg = () => {
+    if (enterOrg) {
+      localStorage.setItem("orgId", enterOrg);
+      navigate("/superadmin/control/organization-dashboard");
+    }
   };
 
   return (
@@ -125,6 +137,8 @@ const SuperAdminDashboard = () => {
 
             <div className="flex justify-end gap-3 mt-6">
               <button onClick={() => setEnterOrg(null)} className="px-4 py-2 text-sm border border-[#FFDAB3]/30 text-[#F8F8F2] rounded-md hover:bg-[#FFDAB3]/10"> Cancel </button>
+
+              <button onClick={handleEnterOrg} className="px-4 py-2 text-sm rounded-md bg-[#FFDAB3] text-black font-semibold hover:opacity-90" > Enter Organization </button>
             </div>
           </div>
         </div>

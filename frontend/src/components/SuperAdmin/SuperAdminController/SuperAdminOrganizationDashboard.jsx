@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import useSuperAdminGetOrgSpecificOrganizationDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
 import useSuperAdminGetOrgSpecificEmployeeDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
-import AdminUpdateOrganizationDetails from "../../Admin/AdminUpdateOrganizationDetails";
-import { useParams } from "react-router-dom";
 
 const SuperAdminOrganizationDashboard = () => {
 
-  const { orgId } = useParams();
+  const orgId = localStorage.getItem("orgId");
 
   const [activeTab, setActiveTab] = useState("organization-details");
 
@@ -19,13 +17,6 @@ const SuperAdminOrganizationDashboard = () => {
       fetchOrgSpecificEmployees();
     }
   }, [orgId]);
-
-  // const refreshOrgData = async () => {
-  //   await Promise.all([
-  //     fetchSpecificOrganization(),
-  //     fetchOrgSpecificEmployees(),
-  //   ]);
-  // };
 
   const admins = orgSpecificEmployees?.filter((emp) => emp.role === "ADMIN") || [];
   const employees = orgSpecificEmployees?.filter((emp) => emp.role === "EMPLOYEE") || [];

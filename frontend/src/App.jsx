@@ -29,6 +29,10 @@ import SuperAdminApproveOrganizationsPage from "./pages/SuperAdminPages/SuperAdm
 import SuperAdminReactivateOrganizationsPage from "./pages/SuperAdminPages/SuperAdminReactivateOrganizationsPage";
 import SuperAdminRevokeOrganizationsPage from "./pages/SuperAdminPages/SuperAdminRevokeOrganizationsPage";
 import SuperAdminRejectedOrganizationsPage from "./pages/SuperAdminPages/SuperAdminRejectedOrganizationsPage";
+import SuperAdminOrganizationDashboardPage from "./pages/SuperAdminPages/SuperAdminControllerPages/SuperAdminOrganizationDashboardPage";
+import SuperAdminAdminDashboardPage from "./pages/SuperAdminPages/SuperAdminControllerPages/SuperAdminAdminDashboardPage";
+import SuperAdminEmployeeDashboardPage from "./pages/SuperAdminPages/SuperAdminControllerPages/SuperAdminEmployeeDashboardPage";
+import SuperAdminTasksDashboardPage from "./pages/SuperAdminPages/SuperAdminControllerPages/SuperAdminTasksDashboardPage";
 
 const App = () => {
 
@@ -124,6 +128,19 @@ const App = () => {
 
         {/* /superadmin/reactivate-organizations */}
         <Route path="/superadmin/reactivate-organizations" element={<SuperAdminReactivateOrganizationsPage />} />
+
+
+        {/* /superadmin/control/organization-dashboard */}
+        <Route path="/superadmin/control/organization-dashboard" element={<SuperAdminOrganizationDashboardPage />} />
+
+        {/* /superadmin/control/admin-dashboard */}
+        <Route path="/superadmin/control/admin-dashboard" element={<SuperAdminAdminDashboardPage />} />
+
+        {/* /superadmin/control/employee-dashboard */}
+        <Route path="/superadmin/control/employee-dashboard" element={<SuperAdminEmployeeDashboardPage />} />
+
+        {/* /superadmin/control/tasks-dashboard */}
+        <Route path="/superadmin/control/tasks-dashboard" element={<SuperAdminTasksDashboardPage />} />
 
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 

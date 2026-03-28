@@ -6,27 +6,27 @@ const SuperAdminControlledControlPanel = () => {
     const { pathname } = useLocation();
 
     const navItems = [
-        {
-            label: "Organizations",
-            path: "/superadmin/control/organization-dashboard",
-            icon: <FiLayers size={16} />
-        },
-        {
-            label: "Admins",
-            path: "/superadmin/control/admin-dashboard",
-            icon: <FiShield size={16} />
-        },
-        {
-            label: "Employees",
-            path: "/superadmin/control/employee-dashboard",
-            icon: <FiUsers size={16} />
-        },
-        {
-            label: "Tasks",
-            path: "/superadmin/control/tasks-dashboard",
-            icon: <FiClipboard size={16} />
-        },
-    ];
+    {
+        label: "Organization Management",
+        path: "/superadmin/control/organization-dashboard",
+        icon: <FiLayers size={16} />
+    },
+    {
+        label: "Admin Management",
+        path: "/superadmin/control/admin-dashboard",
+        icon: <FiShield size={16} />
+    },
+    {
+        label: "Employee Management",
+        path: "/superadmin/control/employee-dashboard",
+        icon: <FiUsers size={16} />
+    },
+    {
+        label: "Task Management",
+        path: "/superadmin/control/tasks-dashboard",
+        icon: <FiClipboard size={16} />
+    },
+];
 
     return (
         <div className="mt-5">
