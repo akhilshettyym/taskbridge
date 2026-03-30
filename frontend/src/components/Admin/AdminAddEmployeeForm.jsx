@@ -55,8 +55,6 @@ const AdminAddEmployeeForm = ({ refreshEmployeesData }) => {
                 </form>
             </div>
 
-            <hr className="my-6 border border-[#FFDAB3]/40" />
-
         </>
     );
 };

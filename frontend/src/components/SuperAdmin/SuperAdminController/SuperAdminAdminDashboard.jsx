@@ -2,19 +2,18 @@ import { useEffect, useState } from "react";
 import useSuperAdminGetOrgSpecificEmployeeDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
 import useSuperAdminGetOrgSpecificOrganizationDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
 import SuperAdminAdminDetails from "./SuperAdminControlledComponents/SuperAdminAdminDetails";
+import SuperAdminAddMoreAdmins from "./SuperAdminControlledComponents/SuperAdminAddMoreAdmins";
 
 const SuperAdminAdminDashboard = () => {
 
   const orgId = localStorage.getItem("orgId");
 
-  const [activeTab, setActiveTab] = useState("admin-details");
+  const [activeTab, setActiveTab] = useState("add-more-admins");
 
   const { specificOrganization, fetchSpecificOrganization } = useSuperAdminGetOrgSpecificOrganizationDetails({ orgId });
   const { orgSpecificEmployees, fetchOrgSpecificEmployees } = useSuperAdminGetOrgSpecificEmployeeDetails({ orgId });
 
   const admins = orgSpecificEmployees?.filter((emp) => emp.role === "ADMIN") || [];
-  const employees = orgSpecificEmployees?.filter((emp) => emp.role === "EMPLOYEE") || [];
-  const createdByAdmin = admins?.find((admin) => admin._id === specificOrganization?.createdBy);
 
   useEffect(() => {
     if (orgId) {
@@ -47,11 +46,11 @@ const SuperAdminAdminDashboard = () => {
       <div className="bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25 mt-5 pb-5">
 
         {activeTab === "add-more-admins" && (
-          <></>
+          <SuperAdminAddMoreAdmins refreshAdmins={fetchOrgSpecificEmployees} onAdded={() => setActiveTab("admin-details")} />
         )}
 
         {activeTab === "admin-details" && (
-          <SuperAdminAdminDetails admins={admins} />
+          <SuperAdminAdminDetails admins={admins} refreshAdmins={fetchOrgSpecificEmployees} />
         )}
 
       </div>

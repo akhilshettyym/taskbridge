@@ -14,6 +14,8 @@ import { deleteOrganizationController } from "../controllers/SuperAdminControlle
 import { getSpecificOrganizationDetails } from "../controllers/SuperAdminControllers/getSpecificOrganization.controller.js";
 import { getOrgSpecificEmployeeDetails } from "../controllers/SuperAdminControllers/getSpecificOrgEmployees.controller.js";
 import { getOrgSpecificTasksDetails } from "../controllers/SuperAdminControllers/getSpecificOrgTasks.controller.js";
+import { addAdminController } from "../controllers/SuperAdminControllers/addAdmin.controller.js";
+import { deleteAdminEmployeeController } from "../controllers/SuperAdminControllers/deleteAdminEmployee.controller.js";
 
 const router = express.Router();
 
@@ -51,5 +53,11 @@ router.get("/get-org-specific-employees/:orgId", authMiddleware, requireSuperAdm
 /* GET /api/superadmin/get-specific-tasks-details/:orgId */
 router.get("/get-org-specific-tasks/:orgId", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.VIEW_ALL_TASKS), getOrgSpecificTasksDetails);
 
+/* POST /api/superadmin/add-admin */
+router.post("/add-admin", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.CREATE_ADMIN), addAdminController);
+
+
+/* DELETE /api/superadmin/delete-admin-employee/:empId */
+router.delete("/delete-admin-employee/:empId", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.DELETE_ADMIN_EMPLOYEE), deleteAdminEmployeeController);
 
 export default router;

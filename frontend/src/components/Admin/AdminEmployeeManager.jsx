@@ -31,6 +31,8 @@ const AdminEmployeeManager = () => {
 
             <AdminAddEmployeeForm refreshEmployees={fetchEmployees} />
 
+            <hr className="my-6 border border-[#FFDAB3]/40" />
+
             <div className="flex gap-4 mt-8 mb-5">
                 <button onClick={handleOnClickActiveTab} className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
                         ${activeTab === "active"

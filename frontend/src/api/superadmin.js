@@ -1,4 +1,4 @@
-import { validateId } from "./helpers/apiHelpers";
+import { handleApiError, validateId, validatePayload } from "./helpers/apiHelpers";
 import api from "./instance/axios";
 
 export async function getAllOrganizationDetails() {
@@ -70,6 +70,35 @@ export async function deleteRejectedOrganization({ orgId }) {
 
     try {
         const res = await api.delete(`${import.meta.env.VITE_API_SUPERADMIN_DELETE_ORGANIZATION}/${orgId}`);
+        return res.data;
+
+    } catch (error) {
+        handleApiError(error);
+    }
+}
+
+export async function addAdmin(payload) {
+    validatePayload(payload);
+
+    try {
+        const res = await api.post(
+            `${import.meta.env.VITE_API_SUPERADMIN_ADD_ADMIN}`,
+            payload
+        );
+
+        return res.data;
+
+    } catch (error) {
+        handleApiError(error);
+        throw error;
+    }
+}
+
+export async function deleteAdminEmployee({ empId }) {
+    validateId(empId, "Emp ID");
+
+    try {
+        const res = await api.delete(`${import.meta.env.VITE_API_SUPERADMIN_DELETE_ADMIN_EMPLOYEE}/${empId}`);
         return res.data;
 
     } catch (error) {

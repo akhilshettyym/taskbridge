@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import SuperAdminUpdateAdminModal from "./SuperAdminUpdateAdminModal";
 import AdminDeactivateEmployee from "../../../Admin/AdminDeactivateEmployee";
 import AdminReactivateEmployee from "../../../Admin/AdminReactivateEmployee";
+import { deleteAdminEmployee } from "../../../../api/superadmin";
+import toast from "react-hot-toast";
 
-const SuperAdminAdminDetails = ({ admins = [] }) => {
+const SuperAdminAdminDetails = ({ admins = [], refreshAdmins }) => {
 
     const [selectedAdmin, setSelectedAdmin] = useState(null);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [localAdmins, setLocalAdmins] = useState([]);
-    // const prevLengthRef = useRef(0);
+    const [removingId, setRemovingId] = useState(null);
 
     useEffect(() => {
         setLocalAdmins(admins);
@@ -26,6 +28,42 @@ const SuperAdminAdminDetails = ({ admins = [] }) => {
             )
         );
         setShowUpdateModal(false);
+    };
+
+    const handleRemoveAdmin = async (empId) => {
+
+        if (removingId) return;
+        setRemovingId(empId);
+
+        try {
+
+            const response = await deleteAdminEmployee({ empId });
+
+            if (!response?.success) {
+                throw new Error(response?.message || "Failed to remove admin");
+            }
+
+            setLocalAdmins(prev => prev.filter(a => a._id !== empId));
+
+            toast.success("Admin removed successfully");
+
+            refreshAdmins?.();
+
+        } catch (error) {
+
+            let msg = "Something went wrong while removing admin";
+
+            if (error?.response?.data?.message) {
+                msg = error.response.data.message;
+            } else if (error?.message) {
+                msg = error.message;
+            }
+
+            toast.error(msg);
+
+        } finally {
+            setRemovingId(null);
+        }
     };
 
     return (
@@ -65,30 +103,18 @@ const SuperAdminAdminDetails = ({ admins = [] }) => {
                                 <button onClick={() => handleUpdateClick(admin)} className="px-4 py-2 rounded-lg bg-[#FFDAB3] text-[#1B211A] font-semibold hover:scale-105 transition"> Update </button>
 
                                 {isActive ? (
-                                    <AdminDeactivateEmployee empId={admin._id}
-                                        refreshEmployees={(updatedEmployee) => {
-                                            if (!updatedEmployee) return;
-
-                                            setLocalAdmins(prev =>
-                                                prev.map(a =>
-                                                    a._id === updatedEmployee._id ? updatedEmployee : a
-                                                )
-                                            );
-                                        }} />
+                                    <AdminDeactivateEmployee empId={admin._id} refreshEmployees={() => refreshAdmins?.()} />
                                 ) : (
-                                    <AdminReactivateEmployee empId={admin._id}
-                                        refreshEmployees={(updatedEmployee) => {
-                                            if (!updatedEmployee) return;
-
-                                            setLocalAdmins(prev =>
-                                                prev.map(a =>
-                                                    a._id === updatedEmployee._id ? updatedEmployee : a
-                                                )
-                                            );
-                                        }} />
+                                    <>
+                                        <AdminReactivateEmployee empId={admin._id} refreshEmployees={() => refreshAdmins?.()} />
+                                        <button onClick={() => handleRemoveAdmin(admin._id)} disabled={removingId === admin._id} className={`px-4 py-1 rounded-lg border transition-colors duration-200 ${removingId === admin._id
+                                            ? "border-red-400/40 text-red-400/50 cursor-not-allowed"
+                                            : "border-red-400 text-red-400 hover:bg-red-500 hover:text-white"
+                                            }`}>
+                                            {removingId === admin._id ? "Removing..." : "Remove"}
+                                        </button>
+                                    </>
                                 )}
-
-                                <button className="px-4 py-1 rounded-lg border border-red-400 text-red-400 hover:bg-red-400/10 transition"> Remove </button>
                             </div>
                         </div>
                     </div>
