@@ -1,0 +1,82 @@
+import crypto from "node:crypto";
+import orgModel from "../../models/org.model.js";
+import taskModel from "../../models/task.model.js";
+import userModel from "../../models/user.model.js";
+
+export const createNewTaskController = async (req, res) => {
+  try {
+    const { orgId } = req.params;
+
+    const {
+      title,
+      category,
+      description,
+      assignedTo,
+      dueDate,
+      priority
+    } = req.body;
+
+    if (!orgId) {
+      return res.status(400).json({
+        success: false,
+        message: "Organization ID is required"
+      });
+    }
+
+    const organization = await orgModel.findById(orgId);
+
+    if (!organization) {
+      return res.status(404).json({
+        success: false,
+        message: "Organization not found",
+      });
+    }
+
+    if (organization.status !== "ACTIVE") {
+      return res.status(400).json({
+        success: false,
+        message: "Organization is not active"
+      });
+    }
+
+    const assignedUser = await userModel.findById(assignedTo);
+
+    if (!assignedUser || assignedUser.employmentStatus === "IN-ACTIVE") {
+      return res.status(404).json({
+        success: false,
+        message: "Assigned user not found"
+      });
+    }
+
+    if (assignedUser.organizationId.toString() !== orgId.toString()) {
+      return res.status(400).json({
+        success: false,
+        message: "User does not belong to selected organization"
+      });
+    }
+
+    const task = await taskModel.create({
+      uuid: crypto.randomUUID(),
+      title,
+      category,
+      description,
+      organizationId: orgId,
+      assignedTo,
+      dueDate,
+      priority
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: "Task created successfully",
+      task
+    });
+
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Error creating the task",
+      error: error.message
+    });
+  }
+};   

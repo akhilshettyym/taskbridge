@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react";
-import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
-import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
 import { toast } from "../../constants/imports";
 import { deleteRejectedOrganization } from "../../api/superadmin";
+import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
+import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
 
 const SuperAdminRejectedOrganizations = () => {
+
+  const [loadingId, setLoadingId] = useState(null);
 
   const { allOrganization, fetchAllOrganization } = useAllOrganizationDetails();
   const { allEmployees, fetchAllEmployees } = useAllEmployeeDetails();
 
-  const [loadingId, setLoadingId] = useState(null);
-
-  const rejectedOrganizations =
-    allOrganization?.filter(org => org?.status === "REJECTED") || [];
-
-  useEffect(() => {
-    fetchAllOrganization();
-    fetchAllEmployees();
-  }, []);
+  const rejectedOrganizations = allOrganization?.filter(org => org?.status === "REJECTED") || [];
 
   const getCountryName = (code) => {
     const countryMap = {
@@ -46,6 +40,11 @@ const SuperAdminRejectedOrganizations = () => {
       setLoadingId(null);
     }
   };
+
+  useEffect(() => {
+    fetchAllOrganization();
+    fetchAllEmployees();
+  }, []);
 
   return (
     <div className="pb-10 mt-5">

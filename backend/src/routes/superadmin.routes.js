@@ -16,6 +16,8 @@ import { getOrgSpecificEmployeeDetails } from "../controllers/SuperAdminControll
 import { getOrgSpecificTasksDetails } from "../controllers/SuperAdminControllers/getSpecificOrgTasks.controller.js";
 import { addAdminController } from "../controllers/SuperAdminControllers/addAdmin.controller.js";
 import { deleteAdminEmployeeController } from "../controllers/SuperAdminControllers/deleteAdminEmployee.controller.js";
+import { createNewTaskController } from "../controllers/SuperAdminControllers/createNewTask.controller.js";
+import { updateNewTaskController } from "../controllers/SuperAdminControllers/updateNewTask.controller.js";
 
 const router = express.Router();
 
@@ -59,5 +61,11 @@ router.post("/add-admin", authMiddleware, requireSuperAdmin, requirePermission(P
 
 /* DELETE /api/superadmin/delete-admin-employee/:empId */
 router.delete("/delete-admin-employee/:empId", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.DELETE_ADMIN_EMPLOYEE), deleteAdminEmployeeController);
+
+/* POST /api/superadmin/create-tasks/:taskId */
+router.post("/create-tasks/:orgId", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.CREATE_TASK), createNewTaskController);
+
+/* PATCH /api/superadmin/tasks/update-task/:taskId */
+router.patch("/update-task/org/:orgId/task/:taskId", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.UPDATE_TASK), updateNewTaskController);
 
 export default router;

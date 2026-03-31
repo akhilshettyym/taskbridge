@@ -29,10 +29,11 @@ import SuperAdminApproveOrganizationsPage from "./pages/SuperAdminPages/SuperAdm
 import SuperAdminReactivateOrganizationsPage from "./pages/SuperAdminPages/SuperAdminReactivateOrganizationsPage";
 import SuperAdminRevokeOrganizationsPage from "./pages/SuperAdminPages/SuperAdminRevokeOrganizationsPage";
 import SuperAdminRejectedOrganizationsPage from "./pages/SuperAdminPages/SuperAdminRejectedOrganizationsPage";
-import SuperAdminOrganizationDashboardPage from "./pages/SuperAdminPages/SuperAdminControllerPages/SuperAdminOrganizationDashboardPage";
-import SuperAdminAdminDashboardPage from "./pages/SuperAdminPages/SuperAdminControllerPages/SuperAdminAdminDashboardPage";
-import SuperAdminEmployeeDashboardPage from "./pages/SuperAdminPages/SuperAdminControllerPages/SuperAdminEmployeeDashboardPage";
-import SuperAdminTasksDashboardPage from "./pages/SuperAdminPages/SuperAdminControllerPages/SuperAdminTasksDashboardPage";
+
+import SuperAdminTasksDashboardPage from "./pages/SuperAdminPages/SuperAdminTasksDashboardPage";
+import SuperAdminAdminDashboardPage from "./pages/SuperAdminPages/SuperAdminAdminDashboardPage";
+import SuperAdminEmployeeDashboardPage from "./pages/SuperAdminPages/SuperAdminEmployeeDashboardPage";
+import SuperAdminOrganizationDashboardPage from "./pages/SuperAdminPages/SuperAdminOrganizationDashboardPage"
 
 const App = () => {
 

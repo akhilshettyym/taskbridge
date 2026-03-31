@@ -50,9 +50,9 @@ const AdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
                         <div className="col-span-2 relative">
                             <label className="block text-sm uppercase text-[#FFDAB3]/80 mb-2 font-medium"> Priority </label>
                             <select required name="priority" value={formData.priority} onChange={handleChange} className="w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3] appearance-none outline-none focus:border-[#FFDAB3]">
-                                <option value="HIGH">High</option>
-                                <option value="MEDIUM">Medium</option>
-                                <option value="LOW">Low</option>
+                                <option value="HIGH"> High </option>
+                                <option value="MEDIUM"> Medium </option>
+                                <option value="LOW"> Low </option>
                             </select>
                             <span className="pointer-events-none absolute right-4 top-[50%] text-[#FFDAB3]/60"> ↓ </span>
                         </div>

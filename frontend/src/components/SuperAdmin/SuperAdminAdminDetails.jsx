@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import SuperAdminUpdateAdminModal from "./SuperAdminUpdateAdminModal";
-import AdminDeactivateEmployee from "../../../Admin/AdminDeactivateEmployee";
-import AdminReactivateEmployee from "../../../Admin/AdminReactivateEmployee";
-import { deleteAdminEmployee } from "../../../../api/superadmin";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { deleteAdminEmployee } from "../../api/superadmin";
+import SuperAdminUpdateAdminModal from "./SuperAdminUpdateAdminModal";
+import AdminDeactivateEmployee from "../Admin/AdminDeactivateEmployee";
+import AdminReactivateEmployee from "../Admin/AdminReactivateEmployee";
 
 const SuperAdminAdminDetails = ({ admins = [], refreshAdmins }) => {
 
@@ -11,10 +11,6 @@ const SuperAdminAdminDetails = ({ admins = [], refreshAdmins }) => {
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [localAdmins, setLocalAdmins] = useState([]);
     const [removingId, setRemovingId] = useState(null);
-
-    useEffect(() => {
-        setLocalAdmins(admins);
-    }, [admins]);
 
     const handleUpdateClick = (admin) => {
         setSelectedAdmin(admin);
@@ -65,6 +61,10 @@ const SuperAdminAdminDetails = ({ admins = [], refreshAdmins }) => {
             setRemovingId(null);
         }
     };
+
+    useEffect(() => {
+        setLocalAdmins(admins);
+    }, [admins]);
 
     return (
         <div className="space-y-5">

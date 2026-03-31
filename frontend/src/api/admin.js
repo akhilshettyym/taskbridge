@@ -84,6 +84,7 @@ export async function updateTask({ taskId, ...payload }) {
     try {
         const res = await api.patch(`${import.meta.env.VITE_API_ADMIN_UPDATE_TASKS}/${taskId}`, payload);
         return res.data;
+        
     } catch (error) {
         handleApiError(error);
     }

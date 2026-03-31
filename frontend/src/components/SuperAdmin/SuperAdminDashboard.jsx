@@ -4,26 +4,19 @@ import SuperAdminViewOrgModal from "./SuperAdminViewOrgModal";
 import useAllTasksDetails from "../../utils/superAdminDashboard/useAllTasksDetails";
 import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
 import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
-import { useDispatch } from "react-redux";
 
 const SuperAdminDashboard = () => {
 
   const navigate = useNavigate();
 
+  const [selectedOrg, setSelectedOrg] = useState(null);
+  const [enterOrg, setEnterOrg] = useState(null);
+
   const { allOrganization, fetchAllOrganization } = useAllOrganizationDetails();
   const { allEmployees, fetchAllEmployees } = useAllEmployeeDetails();
   const { allTasks, fetchAllTasks } = useAllTasksDetails();
 
-  const [selectedOrg, setSelectedOrg] = useState(null);
-  const [enterOrg, setEnterOrg] = useState(null);
-
   const activeOrganizations = allOrganization?.filter(org => org?.status === "ACTIVE") || [];
-
-  useEffect(() => {
-    fetchAllOrganization();
-    fetchAllEmployees();
-    fetchAllTasks();
-  }, []);
 
   const getCountryName = (code) => {
     const countryMap = {
@@ -36,14 +29,18 @@ const SuperAdminDashboard = () => {
     return countryMap[code?.toUpperCase()] || code;
   };
 
-  console.log("ORGID PRO", enterOrg)
-
   const handleEnterOrg = () => {
     if (enterOrg) {
       localStorage.setItem("orgId", enterOrg);
       navigate("/superadmin/control/organization-dashboard");
     }
   };
+
+  useEffect(() => {
+    fetchAllOrganization();
+    fetchAllEmployees();
+    fetchAllTasks();
+  }, []);
 
   return (
     <div className="pb-10 pt-5">

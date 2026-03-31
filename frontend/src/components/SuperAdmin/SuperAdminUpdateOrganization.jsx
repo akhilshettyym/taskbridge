@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
-import { updateOrganization } from "../../../../api/organization";
+import { updateOrganization } from "../../api/organization";
 
 const SuperAdminUpdateOrganization = ({ organization, refreshOrganization }) => {
 
@@ -13,17 +13,6 @@ const SuperAdminUpdateOrganization = ({ organization, refreshOrganization }) => 
         orgDomain: "",
         orgDescription: ""
     });
-
-    useEffect(() => {
-        if (organization) {
-            setFormData({
-                orgName: organization.orgName || "",
-                orgCountry: organization.orgCountry || "",
-                orgDomain: organization.orgDomain || "",
-                orgDescription: organization.orgDescription || ""
-            });
-        }
-    }, [organization]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -71,6 +60,17 @@ const SuperAdminUpdateOrganization = ({ organization, refreshOrganization }) => 
             setLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (organization) {
+            setFormData({
+                orgName: organization.orgName || "",
+                orgCountry: organization.orgCountry || "",
+                orgDomain: organization.orgDomain || "",
+                orgDescription: organization.orgDescription || ""
+            });
+        }
+    }, [organization]);
 
     return (
         <form onSubmit={handleUpdateOrganization} className="w-full bg-[#1B211A] p-8 rounded-2xl border border-[#FFDAB3]/40 flex flex-wrap gap-8">

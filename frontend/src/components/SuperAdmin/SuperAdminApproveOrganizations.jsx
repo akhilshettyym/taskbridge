@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
-import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
 import { toast } from "../../constants/imports";
 import { approveOrganization, rejectOrganization } from "../../api/superadmin";
 import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
+import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
 
 const SuperAdminApproveOrganizations = () => {
 
-  const { allOrganization, fetchAllOrganization } = useAllOrganizationDetails();
-  const { allEmployees, fetchAllEmployees } = useAllEmployeeDetails();
-
   const [loadingId, setLoadingId] = useState(null);
 
-  const pendingOrganizations = allOrganization?.filter(org => org?.status === "PENDING") || [];
+  const { allEmployees, fetchAllEmployees } = useAllEmployeeDetails();
+  const { allOrganization, fetchAllOrganization } = useAllOrganizationDetails();
 
-  useEffect(() => {
-    fetchAllOrganization();
-    fetchAllEmployees();
-  }, []);
+  const pendingOrganizations = allOrganization?.filter(org => org?.status === "PENDING") || [];
 
   const getCountryName = (code) => {
     const countryMap = {
@@ -77,14 +72,17 @@ const SuperAdminApproveOrganizations = () => {
     }
   };
 
+  useEffect(() => {
+    fetchAllOrganization();
+    fetchAllEmployees();
+  }, []);
+
   return (
     <div className="pb-10 mt-5">
 
       {pendingOrganizations.length === 0 ? (
         <div className="bg-[#1B211A] rounded-2xl p-10 mt-5 border border-[#FFDAB3]/30 shadow-inner">
-          <p className="text-center text-[#F8F8F2]/60 text-sm">
-            No organizations in pending state
-          </p>
+          <p className="text-center text-[#F8F8F2]/60 text-sm"> No organizations in pending state </p>
         </div>
       ) : (
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import SuperAdminUpdateOrganization from "./SuperAdminControlledComponents/SuperAdminUpdateOrganization";
-import useSuperAdminGetOrgSpecificEmployeeDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
-import useSuperAdminGetOrgSpecificOrganizationDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
-import SuperAdminViewOrganization from "./SuperAdminControlledComponents/SuperAdminViewOrganization";
+import SuperAdminViewOrganization from "../SuperAdmin/SuperAdminViewOrganization";
+import SuperAdminUpdateOrganization from "../SuperAdmin/SuperAdminUpdateOrganization";
+import useSuperAdminGetOrgSpecificOrganizationDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
+import useSuperAdminGetOrgSpecificEmployeeDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
 
 const SuperAdminOrganizationDashboard = () => {
 

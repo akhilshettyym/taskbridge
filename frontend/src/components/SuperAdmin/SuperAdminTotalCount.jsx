@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
-import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
-import useAllTasksDetails from "../../utils/superAdminDashboard/useAllTasksDetails";
 import { Building2, ShieldCheck, Users, ClipboardList } from "lucide-react";
+import useAllTasksDetails from "../../utils/superAdminDashboard/useAllTasksDetails";
+import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
+import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
 
 const SuperAdminTotalCount = () => {
 
@@ -12,12 +12,6 @@ const SuperAdminTotalCount = () => {
 
     const admins = allEmployees.filter(emp => emp?.role === "ADMIN");
     const employees = allEmployees.filter(emp => emp?.role === "EMPLOYEE");
-
-    useEffect(() => {
-        fetchAllOrganization();
-        fetchAllEmployees();
-        fetchAllTasks();
-    }, []);
 
     const StatCard = ({ value, label, Icon }) => {
         return (
@@ -36,6 +30,12 @@ const SuperAdminTotalCount = () => {
         );
     };
 
+    useEffect(() => {
+        fetchAllOrganization();
+        fetchAllEmployees();
+        fetchAllTasks();
+    }, []);
+
     return (
         <div className="flex flex-wrap mt-5 gap-4">
             <StatCard value={allOrganization?.length || 0} label="Organizations" Icon={Building2} />
@@ -43,7 +43,7 @@ const SuperAdminTotalCount = () => {
             <StatCard value={employees?.length || 0} label="Employees" Icon={Users} />
             <StatCard value={allTasks?.length || 0} label="Tasks" Icon={ClipboardList} />
         </div>
-    )
-}
+    );
+};
 
 export default SuperAdminTotalCount;

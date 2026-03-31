@@ -1,4 +1,4 @@
-import AdminUpdateAdminDetails from "../../../Admin/AdminUpdateAdminDetails";
+import AdminUpdateAdminDetails from "../Admin/AdminUpdateAdminDetails";
 
 const SuperAdminUpdateAdminModal = ({ admin, onClose }) => {
 

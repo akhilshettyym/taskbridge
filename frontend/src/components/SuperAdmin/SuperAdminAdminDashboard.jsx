@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import useSuperAdminGetOrgSpecificEmployeeDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
-import useSuperAdminGetOrgSpecificOrganizationDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
-import SuperAdminAdminDetails from "./SuperAdminControlledComponents/SuperAdminAdminDetails";
-import SuperAdminAddMoreAdmins from "./SuperAdminControlledComponents/SuperAdminAddMoreAdmins";
+import SuperAdminAdminDetails from "./SuperAdminAdminDetails";
+import SuperAdminAddMoreAdmins from "./SuperAdminAddMoreAdmins";
+import useSuperAdminGetOrgSpecificEmployeeDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
+import useSuperAdminGetOrgSpecificOrganizationDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
 
 const SuperAdminAdminDashboard = () => {
 
@@ -10,7 +10,7 @@ const SuperAdminAdminDashboard = () => {
 
   const [activeTab, setActiveTab] = useState("add-more-admins");
 
-  const { specificOrganization, fetchSpecificOrganization } = useSuperAdminGetOrgSpecificOrganizationDetails({ orgId });
+  const { fetchSpecificOrganization } = useSuperAdminGetOrgSpecificOrganizationDetails({ orgId });
   const { orgSpecificEmployees, fetchOrgSpecificEmployees } = useSuperAdminGetOrgSpecificEmployeeDetails({ orgId });
 
   const admins = orgSpecificEmployees?.filter((emp) => emp.role === "ADMIN") || [];

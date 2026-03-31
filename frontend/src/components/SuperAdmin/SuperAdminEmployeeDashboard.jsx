@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import useSuperAdminGetOrgSpecificEmployeeDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
-import useSuperAdminGetOrgSpecificOrganizationDetails from "../../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
-import AdminAddEmployeeForm from "../../Admin/AdminAddEmployeeForm";
-import SuperAdminEmployeeDetails from "./SuperAdminControlledComponents/SuperAdminEmployeeDetails";
+import AdminAddEmployeeForm from "../Admin/AdminAddEmployeeForm";
+import SuperAdminEmployeeDetails from "../SuperAdmin/SuperAdminEmployeeDetails";
+import useSuperAdminGetOrgSpecificEmployeeDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
+import useSuperAdminGetOrgSpecificOrganizationDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
 
 const SuperAdminEmployeeDashboard = () => {
 
@@ -10,12 +10,10 @@ const SuperAdminEmployeeDashboard = () => {
 
   const [activeTab, setActiveTab] = useState("add-more-employees");
 
-  const { specificOrganization, fetchSpecificOrganization } = useSuperAdminGetOrgSpecificOrganizationDetails({ orgId });
+  const { fetchSpecificOrganization } = useSuperAdminGetOrgSpecificOrganizationDetails({ orgId });
   const { orgSpecificEmployees, fetchOrgSpecificEmployees } = useSuperAdminGetOrgSpecificEmployeeDetails({ orgId });
 
-  const admins = orgSpecificEmployees?.filter((emp) => emp.role === "ADMIN") || [];
   const employees = orgSpecificEmployees?.filter((emp) => emp.role === "EMPLOYEE") || [];
-  const createdByAdmin = admins?.find((admin) => admin._id === specificOrganization?.createdBy);
 
   useEffect(() => {
     if (orgId) {
@@ -52,10 +50,7 @@ const SuperAdminEmployeeDashboard = () => {
         )}
 
         {activeTab === "employee-details" && (
-          <SuperAdminEmployeeDetails
-            employees={employees}
-            refreshEmployees={fetchOrgSpecificEmployees}
-          />
+          <SuperAdminEmployeeDetails employees={employees} refreshEmployees={fetchOrgSpecificEmployees} />
         )}
 
       </div>

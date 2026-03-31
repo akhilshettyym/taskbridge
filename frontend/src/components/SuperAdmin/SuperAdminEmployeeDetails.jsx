@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
-import AdminAddedEmployees from "../../../Admin/AdminAddedEmployees";
-import AdminInactiveEmployees from "../../../Admin/AdminInactiveEmployees";
+import AdminAddedEmployees from "../Admin/AdminAddedEmployees";
+import AdminInactiveEmployees from "../Admin/AdminInactiveEmployees";
 
 const SuperAdminEmployeeDetails = ({ employees = [], refreshEmployees }) => {
 

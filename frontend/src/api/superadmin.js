@@ -81,10 +81,7 @@ export async function addAdmin(payload) {
     validatePayload(payload);
 
     try {
-        const res = await api.post(
-            `${import.meta.env.VITE_API_SUPERADMIN_ADD_ADMIN}`,
-            payload
-        );
+        const res = await api.post(`${import.meta.env.VITE_API_SUPERADMIN_ADD_ADMIN}`, payload);
         return res.data;
 
     } catch (error) {
@@ -103,4 +100,20 @@ export async function deleteAdminEmployee({ empId }) {
     } catch (error) {
         handleApiError(error);
     }
+}
+
+export async function createNewTask({ orgId, payload }) {
+    validatePayload(payload);
+
+    const res = await api.post(`${import.meta.env.VITE_API_SUPERADMIN_CREATE_TASK}/${orgId}`, payload );
+
+    return res.data;
+}
+
+export async function updateNewTask({ orgId, taskId, payload }) {
+  validatePayload(payload);
+
+  const res = await api.patch(`${import.meta.env.VITE_API_SUPERADMIN_UPDATE_TASK}/org/${orgId}/task/${taskId}`, payload );
+
+  return res.data;
 }

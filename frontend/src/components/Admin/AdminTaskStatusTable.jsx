@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useAdminTaskStatusTable from "../../hooks/AdminHooks/useAdminTaskStatusTable";
 import AdminTaskStatusFailedTasks from "./AdminTaskStatusFailedTasks";
 import AdminTaskStatusCreatedTasks from "./AdminTaskStatusCreatedTasks";
@@ -63,7 +63,7 @@ const AdminTaskStatusTable = () => {
       </div>
 
       {activeTab === "created-tasks" && (
-        <AdminTaskStatusCreatedTasks refreshEmployeesData={refreshEmployeesData} status={status} allCreatedTasks={allCreatedTasks} selectedTask={selectedTask} setSelectedTask={setSelectedTask} fetchTasksDetails={fetchTasksDetails} fetchEmployees={fetchEmployees} getEmployeeName={getEmployeeName} />
+        <AdminTaskStatusCreatedTasks refreshEmployeesData={refreshEmployeesData} editingTask={editingTask} setEditingTask={setEditingTask} setTasks={setTasks} status={status} allCreatedTasks={allCreatedTasks} selectedTask={selectedTask} setSelectedTask={setSelectedTask} fetchTasksDetails={fetchTasksDetails} fetchEmployees={fetchEmployees} getEmployeeName={getEmployeeName} />
       )}
 
       {activeTab === "inprogress-tasks" && (

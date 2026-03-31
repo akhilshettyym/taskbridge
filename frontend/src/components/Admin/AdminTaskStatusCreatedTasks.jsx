@@ -3,10 +3,14 @@ import { PriorityTag, DateConversion, BiSolidError } from "../../constants/impor
 import CustomTooltip from "../Basics/CustomTooltip";
 import AdminRemoveTask from "./AdminRemoveTask";
 import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
+import { useSelector } from "react-redux";
+import SuperAdminEditTaskModal from "../SuperAdmin/SuperAdminEditTaskModal";
 
-const AdminTaskStatusAllTasks = ({ status, allCreatedTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
+const AdminTaskStatusCreatedTasks = ({ status, allCreatedTasks, editingTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
 
     const [selectedTask, setSelectedTask] = useState(null);
+
+    const isSuperAdmin = useSelector((state) => state.auth?.user?.role === "SUPER_ADMIN");
 
     useEffect(() => {
         fetchTasksDetails();
@@ -95,6 +99,9 @@ const AdminTaskStatusAllTasks = ({ status, allCreatedTasks, fetchTasksDetails, f
                                     <div className="flex items-center gap-3">
                                         <button onClick={() => setSelectedTask(task)} className="py-2 px-5 text-xs rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> View </button>
 
+                                        {isSuperAdmin && <button onClick={() => setEditingTask(task)} className="py-2 px-5 text-xs rounded-md border font-semibold transition border-[#957C62] text-[#FFDAB3] hover:bg-[#957C62] hover:text-white"> Edit </button>
+                                        }
+
                                         <AdminRemoveTask refreshEmployeesData={refreshEmployeesData} taskId={task.id || task._id} />
                                     </div>
 
@@ -106,6 +113,10 @@ const AdminTaskStatusAllTasks = ({ status, allCreatedTasks, fetchTasksDetails, f
                             <AdminTaskDetailsModal task={selectedTask} onClose={() => setSelectedTask(null)} getEmployeeName={getEmployeeName} fetchTasksDetails={fetchTasksDetails} />
                         )}
 
+                        {editingTask && isSuperAdmin && (
+                            <SuperAdminEditTaskModal task={editingTask} onClose={() => setEditingTask(null)} fetchTasks={fetchTasksDetails} setTasks={setTasks} />
+                        )}
+
                     </div>
                 </div>
             )}
@@ -113,4 +124,4 @@ const AdminTaskStatusAllTasks = ({ status, allCreatedTasks, fetchTasksDetails, f
     )
 }
 
-export default AdminTaskStatusAllTasks;
+export default AdminTaskStatusCreatedTasks;

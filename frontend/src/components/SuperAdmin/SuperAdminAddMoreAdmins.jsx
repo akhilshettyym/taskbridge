@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { DatePicker, PasswordToggle } from "../../../../constants/imports";
-import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
-import { addAdmin } from "../../../../api/superadmin";
+import { addAdmin } from "../../api/superadmin";
+import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker, PasswordToggle } from "../../constants/imports";
 
 const SuperAdminAddMoreAdmins = ({ refreshAdmins, onAdded }) => {
 
