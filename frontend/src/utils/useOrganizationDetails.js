@@ -2,16 +2,23 @@ import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
 import { getOrganizationDetails } from "../api/organization";
 
+let organizationCache = null;
+let hasFetchedOrganization = false;
+
 const useOrganizationDetails = () => {
 
-    const [organization, setOrganization] = useState([]);
+    const [organization, setOrganization] = useState(organizationCache || []);
 
-    const fetchOrganization = useCallback(async () => {
+    const fetchOrganization = useCallback(async (force = false) => {
+
+        if (hasFetchedOrganization && !force) return;
 
         try {
             const orgResponse = await getOrganizationDetails();
-            setOrganization(orgResponse?.organization || []);
-            
+            organizationCache = orgResponse?.organization || [];
+            hasFetchedOrganization = true;
+            setOrganization(organizationCache);
+
         } catch (error) {
             console.error("Failed to fetch Organization details", error);
             toast.error("Could not fetch organization");
