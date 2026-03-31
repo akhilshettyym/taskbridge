@@ -12,7 +12,7 @@ const AdminInactiveEmployees = ({ inactiveEmp = [], setInactiveEmp, refreshEmplo
     }, [inactiveEmp]);
 
     return (
-        <div className="pb-10">
+        <div>
 
             <div className="flex items-center gap-2 mb-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Deactivated Employees </h1>

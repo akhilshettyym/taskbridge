@@ -2,10 +2,10 @@ import { DatePicker } from "../../constants/imports";
 import "react-datepicker/dist/react-datepicker.css";
 import useAdminUpdateEmployeeDetails from "../../hooks/AdminHooks/useAdminUpdateEmployeeDetails";
 
-const AdminUpdateEmployeeDetails = ({ emp, setEmployees }) => {
+const AdminUpdateEmployeeDetails = ({ emp, refreshEmployees }) => {
 
     const { open, setOpen, loading, formData, handleChange, handleDateChange, handleUpdateEmployee } =
-        useAdminUpdateEmployeeDetails({ emp, setEmployees });
+        useAdminUpdateEmployeeDetails({ emp, refreshEmployees });
 
     return (
         <>

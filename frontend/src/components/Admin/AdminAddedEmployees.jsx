@@ -14,7 +14,7 @@ const AdminAddedEmployees = ({ employees, setEmployees, refreshEmployees }) => {
   }, [employees]);
 
   return (
-    <div className="pb-10">
+    <div>
 
       <div className="flex items-center gap-2">
         <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Update / Remove Employees from the Org. </h1>
@@ -42,7 +42,7 @@ const AdminAddedEmployees = ({ employees, setEmployees, refreshEmployees }) => {
                 <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.designation}</h2>
                 <h2 className="w-1/4 text-[#A7C1A8] text-xl font-bold">{emp.email}</h2>
 
-                <AdminUpdateEmployeeDetails emp={emp} setEmployees={setEmployees} />
+                <AdminUpdateEmployeeDetails emp={emp} refreshEmployees={refreshEmployees} />
 
                 <button onClick={() => handleOnClickView(emp)} className="mr-3 py-2 px-5 text-xs rounded-md border font-semibold transition border-[#957C62] bg-[#FFDAB3] text-[#2C3930] hover:bg-[#957C62] hover:text-white"> View </button>
 

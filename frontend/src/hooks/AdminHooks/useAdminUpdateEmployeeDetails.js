@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { updateEmployee } from "../../api/admin";
 
-const useAdminUpdateEmployeeDetails = ({ emp, setEmployees }) => {
+const useAdminUpdateEmployeeDetails = ({ emp, refreshEmployees }) => {
 
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -79,13 +79,7 @@ const useAdminUpdateEmployeeDetails = ({ emp, setEmployees }) => {
 
             toast.success("Employee updated successfully");
 
-            setEmployees((prev) =>
-                prev.map((e) =>
-                    (e._id === empId || e.id === empId)
-                        ? { ...e, ...payload }
-                        : e
-                )
-            );
+            refreshEmployees?.();
 
             setOpen(false);
 

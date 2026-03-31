@@ -28,6 +28,7 @@ const AdminCreateTaskForm = () => {
 
     return (
         <div className="pb-10">
+            
             <hr className="my-5 border border-[#FFDAB3]/40" />
             <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> Create Tasks </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />

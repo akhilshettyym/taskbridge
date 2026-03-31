@@ -85,7 +85,6 @@ export async function addAdmin(payload) {
             `${import.meta.env.VITE_API_SUPERADMIN_ADD_ADMIN}`,
             payload
         );
-
         return res.data;
 
     } catch (error) {
