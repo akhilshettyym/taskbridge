@@ -1,40 +1,10 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import SuperAdminViewOrgModal from "./SuperAdminViewOrgModal";
-import useAllTasksDetails from "../../utils/superAdminDashboard/useAllTasksDetails";
-import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
-import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
+import useSuperAdminDashboard from "../../hooks/SuperAdminHooks/useSuperAdminDashboard";
 
 const SuperAdminDashboard = () => {
 
-  const navigate = useNavigate();
-
-  const [selectedOrg, setSelectedOrg] = useState(null);
-  const [enterOrg, setEnterOrg] = useState(null);
-
-  const { allOrganization, fetchAllOrganization } = useAllOrganizationDetails();
-  const { allEmployees, fetchAllEmployees } = useAllEmployeeDetails();
-  const { allTasks, fetchAllTasks } = useAllTasksDetails();
-
-  const activeOrganizations = allOrganization?.filter(org => org?.status === "ACTIVE") || [];
-
-  const getCountryName = (code) => {
-    const countryMap = {
-      IN: "INDIA",
-      US: "UNITED STATES",
-      UK: "UNITED KINGDOM",
-      CA: "CANADA"
-    };
-
-    return countryMap[code?.toUpperCase()] || code;
-  };
-
-  const handleEnterOrg = () => {
-    if (enterOrg) {
-      localStorage.setItem("orgId", enterOrg);
-      navigate("/superadmin/control/organization-dashboard");
-    }
-  };
+  const { selectedOrg, setSelectedOrg, enterOrg, setEnterOrg, fetchAllOrganization, allEmployees, fetchAllEmployees, allTasks, fetchAllTasks, activeOrganizations, getCountryName, handleEnterOrg } = useSuperAdminDashboard();
 
   useEffect(() => {
     fetchAllOrganization();

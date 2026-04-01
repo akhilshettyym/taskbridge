@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SuperAdminAdminDetails from "./SuperAdminAdminDetails";
 import SuperAdminAddMoreAdmins from "./SuperAdminAddMoreAdmins";
-import useSuperAdminGetOrgSpecificEmployeeDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
-import useSuperAdminGetOrgSpecificOrganizationDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
+import useSuperAdminAdminDashboard from "../../hooks/SuperAdminHooks/useSuperAdminAdminDashboard";
 
 const SuperAdminAdminDashboard = () => {
 
-  const orgId = localStorage.getItem("orgId");
-
-  const [activeTab, setActiveTab] = useState("add-more-admins");
-
-  const { fetchSpecificOrganization } = useSuperAdminGetOrgSpecificOrganizationDetails({ orgId });
-  const { orgSpecificEmployees, fetchOrgSpecificEmployees } = useSuperAdminGetOrgSpecificEmployeeDetails({ orgId });
-
-  const admins = orgSpecificEmployees?.filter((emp) => emp.role === "ADMIN") || [];
+  const { orgId, activeTab, setActiveTab, fetchSpecificOrganization, fetchOrgSpecificEmployees, admins } = useSuperAdminAdminDashboard();
 
   useEffect(() => {
     if (orgId) {

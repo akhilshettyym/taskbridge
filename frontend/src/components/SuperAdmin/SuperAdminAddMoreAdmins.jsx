@@ -1,55 +1,10 @@
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { addAdmin } from "../../api/superadmin";
 import "react-datepicker/dist/react-datepicker.css";
 import { DatePicker, PasswordToggle } from "../../constants/imports";
+import useSuperAdminAddMoreAdmins from "../../hooks/SuperAdminHooks/useSuperAdminAddMoreAdmins";
 
 const SuperAdminAddMoreAdmins = ({ refreshAdmins, onAdded }) => {
 
-    const [dob, setDob] = useState(null);
-    const [loading, setLoading] = useState(false);
-
-    const orgId = localStorage.getItem("orgId");
-
-    const handleAddAdmin = async (e) => {
-        e.preventDefault();
-        if (loading) return;
-
-        setLoading(true);
-
-        try {
-            const formData = new FormData(e.target);
-
-            const payload = {
-                firstName: formData.get("firstName")?.trim(),
-                lastName: formData.get("lastName")?.trim(),
-                email: formData.get("email")?.trim().toLowerCase(),
-                password: formData.get("password"),
-                dateOfBirth: formData.get("dateOfBirth"),
-                designation: formData.get("designation"),
-                organizationId: orgId,
-            };
-
-            const response = await addAdmin(payload);
-
-            if (!response?.success) {
-                throw new Error(response?.message || "Failed to add admin");
-            }
-
-            toast.success(response.message || "Admin added successfully");
-            refreshAdmins?.();
-            onAdded?.();
-            e.target.reset();
-            setDob(null);
-
-        } catch (error) {
-            const message = error?.response?.data?.message || error.message || "Something went wrong";
-            toast.error(message);
-
-        } finally {
-            setLoading(false);
-        }
-    };
+    const { dob, setDob, loading, orgId, handleAddAdmin } = useSuperAdminAddMoreAdmins({ refreshAdmins, onAdded });
 
     return (
         <div className="w-full flex justify-center">
