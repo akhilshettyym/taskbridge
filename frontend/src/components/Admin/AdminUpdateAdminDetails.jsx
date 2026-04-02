@@ -1,22 +1,12 @@
 import { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
+import CustomTooltip from '../Basics/CustomTooltip';
 import "react-datepicker/dist/react-datepicker.css";
 import useAdminUpdateAdminDetails from '../../hooks/AdminHooks/useAdminUpdateAdminDetails';
-import CustomTooltip from '../Basics/CustomTooltip';
 
 const AdminUpdateAdminDetails = ({ refreshAdminData, admin }) => {
 
-    const {
-        loading,
-        formData,
-        handleChange,
-        handleDateChange,
-        handleUpdateAdmin,
-        fetchEmployees
-    } = useAdminUpdateAdminDetails({
-        refreshAdminData,
-        adminOverride: admin
-    });
+    const { loading, formData, handleChange, handleDateChange, handleUpdateAdmin, fetchEmployees } = useAdminUpdateAdminDetails({ refreshAdminData, adminOverride: admin });
 
     useEffect(() => {
         if (!admin) {
@@ -29,7 +19,7 @@ const AdminUpdateAdminDetails = ({ refreshAdminData, admin }) => {
 
             <div className="flex items-center gap-2 mb-5 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Update Admin Details </h1>
-                <CustomTooltip id="update-admin-tooltip" message="You can update the admin details." place="right" />
+                <CustomTooltip id="update-admin-tooltip" message="Modify administrator information, including personal details and role-specific configuration." place="right" />
             </div>
 
             <div className="w-full flex justify-center">

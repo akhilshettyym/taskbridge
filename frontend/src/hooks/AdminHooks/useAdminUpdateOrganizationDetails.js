@@ -1,6 +1,6 @@
+import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 import { updateOrganization } from "../../api/organization";
-import toast from "react-hot-toast";
 import useOrganizationDetails from "../../utils/useOrganizationDetails";
 
 const useAdminUpdateOrganizationDetails = ({ refreshOrgData }) => {

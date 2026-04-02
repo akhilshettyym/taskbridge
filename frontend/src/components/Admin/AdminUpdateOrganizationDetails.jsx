@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import useAdminUpdateOrganizationDetails from "../../hooks/AdminHooks/useAdminUpdateOrganizationDetails";
 import CustomTooltip from "../Basics/CustomTooltip";
+import useAdminUpdateOrganizationDetails from "../../hooks/AdminHooks/useAdminUpdateOrganizationDetails";
 
 const AdminUpdateOrganizationDetails = ({ refreshOrgData }) => {
 
@@ -15,7 +15,7 @@ const AdminUpdateOrganizationDetails = ({ refreshOrgData }) => {
 
             <div className="flex items-center gap-2 mb-5 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Update Organization Details </h1>
-                <CustomTooltip id="update-org-tooltip" message="You can update the organization details." place="right" />
+                <CustomTooltip id="update-org-tooltip" message="Update organization information such as name, domain, description, and operational settings." place="right" />
             </div>
 
             <div className="w-full flex justify-center">

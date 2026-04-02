@@ -1,6 +1,6 @@
+import Header from "../../components/Basics/Header";
 import EmployeeControlPanel from "../../components/Employee/EmployeeControlPanel";
 import EmployeeProfileDetails from "../../components/Employee/EmployeeProfileDetails";
-import Header from "../../components/Basics/Header";
 
 const EmployeeProfilePage = () => {
 

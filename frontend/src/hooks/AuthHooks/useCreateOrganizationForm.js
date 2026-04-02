@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast, AuthContext } from "../../constants/imports";
-import { createOrganization } from "../../api/auth";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createOrganization } from "../../api/auth";
 import { setCredentials } from "../../slices/authSlice";
 
 const useCreateOrganizationForm = () => {

@@ -1,6 +1,6 @@
-import EmployeeControlPanel from "../../components/Employee/EmployeeControlPanel";
-import EmployeeTaskStatus from "../../components/Employee/EmployeeTaskStatus";
 import Header from "../../components/Basics/Header";
+import EmployeeTaskStatus from "../../components/Employee/EmployeeTaskStatus";
+import EmployeeControlPanel from "../../components/Employee/EmployeeControlPanel";
 
 const EmployeeDashBoardPage = () => {
 

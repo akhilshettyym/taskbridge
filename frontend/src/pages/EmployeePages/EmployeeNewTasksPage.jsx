@@ -1,6 +1,6 @@
-import EmployeeControlPanel from "../../components/Employee/EmployeeControlPanel";
-import EmployeeNewTask from "../../components/Employee/EmployeeNewTask";
 import Header from "../../components/Basics/Header";
+import EmployeeNewTask from "../../components/Employee/EmployeeNewTask";
+import EmployeeControlPanel from "../../components/Employee/EmployeeControlPanel";
 
 const EmployeeNewTasksPage = () => {
 

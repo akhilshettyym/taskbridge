@@ -1,4 +1,4 @@
-import { ConfirmModal } from "../../constants/imports";
+import ConfirmModal from "../Basics/ConfirmModal";
 import useAdminReactivateEmployee from "../../hooks/AdminHooks/useAdminReactivateEmployee";
 
 const AdminReactivateEmployee = ({ empId, refreshEmployees }) => {

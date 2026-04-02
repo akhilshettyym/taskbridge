@@ -1,9 +1,9 @@
+import toast from "react-hot-toast";
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import toast from "react-hot-toast";
+import { updateEmployee } from "../../api/admin";
 import useTasksDetails from "../../utils/useTasksDetails";
 import useEmployeesDetails from "../../utils/useEmployeesDetails";
-import { updateEmployee } from "../../api/admin";
 
 const useEmployeeProfileDetails = () => {
 

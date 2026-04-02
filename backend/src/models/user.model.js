@@ -83,7 +83,6 @@ const userSchema = new mongoose.Schema(
         permissions: {
             type: [String],
             default: [],
-            // add enum if permissions are fixed set
         },
 
         employmentStatus: {

@@ -1,7 +1,7 @@
 
+import Header from "../../components/Basics/Header";
 import EmployeeControlPanel from "../../components/Employee/EmployeeControlPanel";
 import EmployeeInProgressTask from "../../components/Employee/EmployeeInProgressTask";
-import Header from "../../components/Basics/Header";
 
 const EmployeeInProgressTasksPage = () => {
 

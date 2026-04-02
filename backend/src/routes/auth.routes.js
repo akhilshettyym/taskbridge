@@ -1,8 +1,8 @@
 import express from "express";
+import { requireOrgUser } from "../middleware/role.middleware.js";
 import { userLoginController } from "../controllers/AuthControllers/userLogin.controller.js";
 import { userLogoutController } from "../controllers/AuthControllers/userLogout.controller.js";
 import { createOrganizationController } from "../controllers/AuthControllers/createOrganization.controller.js";
-import { requireOrgUser } from "../middleware/role.middleware.js";
 
 const router = express.Router();
 

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
+import TaskListNo from "../Basics/TaskListNo";
 import EmployeeTaskCard from "./EmployeeTaskCard";
 import CustomTooltip from "../Basics/CustomTooltip";
 import useEmployeeComFailedTasks from "../../hooks/EmployeeHooks/useEmployeeComFailedTasks";
-import TaskListNo from "../Basics/TaskListNo";
 
 const EmployeeComFailedTasks = () => {
 
@@ -41,7 +41,7 @@ const EmployeeComFailedTasks = () => {
                 <div>
                     <div className="flex items-center gap-2 mb-5">
                         <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Completed Tasks </h1>
-                        <CustomTooltip id="completed-tasks-tooltip" message="Review completed tasks and any associated feedback." place="right" />
+                        <CustomTooltip id="completed-tasks-tooltip" message="Review completed tasks along with outcomes, summaries, and any feedback provided." place="right" />
                     </div>
 
                     <div className="bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
@@ -64,8 +64,9 @@ const EmployeeComFailedTasks = () => {
                 <div>
                     <div className="flex items-center gap-2 mb-5">
                         <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Failed Tasks </h1>
-                        <CustomTooltip id="failed-tasks-tooltip" message="Review failed tasks and any associated feedback." place="right" />
+                        <CustomTooltip id="failed-tasks-tooltip" message="Analyze failed tasks, understand issues encountered, and review associated feedback." place="right" />
                     </div>
+
                     <div className="bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
 
                         {employeeFailedTasks.length === 0 ? (

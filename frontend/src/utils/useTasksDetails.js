@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
+import { useState, useCallback } from "react";
 import { getTaskDetails } from "../api/tasks";
 
 let tasksCache = null;
@@ -20,7 +20,7 @@ const useTasksDetails = () => {
                 tasksCache = response.tasks || [];
                 hasFetchedTasks = true;
                 setTasks(tasksCache);
-                
+
             } else {
                 toast.error(response?.message || "Failed to load tasks");
             }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { addEmployee } from "../../api/admin";
 
-const useAdminAddEmployeeForm = ({refreshEmployeesData}) => {
+const useAdminAddEmployeeForm = ({ refreshEmployeesData }) => {
 
     const [dob, setDob] = useState(null);
     const [loading, setLoading] = useState(false);

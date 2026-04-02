@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { getTaskDetails } from "../../api/tasks";
 import { setAllTasks } from "../../slices/taskSlice";
-import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 
 const useAdminTasksTable = () => {
 

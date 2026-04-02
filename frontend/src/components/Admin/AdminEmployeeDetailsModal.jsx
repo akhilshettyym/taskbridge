@@ -1,6 +1,6 @@
-import { DateConversion } from "../../constants/imports";
-import useAdminEmployeeDetailsModal from "../../hooks/AdminHooks/useAdminEmployeeDetailsModal";
+import DateConversion from "../Basics/DateConversion";
 import AdminDeactivateEmployee from "./AdminDeactivateEmployee";
+import useAdminEmployeeDetailsModal from "../../hooks/AdminHooks/useAdminEmployeeDetailsModal";
 
 const AdminEmployeeDetailsModal = ({ emp, onClose, refreshEmployees }) => {
 

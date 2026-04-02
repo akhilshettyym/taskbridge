@@ -1,6 +1,8 @@
-import { DateConversion, PriorityTag, ConfirmModal } from "../../constants/imports";
-import EmployeeFailedTaskModal from "./EmployeeFailedTaskModal";
 import { BiSolidError } from "react-icons/bi";
+import PriorityTag from "../Basics/PriorityTag";
+import ConfirmModal from "../Basics/ConfirmModal";
+import DateConversion from "../Basics/DateConversion";
+import EmployeeFailedTaskModal from "./EmployeeFailedTaskModal";
 import EmployeeTaskDetailsModal from "./EmployeeTaskDetailsModal";
 import useEmployeeTaskCard from "../../hooks/EmployeeHooks/useEmployeeTaskCard";
 

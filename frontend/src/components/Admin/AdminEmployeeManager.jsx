@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import AdminAddEmployeeForm from "./AdminAddEmployeeForm";
-import AdminAddedEmployees from "./AdminAddedEmployees";
-import CustomTooltip from "../Basics/CustomTooltip";
-import useAdminEmployeeManager from "../../hooks/AdminHooks/useAdminEmployeeManager";
-import AdminInactiveEmployees from "./AdminInactiveEmployees";
 import TaskListNo from "../Basics/TaskListNo";
+import CustomTooltip from "../Basics/CustomTooltip";
+import AdminAddedEmployees from "./AdminAddedEmployees";
+import AdminAddEmployeeForm from "./AdminAddEmployeeForm";
+import AdminInactiveEmployees from "./AdminInactiveEmployees";
+import useAdminEmployeeManager from "../../hooks/AdminHooks/useAdminEmployeeManager";
 
 const AdminEmployeeManager = () => {
 
@@ -26,7 +26,7 @@ const AdminEmployeeManager = () => {
 
             <div className="flex items-center gap-2 mb-5 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Add more employees to the Org. </h1>
-                <CustomTooltip id="add-employees-tooltip" message="You can update the organization roster by adding more employees." place="right" />
+                <CustomTooltip id="add-employees-tooltip" message="Expand your organization by adding new employees and assigning them appropriate responsibilities." place="right" />
             </div>
 
             <AdminAddEmployeeForm refreshEmployees={fetchEmployees} />

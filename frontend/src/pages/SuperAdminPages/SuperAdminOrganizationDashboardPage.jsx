@@ -1,4 +1,4 @@
-import { Header } from "../../constants/imports";
+import Header from "../../components/Basics/Header";
 import SuperAdminTotalCount from "../../components/SuperAdmin/SuperAdminTotalCount";
 import SuperAdminControlledControlPanel from "../../components/SuperAdmin/SuperAdminControlledControlPanel";
 import SuperAdminOrganizationDashboard from "../../components/SuperAdmin/SuperAdminOrganizationDashboard";

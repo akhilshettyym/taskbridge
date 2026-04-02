@@ -1,10 +1,10 @@
 import { useEffect } from "react";
+import TaskListNo from "../Basics/TaskListNo";
 import PriorityTag from "../Basics/PriorityTag";
 import CustomTooltip from "../Basics/CustomTooltip";
 import DateConversion from "../Basics/DateConversion";
 import EmployeeTaskDetailsModal from "./EmployeeTaskDetailsModal";
 import useEmployeeTaskStatus from "../../hooks/EmployeeHooks/useEmployeeTaskStatus";
-import TaskListNo from "../Basics/TaskListNo";
 
 const EmployeeTaskStatus = () => {
 
@@ -24,7 +24,7 @@ const EmployeeTaskStatus = () => {
 
       <div className="flex items-center gap-2 mt-5">
         <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Tasks in queue </h1>
-        <CustomTooltip id="task-status-tooltip" message="Track your task assignments and deadlines from this panel." place="right" />
+        <CustomTooltip id="task-status-tooltip" message="Track assigned tasks awaiting action and monitor upcoming deadlines from this section." place="right" />
       </div>
 
       <div className="mt-5 bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">

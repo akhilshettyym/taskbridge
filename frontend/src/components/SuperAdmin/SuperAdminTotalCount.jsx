@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { Building2, ShieldCheck, Users, ClipboardList } from "lucide-react";
 import useAllTasksDetails from "../../utils/useAllTasksDetails";
 import useAllEmployeeDetails from "../../utils/useAllEmployeeDetails";
+import { Building2, ShieldCheck, Users, ClipboardList } from "lucide-react";
 import useAllOrganizationDetails from "../../utils/useAllOrganizationDetails";
 
 const SuperAdminTotalCount = () => {

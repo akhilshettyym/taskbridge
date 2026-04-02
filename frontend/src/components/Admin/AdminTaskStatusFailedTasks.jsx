@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { PriorityTag, DateConversion, BiSolidError } from "../../constants/imports";
-import AdminEditTaskModal from "./AdminEditTaskModal";
-import CustomTooltip from "../Basics/CustomTooltip";
+import { BiSolidError } from "react-icons/bi";
+import PriorityTag from "../Basics/PriorityTag";
 import AdminRemoveTask from "./AdminRemoveTask";
+import CustomTooltip from "../Basics/CustomTooltip";
+import AdminEditTaskModal from "./AdminEditTaskModal";
+import DateConversion from "../Basics/DateConversion";
 import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
 
 const AdminTaskStatusFailed = ({ failedTasks, editingTask, setTasks, setEditingTask, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
@@ -18,7 +20,7 @@ const AdminTaskStatusFailed = ({ failedTasks, editingTask, setTasks, setEditingT
         <div>
             <div className="flex items-center gap-2 mb-5 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Failed Tasks </h1>
-                <CustomTooltip id="task-status-failed-tooltip" message="Review failed tasks below to delete or edit for reassignment." place="right" />
+                <CustomTooltip id="task-status-failed-tooltip" message="Review failed tasks to identify issues, then edit or delete for reassignment." place="right" />
             </div>
 
             {failedTasks.length === 0 ? (

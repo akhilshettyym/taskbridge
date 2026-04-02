@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { PriorityTag, DateConversion, BiSolidError } from "../../constants/imports";
+import { BiSolidError } from "react-icons/bi";
+import PriorityTag from "../Basics/PriorityTag";
 import CustomTooltip from "../Basics/CustomTooltip";
-import AdminRemoveTask from "./AdminRemoveTask";
+import DateConversion from "../Basics/DateConversion";
 import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
 
 const AdminTaskStatusReqRejection = ({ status, requestedRejectionTasks, fetchTasksDetails, fetchEmployees, getEmployeeName }) => {
@@ -17,7 +18,7 @@ const AdminTaskStatusReqRejection = ({ status, requestedRejectionTasks, fetchTas
         <div>
             <div className="flex items-center gap-2 mb-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Request Rejection </h1>
-                <CustomTooltip id="task-status-request-rejection-tooltip" message="You can check the reason for task rejection and then either approve it or comment back." place="right" />
+                <CustomTooltip id="task-status-request-rejection-tooltip" message="Review rejection requests, evaluate provided reasons, and approve or respond with feedback." place="right" />
             </div>
 
             {requestedRejectionTasks.length === 0 ? (

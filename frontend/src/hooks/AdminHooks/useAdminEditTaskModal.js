@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { updateTask } from "../../api/admin";
 import { updateTaskSuccess } from "../../slices/taskSlice";
 import useEmployeesDetails from "../../utils/useEmployeesDetails";
-import { updateTask } from "../../api/admin";
 
 const useAdminEditTaskModal = ({ task, onClose, onTaskUpdated }) => {
 

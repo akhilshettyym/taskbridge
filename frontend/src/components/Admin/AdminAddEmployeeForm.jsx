@@ -1,5 +1,6 @@
-import { DatePicker, PasswordToggle } from "../../constants/imports";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import PasswordToggle from "../Basics/PasswordToggle";
 import useAdminAddEmployeeForm from "../../hooks/AdminHooks/useAdminAddEmployeeForm";
 
 const AdminAddEmployeeForm = ({ refreshEmployeesData }) => {

@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import DatePicker from "react-datepicker";
+import TaskListNo from "../Basics/TaskListNo";
 import "react-datepicker/dist/react-datepicker.css";
 import CustomTooltip from "../Basics/CustomTooltip";
 import useAdminCreateTaskForm from "../../hooks/adminHooks/useAdminCreateTaskForm";
-import TaskListNo from "../Basics/TaskListNo";
 
 const AdminCreateTaskForm = () => {
 
@@ -28,7 +28,7 @@ const AdminCreateTaskForm = () => {
 
     return (
         <div className="pb-10">
-            
+
             <hr className="my-5 border border-[#FFDAB3]/40" />
             <h1 className="mt-5 font-bold text-[#FFDAB3] text-xl uppercase flex flex-col items-center"> Create Tasks </h1>
             <hr className="my-5 border border-[#FFDAB3]/40" />
@@ -37,7 +37,7 @@ const AdminCreateTaskForm = () => {
 
             <div className="flex items-center gap-2 mb-5 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Create new task </h1>
-                <CustomTooltip id="create-new-task-tooltip" message="Triage and assign the new task based on severity." place="right" />
+                <CustomTooltip id="create-new-task-tooltip" message="Create and assign a new task by defining priority, ownership, and required completion details." place="right" />
             </div>
 
             <div className="w-full flex justify-center">

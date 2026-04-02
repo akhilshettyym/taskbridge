@@ -3,21 +3,21 @@ import { PERMISSIONS } from "../constants/permissions.js";
 import authMiddleware from "../middleware/auth.middleware.js";
 import { requireSuperAdmin } from "../middleware/role.middleware.js";
 import { requirePermission } from "../middleware/permission.middleware.js";
+import { addAdminController } from "../controllers/SuperAdminControllers/addAdmin.controller.js";
 import { getAllTasksDetails } from "../controllers/SuperAdminControllers/getAllTasks.controller.js";
-import { getAllEmployeesDetails } from "../controllers/SuperAdminControllers/getAllEmployees.controller.js";
+import { updateNewTaskController } from "../controllers/SuperAdminControllers/updateNewTask.controller.js";
+import { createNewTaskController } from "../controllers/SuperAdminControllers/createNewTask.controller.js";
 import { rejectOrganization } from "../controllers/SuperAdminControllers/rejectOrganization.controller.js";
 import { revokeOrganization } from "../controllers/SuperAdminControllers/revokeOrganization.controller.js";
+import { getAllEmployeesDetails } from "../controllers/SuperAdminControllers/getAllEmployees.controller.js";
 import { approveOrganization } from "../controllers/SuperAdminControllers/approveOrganization.controller.js";
 import { getAllOrganizationDetails } from "../controllers/SuperAdminControllers/getAllOrganization.controller.js";
 import { reactivateOrganization } from "../controllers/SuperAdminControllers/reactivateOrganization.controller.js";
-import { deleteOrganizationController } from "../controllers/SuperAdminControllers/deleteOrganization.controller.js";
-import { getSpecificOrganizationDetails } from "../controllers/SuperAdminControllers/getSpecificOrganization.controller.js";
-import { getOrgSpecificEmployeeDetails } from "../controllers/SuperAdminControllers/getSpecificOrgEmployees.controller.js";
 import { getOrgSpecificTasksDetails } from "../controllers/SuperAdminControllers/getSpecificOrgTasks.controller.js";
-import { addAdminController } from "../controllers/SuperAdminControllers/addAdmin.controller.js";
+import { deleteOrganizationController } from "../controllers/SuperAdminControllers/deleteOrganization.controller.js";
 import { deleteAdminEmployeeController } from "../controllers/SuperAdminControllers/deleteAdminEmployee.controller.js";
-import { createNewTaskController } from "../controllers/SuperAdminControllers/createNewTask.controller.js";
-import { updateNewTaskController } from "../controllers/SuperAdminControllers/updateNewTask.controller.js";
+import { getOrgSpecificEmployeeDetails } from "../controllers/SuperAdminControllers/getSpecificOrgEmployees.controller.js";
+import { getSpecificOrganizationDetails } from "../controllers/SuperAdminControllers/getSpecificOrganization.controller.js";
 
 const router = express.Router();
 
@@ -45,7 +45,6 @@ router.patch("/re-activate-organization/:orgId", authMiddleware, requireSuperAdm
 /* DELETE /api/superadmin/delete-rejected-organization/:orgId */
 router.delete("/delete-rejected-organization/:orgId", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.DELETE_ORGANIZATION), deleteOrganizationController);
 
-
 /* GET /api/superadmin/get-specific-organization-details/:orgId */
 router.get("/get-specific-organization-details/:orgId", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.VIEW_ALL_ORGANIZATIONS), getSpecificOrganizationDetails);
 
@@ -57,7 +56,6 @@ router.get("/get-org-specific-tasks/:orgId", authMiddleware, requireSuperAdmin, 
 
 /* POST /api/superadmin/add-admin */
 router.post("/add-admin", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.CREATE_ADMIN), addAdminController);
-
 
 /* DELETE /api/superadmin/delete-admin-employee/:empId */
 router.delete("/delete-admin-employee/:empId", authMiddleware, requireSuperAdmin, requirePermission(PERMISSIONS.DELETE_ADMIN_EMPLOYEE), deleteAdminEmployeeController);

@@ -1,11 +1,11 @@
 import { useEffect } from "react";
-import useAdminTaskStatusTable from "../../hooks/AdminHooks/useAdminTaskStatusTable";
-import AdminTaskStatusFailedTasks from "./AdminTaskStatusFailedTasks";
-import AdminTaskStatusCreatedTasks from "./AdminTaskStatusCreatedTasks";
-import AdminTaskStatusReqRejection from "./AdminTaskStatusReqRejection";
-import AdminTaskStatusInProgressTasks from "./AdminTaskStatusInProgressTasks";
-import AdminTaskStatusCompletedTasks from "./AdminTaskStatusCompletedTasks";
 import TaskListNo from "../Basics/TaskListNo";
+import AdminTaskStatusFailedTasks from "./AdminTaskStatusFailedTasks";
+import AdminTaskStatusReqRejection from "./AdminTaskStatusReqRejection";
+import AdminTaskStatusCreatedTasks from "./AdminTaskStatusCreatedTasks";
+import AdminTaskStatusCompletedTasks from "./AdminTaskStatusCompletedTasks";
+import AdminTaskStatusInProgressTasks from "./AdminTaskStatusInProgressTasks";
+import useAdminTaskStatusTable from "../../hooks/AdminHooks/useAdminTaskStatusTable";
 
 const AdminTaskStatusTable = () => {
 

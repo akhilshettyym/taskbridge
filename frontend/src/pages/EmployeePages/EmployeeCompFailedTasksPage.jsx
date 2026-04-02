@@ -1,6 +1,6 @@
-import EmployeeComFailedTasks from "../../components/Employee/EmployeeComFailedTasks";
-import EmployeeControlPanel from "../../components/Employee/EmployeeControlPanel";
 import Header from "../../components/Basics/Header";
+import EmployeeControlPanel from "../../components/Employee/EmployeeControlPanel";
+import EmployeeComFailedTasks from "../../components/Employee/EmployeeComFailedTasks";
 
 const EmployeeCompFailedTasksPage = () => {
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { toast } from "../../constants/imports";
+import toast from "react-hot-toast";
 import { revokeOrganization } from "../../api/superadmin";
 import useAllEmployeeDetails from "../../utils/useAllEmployeeDetails";
 import useAllOrganizationDetails from "../../utils/useAllOrganizationDetails";

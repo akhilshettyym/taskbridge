@@ -1,9 +1,10 @@
-import { DateConversion, PriorityTag } from "../../constants/imports";
-import AdminEditTaskModal from "./AdminEditTaskModal";
 import { useEffect, useMemo } from "react";
-import CustomTooltip from "../Basics/CustomTooltip";
-import useAdminTasksTable from "../../hooks/AdminHooks/useAdminTasksTable";
 import TaskListNo from "../Basics/TaskListNo";
+import PriorityTag from "../Basics/PriorityTag";
+import CustomTooltip from "../Basics/CustomTooltip";
+import AdminEditTaskModal from "./AdminEditTaskModal";
+import DateConversion from "../Basics/DateConversion";
+import useAdminTasksTable from "../../hooks/AdminHooks/useAdminTasksTable";
 
 const AdminTasksTable = () => {
 
@@ -36,7 +37,7 @@ const AdminTasksTable = () => {
 
             <div className="flex items-center gap-2 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Tasks Created </h1>
-                <CustomTooltip id="created-tasks-tooltip" message="Review the draft tasks below for accuracy and completeness." place="right" />
+                <CustomTooltip id="created-tasks-tooltip" message="Review newly created tasks to ensure accuracy, completeness, and proper assignment before execution." place="right" />
             </div>
 
             <div className="bg-[#1B211A] rounded-2xl p-4 mt-5 border border-[#FFDAB3]/30 shadow-inner">

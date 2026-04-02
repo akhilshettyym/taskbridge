@@ -1,4 +1,5 @@
-import { PasswordToggle, Link } from "../../constants/imports";
+import { Link } from "react-router-dom";
+import PasswordToggle from "../Basics/PasswordToggle";
 import useLoginForm from "../../hooks/AuthHooks/useLoginForm";
 
 const LoginForm = () => {

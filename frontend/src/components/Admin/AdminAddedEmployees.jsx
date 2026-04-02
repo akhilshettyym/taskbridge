@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import CustomTooltip from "../Basics/CustomTooltip";
-import { useEffect } from "../../constants/imports";
 import AdminEmployeeDetailsModal from "./AdminEmployeeDetailsModal";
 import AdminUpdateEmployeeDetails from "./AdminUpdateEmployeeDetails";
 import useAdminAddedEmployees from "../../hooks/AdminHooks/useAdminAddedEmployees";
@@ -18,7 +18,7 @@ const AdminAddedEmployees = ({ employees, setEmployees, refreshEmployees }) => {
 
       <div className="flex items-center gap-2">
         <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Update / Remove Employees from the Org. </h1>
-        <CustomTooltip id="remove-employees-tooltip" message="Employees may be deactivated and later reactivated, but accounts remaining inactive for more than 30 days will be permanently deleted." place="right" />
+        <CustomTooltip id="remove-employees-tooltip" message="Employees may be temporarily deactivated and later reactivated; accounts inactive beyond 30 days are permanently removed." place="right" />
       </div>
 
       <div className="bg-[#1B211A] rounded-2xl p-4 mt-5 border border-[#FFDAB3]/30 shadow-inner">

@@ -1,6 +1,6 @@
+import Header from "../../components/Basics/Header";
 import AdminControlPanel from "../../components/Admin/AdminControlPanel";
 import AdminEmployeeManager from "../../components/Admin/AdminEmployeeManager";
-import Header from "../../components/Basics/Header";
 
 const AdminEmployeeManagementPage = () => {
 

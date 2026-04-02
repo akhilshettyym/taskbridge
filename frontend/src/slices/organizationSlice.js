@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getOrganizationDetails } from "../api/organization";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchOrganization = createAsyncThunk(
     "organization/fetchOrganization",

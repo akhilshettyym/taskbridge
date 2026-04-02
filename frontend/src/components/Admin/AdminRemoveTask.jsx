@@ -1,4 +1,4 @@
-import { ConfirmModal } from "../../constants/imports";
+import ConfirmModal from "../Basics/ConfirmModal";
 import useAdminDeleteTask from "../../hooks/adminHooks/useAdminDeleteTask";
 
 const AdminRemoveTask = ({ taskId, refreshEmployeesData }) => {

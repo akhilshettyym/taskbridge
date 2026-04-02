@@ -1,8 +1,8 @@
-import EmployeeTaskCard from "./EmployeeTaskCard";
 import { useEffect } from "react";
+import TaskListNo from "../Basics/TaskListNo";
+import EmployeeTaskCard from "./EmployeeTaskCard";
 import CustomTooltip from "../Basics/CustomTooltip";
 import useEmployeeInProgressTask from "../../hooks/EmployeeHooks/useEmployeeInProgressTask";
-import TaskListNo from "../Basics/TaskListNo";
 
 const EmployeeInProgressTask = () => {
 
@@ -24,7 +24,7 @@ const EmployeeInProgressTask = () => {
 
       <div className="flex items-center gap-2 mt-5">
         <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Tasks in progress </h1>
-        <CustomTooltip id="in-progress-tooltip" message="Please provide a reasoning when updating a task status to Failed / mark as Completed." place="right" />
+        <CustomTooltip id="in-progress-tooltip" message="Update task status with proper reasoning when marking tasks as failed or completed." place="right" />
       </div>
 
       <div className="mt-5 bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">

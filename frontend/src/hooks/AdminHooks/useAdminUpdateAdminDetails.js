@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { updateAdmin } from "../../api/admin";
+import { useEffect, useMemo, useState } from "react";
 import useEmployeesDetails from "../../utils/useEmployeesDetails";
 
 const useAdminUpdateAdminDetails = ({ refreshAdminData, adminOverride }) => {

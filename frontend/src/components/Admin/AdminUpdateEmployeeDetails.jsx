@@ -1,4 +1,4 @@
-import { DatePicker } from "../../constants/imports";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAdminUpdateEmployeeDetails from "../../hooks/AdminHooks/useAdminUpdateEmployeeDetails";
 

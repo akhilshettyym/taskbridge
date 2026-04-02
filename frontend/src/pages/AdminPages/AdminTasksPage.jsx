@@ -1,6 +1,6 @@
+import Header from "../../components/Basics/Header";
 import AdminControlPanel from "../../components/Admin/AdminControlPanel";
 import AdminTasksTable from "../../components/Admin/AdminTasksTable";
-import Header from "../../components/Basics/Header";
 
 const AdminTasksPage = () => {
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import AdminAddEmployeeForm from "../Admin/AdminAddEmployeeForm";
 import { renderEmployeeDetails } from "../Basics/AddedEmployees";
+import AdminAddEmployeeForm from "../Admin/AdminAddEmployeeForm";
 import useCompleteOrganizationDetails from "../../hooks/AuthHooks/useCompleteOrganizationDetails";
 
 const CompleteOrganizationDetails = () => {
@@ -71,7 +71,7 @@ const CompleteOrganizationDetails = () => {
 
                 <p className="mt-3 text-sm text-[#FFDAB3]/60 text-center"> You can add more employees later from the dashboard. </p>
             </div>
-  
+
         </div>
     );
 };

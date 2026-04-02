@@ -1,8 +1,8 @@
+import Header from "../../components/Basics/Header";
+import SuperAdminTotalCount from "../../components/SuperAdmin/SuperAdminTotalCount";
 import SuperAdminControlPanel from "../../components/SuperAdmin/SuperAdminControlPanel";
 import SuperAdminOrganizationStatus from "../../components/SuperAdmin/SuperAdminOrganizationStatus";
 import SuperAdminRevokeOrganizations from "../../components/SuperAdmin/SuperAdminRevokeOrganizations";
-import SuperAdminTotalCount from "../../components/SuperAdmin/SuperAdminTotalCount";
-import { Header } from "../../constants/imports";
 
 const SuperAdminRevokeOrganizationsPage = () => {
 

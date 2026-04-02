@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import { PriorityTag, DateConversion, BiSolidError } from "../../constants/imports";
-import CustomTooltip from "../Basics/CustomTooltip";
-import AdminRemoveTask from "./AdminRemoveTask";
-import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { BiSolidError } from "react-icons/bi";
+import PriorityTag from "../Basics/PriorityTag";
+import AdminRemoveTask from "./AdminRemoveTask";
+import DateConversion from "../Basics/DateConversion";
+import CustomTooltip from "../Basics/CustomTooltip";
+import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
 import SuperAdminEditTaskModal from "../SuperAdmin/SuperAdminEditTaskModal";
 
 const AdminTaskStatusCreatedTasks = ({ status, allCreatedTasks, editingTask, setEditingTask, setTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
@@ -21,7 +23,7 @@ const AdminTaskStatusCreatedTasks = ({ status, allCreatedTasks, editingTask, set
         <div>
             <div className="flex items-center gap-2 mb-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Created Tasks </h1>
-                <CustomTooltip id="task-status-alltasks-tooltip" message="You can delete any task, regardless of status. The task will be permanently deleted and cannot be recovered." place="right" />
+                <CustomTooltip id="task-status-created-tooltip" message="Review tasks you created, then update details or delete permanently if no longer required." place="right" />
             </div>
 
             {allCreatedTasks.length === 0 ? (

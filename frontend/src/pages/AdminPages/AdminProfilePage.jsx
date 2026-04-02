@@ -1,6 +1,6 @@
+import Header from "../../components/Basics/Header";
 import AdminControlPanel from "../../components/Admin/AdminControlPanel";
 import AdminProfileDetails from "../../components/Admin/AdminProfileDetails";
-import Header from "../../components/Basics/Header";
 
 const AdminProfilePage = () => {
 

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { reviewRejection } from "../../api/admin";
 import toast from "react-hot-toast";
+import { reviewRejection } from "../../api/admin";
 
 const useAdminRejectRejectionModal = ({ task, onClose, onSuccess }) => {
 

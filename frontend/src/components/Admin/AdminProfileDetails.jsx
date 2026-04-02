@@ -1,9 +1,9 @@
-import { useEffect } from "../../constants/imports";
+import { useEffect } from "react";
+import TaskListNo from "../Basics/TaskListNo";
 import CustomTooltip from "../Basics/CustomTooltip";
 import AdminUpdateAdminDetails from "./AdminUpdateAdminDetails";
 import AdminUpdateOrganizationDetails from "./AdminUpdateOrganizationDetails";
 import useAdminProfileDetails from "../../hooks/AdminHooks/useAdminProfileDetails";
-import TaskListNo from "../Basics/TaskListNo";
 
 const AdminProfileDetails = () => {
 
@@ -25,7 +25,7 @@ const AdminProfileDetails = () => {
 
             <div className="flex items-center gap-2 mb-5 mt-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Update Admin / Org details </h1>
-                <CustomTooltip id="admin-details-tooltip" message="Amend administrator details as well as organization information." place="right" />
+                <CustomTooltip id="admin-details-tooltip" message="Manage administrator information and update organization details from this section." place="right" />
             </div>
 
             <div className="w-full bg-[#1B211A] p-8 rounded-2xl border border-[#FFDAB3]/40 shadow-[0_0_40px_rgba(0,0,0,0.6)] flex flex-wrap gap-8 mb-10">
@@ -35,69 +35,92 @@ const AdminProfileDetails = () => {
                 </div>
 
                 <div className="w-full md:w-[48%] flex flex-col gap-6">
-
                     <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Name :
-                        <span className="text-lg font-semibold text-[#FFDAB3]"> {" "} {organization?.orgName} </span>
+                        <span className="text-lg font-semibold text-[#FFDAB3]">
+                            {" "} {organization?.orgName}
+                        </span>
+                    </label>
+
+                    <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Id :
+                        <span className="text-sm font-semibold text-[#FFDAB3]">
+                            {" "} {organization?.id}
+                        </span>
                     </label>
 
                     <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Country :
-                        <span className="text-lg font-semibold text-[#FFDAB3]"> {" "} {orgCountry} </span>
+                        <span className="text-lg font-semibold text-[#FFDAB3]">
+                            {" "} {orgCountry}
+                        </span>
                     </label>
 
-                    <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin Name :
-                        <span className="text-lg capitalize font-semibold text-[#FFDAB3]"> {" "} {admin ? `${admin.firstName} ${admin.lastName}` : ""} </span>
+                    <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Domain :
+                        <span className="text-lg lowercase font-semibold text-[#FFDAB3]">
+                            {" "} {organization?.orgDomain}
+                        </span>
                     </label>
-
-                    <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin DOB :
-                        <span className="text-lg font-semibold text-[#FFDAB3]"> {" "} {formattedDOB} </span>
-                    </label>
-
                 </div>
 
                 <div className="w-full md:w-[48%] flex flex-col gap-6">
 
-                    <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Domain :
-                        <span className="text-lg lowercase font-semibold text-[#FFDAB3]"> {" "} {organization?.orgDomain} </span>
+                    <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin Name :
+                        <span className="text-lg capitalize font-semibold text-[#FFDAB3]">
+                            {" "} {admin ? `${admin.firstName} ${admin.lastName}` : ""}
+                        </span>
                     </label>
 
                     <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin Email :
-                        <span className="text-lg lowercase font-semibold text-[#FFDAB3]"> {" "} {admin?.email} </span>
+                        <span className="text-lg lowercase font-semibold text-[#FFDAB3]">
+                            {" "} {admin?.email}
+                        </span>
+                    </label>
+
+                    <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin DOB :
+                        <span className="text-lg font-semibold text-[#FFDAB3]">
+                            {" "} {formattedDOB}
+                        </span>
                     </label>
 
                     <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Admin Designation :
-                        <span className="text-lg font-semibold text-[#FFDAB3]"> {" "} {admin?.designation} </span>
+                        <span className="text-lg font-semibold text-[#FFDAB3]">
+                            {" "} {admin?.designation}
+                        </span>
                     </label>
+                </div>
 
-                    <label className="text-md uppercase tracking-wider text-[#FFDAB3]/60"> Org Description :
-                        <span className="text-lg capitalize font-semibold text-[#FFDAB3]"> {" "} {organization?.orgDescription} </span>
-                    </label>
+                <div className="w-full mt-2">
+                    <h3 className="text-md uppercase tracking-wider text-[#FFDAB3]/60 mb-2"> Org Description </h3>
 
+                    <div className="bg-[#0F1412] border border-[#FFDAB3]/20 rounded-xl p-4 text-[#FFDAB3] leading-relaxed text-[15px] whitespace-pre-wrap">
+                        {organization?.orgDescription || "No description provided"}
+                    </div>
                 </div>
             </div>
 
             <div className="flex gap-4 mb-8">
-                <button onClick={handleOnClickActiveOrg}
-                    className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
-                   ${activeTab === "organization"
-                            ? "bg-[#FFDAB3] text-[#1B211A]"
-                            : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
-                        }`}>
+                <button onClick={handleOnClickActiveOrg} className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
+                    ${activeTab === "organization"
+                        ? "bg-[#FFDAB3] text-[#1B211A]"
+                        : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
+                    }`}>
                     Update Organization Details
                 </button>
 
-                <button onClick={handleOnClickActiveAdmin}
-                    className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
-                   ${activeTab === "admin"
-                            ? "bg-[#FFDAB3] text-[#1B211A]"
-                            : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
-                        }`}>
+                <button onClick={handleOnClickActiveAdmin} className={`px-5 py-2 rounded-md uppercase text-sm font-semibold transition
+                    ${activeTab === "admin"
+                        ? "bg-[#FFDAB3] text-[#1B211A]"
+                        : "text-[#FFDAB3] border border-[#FFDAB3]/40 hover:bg-[#FFDAB3]/10"
+                    }`}>
                     Update Admin Details
                 </button>
             </div>
 
-            {activeTab === "organization" && <AdminUpdateOrganizationDetails refreshOrgData={refreshOrgData} />}
-            {activeTab === "admin" && <AdminUpdateAdminDetails refreshAdminData={refreshAdminData} />}
+            {activeTab === "organization" && (
+                <AdminUpdateOrganizationDetails refreshOrgData={refreshOrgData} />
+            )}
 
+            {activeTab === "admin" && (
+                <AdminUpdateAdminDetails refreshAdminData={refreshAdminData} />
+            )}
         </>
     );
 };

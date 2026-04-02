@@ -1,5 +1,6 @@
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { DatePicker, PasswordToggle } from "../../constants/imports";
+import PasswordToggle from "../Basics/PasswordToggle";
 import useSuperAdminAddMoreAdmins from "../../hooks/SuperAdminHooks/useSuperAdminAddMoreAdmins";
 
 const SuperAdminAddMoreAdmins = ({ refreshAdmins, onAdded }) => {

@@ -1,4 +1,6 @@
-import { Link, useLocation, FiGrid, FiClipboard, FiUsers, FiBarChart2, FiBarChart, AdminOutline } from "../../constants/imports";
+import { Link, useLocation } from "react-router-dom";
+import { MdOutlineAdminPanelSettings as AdminOutline } from "react-icons/md";
+import { FiGrid, FiClipboard, FiUsers, FiBarChart2, FiBarChart } from "react-icons/fi";
 
 const AdminControlPanel = () => {
 

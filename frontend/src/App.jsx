@@ -20,7 +20,7 @@ import EmployeeProfilePage from "./pages/EmployeePages/EmployeeProfilePage";
 import EmployeeNewTasksPage from "./pages/EmployeePages/EmployeeNewTasksPage";
 import EmployeeDashBoardPage from "./pages/EmployeePages/EmployeeDashBoardPage";
 import EmployeeCompFailedTasksPage from "./pages/EmployeePages/EmployeeCompFailedTasksPage";
-import EmployeeInProgressTasksPage from "./pages/EmployeePages/EmployeeInprogressTasksPage";
+import EmployeeInProgressTasksPage from "./pages/EmployeePages/EmployeeInProgressTasksPage";
 
 import SuperAdminDashboardPage from "./pages/SuperAdminPages/SuperAdminDashboardPage";
 
@@ -72,7 +72,7 @@ const App = () => {
 
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 
-        {/* ADMIN CONTROL */}
+        {/* ADMIN ROUTES */}
 
         {/* /admin/admin-dashboard - Create Tasks */}
         <Route path="/admin/admin-dashboard" element={<AdminDashboardPage />} />
@@ -94,7 +94,7 @@ const App = () => {
 
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 
-        {/* EMPLOYEE CONTROL */}
+        {/* EMPLOYEE ROUTES */}
 
         {/* /employee/employee-dashboard - Task Status */}
         <Route path="/employee/employee-dashboard" element={<EmployeeDashBoardPage />} />
@@ -113,7 +113,7 @@ const App = () => {
 
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 
-        {/* SUPER ADMIN CONTROl */}
+        {/* SUPER ADMIN ROUTES */}
 
         {/* /superadmin/superadmin-dashboard */}
         <Route path="/superadmin/superadmin-dashboard" element={<SuperAdminDashboardPage />} />

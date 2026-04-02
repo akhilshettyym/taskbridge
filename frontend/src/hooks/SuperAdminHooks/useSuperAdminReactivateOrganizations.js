@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { toast } from "../../constants/imports";
+import toast from "react-hot-toast";
 import { reActivateOrganization } from "../../api/superadmin";
-import useAllOrganizationDetails from "../../utils/useAllOrganizationDetails";
 import useAllEmployeeDetails from "../../utils/useAllEmployeeDetails";
+import useAllOrganizationDetails from "../../utils/useAllOrganizationDetails";
 
 const useSuperAdminReactivateOrganizations = () => {
 

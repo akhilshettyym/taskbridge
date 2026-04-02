@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
+import { useState, useCallback } from "react";
 import { getOrganizationUsers } from "../api/employee";
 
 let employeesCache = null;
@@ -20,7 +20,7 @@ const useEmployeesDetails = () => {
                 employeesCache = response.users || [];
                 hasFetchedEmployees = true;
                 setEmployees(employeesCache);
-                
+
             } else {
                 toast.error(response?.message || "Failed to load employees");
             }

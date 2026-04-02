@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { PriorityTag, DateConversion, BiSolidError } from "../../constants/imports";
-import CustomTooltip from "../Basics/CustomTooltip";
+import { BiSolidError } from "react-icons/bi";
 import AdminRemoveTask from "./AdminRemoveTask";
+import PriorityTag from "../Basics/PriorityTag";
+import CustomTooltip from "../Basics/CustomTooltip";
+import DateConversion from "../Basics/DateConversion";
 import AdminTaskDetailsModal from "./AdminTaskDetailsModal";
 
 const AdminTaskStatusCompletedTasks = ({ completedTasks, fetchTasksDetails, fetchEmployees, getEmployeeName, refreshEmployeesData }) => {
@@ -17,7 +19,7 @@ const AdminTaskStatusCompletedTasks = ({ completedTasks, fetchTasksDetails, fetc
         <div>
             <div className="flex items-center gap-2 mb-5">
                 <h1 className="text-lg uppercase text-[#FFDAB3] font-medium line-clamp-2"> Completed Tasks </h1>
-                <CustomTooltip id="task-status-alltasks-tooltip" message="You can delete any task, regardless of status. The task will be permanently deleted and cannot be recovered." place="right" />
+                <CustomTooltip id="task-status-completed-tooltip" message="Completed tasks are displayed here for reference only and cannot be modified or reassigned." place="right" />
             </div>
 
             {completedTasks.length === 0 ? (

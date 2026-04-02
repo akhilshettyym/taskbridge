@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { toast } from "../../constants/imports";
-import { approveOrganization, rejectOrganization } from "../../api/superadmin";
+import toast from "react-hot-toast";
 import useAllEmployeeDetails from "../../utils/useAllEmployeeDetails";
+import { approveOrganization, rejectOrganization } from "../../api/superadmin";
 import useAllOrganizationDetails from "../../utils/useAllOrganizationDetails";
 
 const useSuperAdminApproveOrganizations = () => {

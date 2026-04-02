@@ -1,4 +1,5 @@
-import { DateConversion, PriorityTag } from "../../constants/imports";
+import PriorityTag from "../Basics/PriorityTag";
+import DateConversion from "../Basics/DateConversion";
 import useEmployeeTaskDetailsModal from "../../hooks/EmployeeHooks/useEmployeeTaskDetailsModal";
 
 const EmployeeTaskDetailsModal = ({ task, onClose, getEmployeeName }) => {

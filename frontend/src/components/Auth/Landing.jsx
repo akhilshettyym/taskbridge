@@ -1,4 +1,4 @@
-import { useNavigate } from "../../constants/imports";
+import { useNavigate } from "react-router-dom";
 
 const Landing = () => {
 

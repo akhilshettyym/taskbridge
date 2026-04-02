@@ -1,8 +1,8 @@
-import EmployeeTaskCard from "./EmployeeTaskCard";
 import { useEffect } from "react";
+import TaskListNo from "../Basics/TaskListNo";
+import EmployeeTaskCard from "./EmployeeTaskCard";
 import CustomTooltip from "../Basics/CustomTooltip";
 import useEmployeeNewTask from "../../hooks/EmployeeHooks/useEmployeeNewTask";
-import TaskListNo from "../Basics/TaskListNo";
 
 const EmployeeNewTask = () => {
 
@@ -52,7 +52,7 @@ const EmployeeNewTask = () => {
         <>
           <div className="flex items-center gap-2 mt-5">
             <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Newly Assigned Tasks </h1>
-            <CustomTooltip id="new-tasks-tooltip" message="Please review newly assigned tasks to accept or decline." place="right" />
+            <CustomTooltip id="new-tasks-tooltip" message="Review newly assigned tasks and either accept them or request rejection with justification." place="right" />
           </div>
 
           <div className="mt-5 bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
@@ -75,7 +75,7 @@ const EmployeeNewTask = () => {
         <>
           <div className="flex items-center gap-2 mt-5">
             <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Rejection Requested Tasks </h1>
-            <CustomTooltip id="request-rejection-tooltip" message="Tasks where rejection has been requested." place="right" />
+            <CustomTooltip id="request-rejection-tooltip" message="Tasks listed here have rejection requests pending review by the administrator." place="right" />
           </div>
 
           <div className="mt-5 bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">
@@ -98,7 +98,7 @@ const EmployeeNewTask = () => {
         <>
           <div className="flex items-center gap-2 mt-5">
             <h1 className="text-lg uppercase text-[#FFDAB3] font-medium"> Request Rejected By Admin </h1>
-            <CustomTooltip id="request-rejected-tooltip" message="Tasks where admin rejected your rejection request." place="right" />
+            <CustomTooltip id="request-rejected-tooltip" message="These tasks remain active after the administrator declined your rejection request." place="right" />
           </div>
 
           <div className="mt-5 bg-[#1B211A] rounded-2xl p-4 border border-[#FFDAB3]/25">

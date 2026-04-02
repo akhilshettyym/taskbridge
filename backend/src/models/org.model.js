@@ -58,7 +58,6 @@ const organizationSchema = new mongoose.Schema(
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-            // required: [true, "Organization must have a creator"],
         },
     },
     {

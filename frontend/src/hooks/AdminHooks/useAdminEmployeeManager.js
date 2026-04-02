@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { getOrganizationInactiveUsers } from "../../api/employee";
 import toast from "react-hot-toast";
 import useTasksDetails from "../../utils/useTasksDetails";
+import { getOrganizationInactiveUsers } from "../../api/employee";
 import useEmployeesDetails from "../../utils/useEmployeesDetails";
 
 const useAdminEmployeeManager = () => {
