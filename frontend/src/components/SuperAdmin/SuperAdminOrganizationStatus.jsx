@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
+import useAllOrganizationDetails from "../../utils/useAllOrganizationDetails";
 
 const SuperAdminOrganizationStatus = () => {
 

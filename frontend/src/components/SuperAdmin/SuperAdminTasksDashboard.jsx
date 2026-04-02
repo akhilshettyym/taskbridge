@@ -1,36 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SuperAdminCreateTaskForm from "./SuperAdminCreateTaskForm";
 import AdminTaskStatusCreatedTasks from "../Admin/AdminTaskStatusCreatedTasks";
-import useSuperAdminGetOrgSpecificTasksDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificTasksDetails";
-import useSuperAdminGetOrgSpecificEmployeeDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
-import useSuperAdminGetOrgSpecificOrganizationDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
+import useSuperAdminTasksDashboard from "../../hooks/SuperAdminHooks/useSuperAdminTasksDashboard";
 
 const SuperAdminTasksDashboard = () => {
 
-  const orgId = localStorage.getItem("orgId");
-
-  const [activeTab, setActiveTab] = useState("create-tasks");
-  const [editingTask, setEditingTask] = useState(null);
-
-  const { fetchSpecificOrganization } = useSuperAdminGetOrgSpecificOrganizationDetails({ orgId });
-  const { orgSpecificEmployees, fetchOrgSpecificEmployees } = useSuperAdminGetOrgSpecificEmployeeDetails({ orgId });
-  const { orgSpecificTasks, fetchOrgSpecificTasks, setOrgSpecificTasks } = useSuperAdminGetOrgSpecificTasksDetails({ orgId });
-
-  const getEmployeeName = (assignedTo) => {
-    if (!assignedTo) return "Unassigned";
-
-    if (typeof assignedTo === "object") {
-      return `${assignedTo.firstName || ""} ${assignedTo.lastName || ""}`.trim();
-    }
-
-    const employee = orgSpecificEmployees?.find(
-      (emp) => (emp._id || emp.id) === assignedTo
-    );
-
-    if (!employee) return "Unassigned";
-
-    return `${employee.firstName || ""} ${employee.lastName || ""}`.trim();
-  };
+  const { orgId, activeTab, setActiveTab, editingTask, setEditingTask, fetchSpecificOrganization, fetchOrgSpecificEmployees, orgSpecificTasks, fetchOrgSpecificTasks, setOrgSpecificTasks, getEmployeeName } = useSuperAdminTasksDashboard();
 
   useEffect(() => {
     if (!orgId) return;
@@ -71,8 +46,8 @@ const SuperAdminTasksDashboard = () => {
           <AdminTaskStatusCreatedTasks refreshEmployeesData={fetchOrgSpecificEmployees} status={"new"} allCreatedTasks={orgSpecificTasks || []} fetchTasksDetails={fetchOrgSpecificTasks} fetchEmployees={fetchOrgSpecificEmployees} getEmployeeName={getEmployeeName} editingTask={editingTask} setEditingTask={setEditingTask} setTasks={setOrgSpecificTasks} />
         )}
 
-    </div>
       </div>
+    </div>
   );
 };
 

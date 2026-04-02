@@ -1,51 +1,14 @@
-import { useEffect, useState } from "react";
-import { toast } from "../../constants/imports";
-import { reActivateOrganization } from "../../api/superadmin";
-import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
-import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
+import { useEffect } from "react";
+import useSuperAdminReactivateOrganizations from "../../hooks/SuperAdminHooks/useSuperAdminReactivateOrganizations";
 
 const SuperAdminReactivateOrganizations = () => {
 
-  const { allOrganization, fetchAllOrganization } = useAllOrganizationDetails();
-  const { allEmployees, fetchAllEmployees } = useAllEmployeeDetails();
-
-  const [loadingId, setLoadingId] = useState(null);
-
-  const revokedOrganizations = allOrganization?.filter(org => org?.status === "REVOKED") || [];
+  const { fetchAllOrganization, allEmployees, fetchAllEmployees, loadingId, revokedOrganizations, getCountryName, handleReactivateOrgs } = useSuperAdminReactivateOrganizations();
 
   useEffect(() => {
     fetchAllOrganization();
     fetchAllEmployees();
   }, []);
-
-  const getCountryName = (code) => {
-    const countryMap = {
-      IN: "INDIA",
-      US: "UNITED STATES",
-      UK: "UNITED KINGDOM",
-      CA: "CANADA"
-    };
-
-    return countryMap[code?.toUpperCase()] || code;
-  };
-
-  const handleReactivateOrgs = async (orgId) => {
-    try {
-      setLoadingId(orgId);
-
-      const response = await reActivateOrganization(orgId);
-      toast.success(response?.message || "Organization reactivated successfully");
-
-      fetchAllOrganization();
-
-    } catch (error) {
-      console.error(error);
-      toast.error(error?.response?.data?.message || "Failed to reactivate organization");
-
-    } finally {
-      setLoadingId(null);
-    }
-  };
 
   return (
     <div className="pb-10 mt-5">

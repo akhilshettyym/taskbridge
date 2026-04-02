@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
-import { getAllOrganizationDetails } from "../../api/superadmin";
+import { getAllOrganizationDetails } from "../api/superadmin";
 
 let cachedOrganizations = null;
 let hasFetchedOrganizations = false;

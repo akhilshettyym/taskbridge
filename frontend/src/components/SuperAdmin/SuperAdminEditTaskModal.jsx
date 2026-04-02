@@ -59,23 +59,27 @@ const SuperAdminEditTaskModal = ({ task, onClose, fetchTasks }) => {
                             <input name="title" value={formData.title} onChange={handleChange} required className="w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3]" />
                         </div>
 
-                        <div className="col-span-3">
+                        <div className="col-span-3 relative">
                             <label className="text-sm uppercase text-[#FFDAB3]/80"> Assign To </label>
 
-                            <select name="assignedTo" value={formData.assignedTo} onChange={handleChange} className="w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3]">
-                                <option value=""> Unassigned </option>
+                            <select name="assignedTo" value={formData.assignedTo} onChange={handleChange} className="w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 pr-10 text-[#FFDAB3]">
+                                <option value="">Unassigned</option>
                                 {renderEmployeeOptions()}
                             </select>
+
+                            <span className="pointer-events-none absolute right-4 top-[50%] text-[#FFDAB3]/60"> ↓ </span>
                         </div>
 
-                        <div className="col-span-2">
+                        <div className="col-span-2 relative">
                             <label className="text-sm uppercase text-[#FFDAB3]/80"> Priority </label>
 
-                            <select name="priority" value={formData.priority} onChange={handleChange} className="w-full bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 text-[#FFDAB3]">
-                                <option value="HIGH"> High </option>
-                                <option value="MEDIUM"> Medium </option>
-                                <option value="LOW"> Low </option>
+                            <select name="priority" value={formData.priority} onChange={handleChange} className="w-full appearance-none bg-[#0F1412] border border-[#FFDAB3]/30 rounded-xl px-4 py-3 pr-10 text-[#FFDAB3]">
+                                <option value="HIGH">High</option>
+                                <option value="MEDIUM">Medium</option>
+                                <option value="LOW">Low</option>
                             </select>
+
+                            <span className="pointer-events-none absolute right-4 top-[50%] text-[#FFDAB3]/60"> ↓ </span>
                         </div>
 
                         <div className="col-span-2">

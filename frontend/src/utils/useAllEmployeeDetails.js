@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
-import { getAllEmployeesDetails } from "../../api/superadmin";
+import { getAllEmployeesDetails } from "../api/superadmin";
 
 let cachedEmployees = null;
 let hasFetchedEmployees = false;

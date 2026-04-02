@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import toast from "react-hot-toast";
-import { getAlltasksDetails } from "../../api/superadmin";
+import { getAlltasksDetails } from "../api/superadmin";
 
 let cachedTasks = null;
 let hasFetchedTasks = false;

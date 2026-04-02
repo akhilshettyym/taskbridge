@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { toast } from "../../constants/imports";
 import { approveOrganization, rejectOrganization } from "../../api/superadmin";
-import useAllEmployeeDetails from "../../utils/superAdminDashboard/useAllEmployeeDetails";
-import useAllOrganizationDetails from "../../utils/superAdminDashboard/useAllOrganizationDetails";
+import useAllEmployeeDetails from "../../utils/useAllEmployeeDetails";
+import useAllOrganizationDetails from "../../utils/useAllOrganizationDetails";
 
 const useSuperAdminApproveOrganizations = () => {
 

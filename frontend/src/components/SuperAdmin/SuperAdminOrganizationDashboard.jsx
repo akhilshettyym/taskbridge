@@ -1,21 +1,11 @@
 import { useEffect, useState } from "react";
 import SuperAdminViewOrganization from "../SuperAdmin/SuperAdminViewOrganization";
 import SuperAdminUpdateOrganization from "../SuperAdmin/SuperAdminUpdateOrganization";
-import useSuperAdminGetOrgSpecificOrganizationDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificOrganizationDetails";
-import useSuperAdminGetOrgSpecificEmployeeDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
+import useSuperAdminOrganizationDashboard from "../../hooks/SuperAdminHooks/useSuperAdminOrganizationDashboard";
 
 const SuperAdminOrganizationDashboard = () => {
 
-  const orgId = localStorage.getItem("orgId");
-
-  const [activeTab, setActiveTab] = useState("organization-details");
-
-  const { specificOrganization, fetchSpecificOrganization } = useSuperAdminGetOrgSpecificOrganizationDetails({ orgId });
-  const { orgSpecificEmployees, fetchOrgSpecificEmployees } = useSuperAdminGetOrgSpecificEmployeeDetails({ orgId });
-
-  const admins = orgSpecificEmployees?.filter((emp) => emp.role === "ADMIN") || [];
-  const employees = orgSpecificEmployees?.filter((emp) => emp.role === "EMPLOYEE") || [];
-  const createdByAdmin = admins?.find((admin) => admin._id === specificOrganization?.createdBy);
+  const { orgId, activeTab, setActiveTab, specificOrganization, fetchSpecificOrganization, orgSpecificEmployees, fetchOrgSpecificEmployees, admins, employees, createdByAdmin } = useSuperAdminOrganizationDashboard();
 
   useEffect(() => {
     if (orgId) {

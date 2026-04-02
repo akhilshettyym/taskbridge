@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { login } from "../../api/auth";
-import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { setCredentials } from "../../slices/authSlice";
+import { login } from "../../api/auth";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setCredentials } from "../../slices/authSlice";
 import { fetchOrganization } from "../../slices/organizationSlice";
 
 const useLoginForm = () => {
@@ -37,16 +37,19 @@ const useLoginForm = () => {
       const user = response?.user;
       const role = user?.role;
 
+      dispatch(setCredentials({ token, user, role }));
+
+      if (role === "ADMIN" || role === "EMPLOYEE") {
+        dispatch(fetchOrganization());
+      }
+
       if (role === "ADMIN") {
         navigate("/admin/admin-dashboard");
       } else if (role === "EMPLOYEE") {
         navigate("/employee/employee-dashboard");
       } else {
-        navigate("/superadmin/superadmin-dashboard")
+        navigate("/superadmin/superadmin-dashboard");
       }
-
-      dispatch(setCredentials({ token, user, role }));
-      dispatch(fetchOrganization());
 
       setEmail("");
       setPassword("");

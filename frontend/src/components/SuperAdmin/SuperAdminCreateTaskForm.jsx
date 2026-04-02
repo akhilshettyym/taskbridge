@@ -9,7 +9,7 @@ const SuperAdminCreateTaskForm = () => {
 
     const renderEmployeeOptions = () => {
         if (!activeEmployees.length) {
-            return <option disabled value="">No active employees</option>;
+            return <option disabled value=""> No active employees </option>;
         }
 
         return activeEmployees.map((emp) => (
@@ -40,11 +40,15 @@ const SuperAdminCreateTaskForm = () => {
                             <input required name="title" type="text" placeholder="Design dashboard UI" className="mt-2 w-full bg-[#0B0F0D] border border-[#FFDAB3]/20 rounded-xl px-4 py-3 text-[#FFDAB3]" />
                         </div>
 
-                        <div>
+                        <div className="relative">
                             <label className="text-sm uppercase text-[#FFDAB3]/70"> Assign To </label>
-                            <select required name="assignedTo" className="mt-2 w-full bg-[#0B0F0D] border border-[#FFDAB3]/20 rounded-xl px-4 py-3 text-[#FFDAB3]">
-                                <option value=""> Select employee </option> {renderEmployeeOptions()}
+
+                            <select required name="assignedTo" className="mt-2 w-full appearance-none bg-[#0B0F0D] border border-[#FFDAB3]/20 rounded-xl px-4 py-3 text-[#FFDAB3] pr-10">
+                                <option value=""> Select employee </option>
+                                {renderEmployeeOptions()}
                             </select>
+
+                            <span className="pointer-events-none absolute right-4 top-[56%] text-[#FFDAB3]/60"> ↓ </span>
                         </div>
 
                         <div>
@@ -59,13 +63,16 @@ const SuperAdminCreateTaskForm = () => {
                     </div>
 
                     <div className="flex flex-col gap-6">
-                        <div>
+                        <div className="relative">
                             <label className="text-sm uppercase text-[#FFDAB3]/70"> Priority </label>
-                            <select required name="priority" className="mt-2 w-full bg-[#0B0F0D] border border-[#FFDAB3]/20 rounded-xl px-4 py-3 text-[#FFDAB3]">
-                                <option value="HIGH"> High </option>
-                                <option value="MEDIUM"> Medium </option>
-                                <option value="LOW"> Low </option>
+
+                            <select required name="priority" className="mt-2 w-full appearance-none bg-[#0B0F0D] border border-[#FFDAB3]/20 rounded-xl px-4 py-3 text-[#FFDAB3] pr-10">
+                                <option value="HIGH">High</option>
+                                <option value="MEDIUM">Medium</option>
+                                <option value="LOW">Low</option>
                             </select>
+
+                            <span className="pointer-events-none absolute right-4 top-[56%] text-[#FFDAB3]/60"> ↓ </span>
                         </div>
 
                         <div>
