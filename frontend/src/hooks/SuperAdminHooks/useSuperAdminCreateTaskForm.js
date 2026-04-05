@@ -1,6 +1,5 @@
 import toast from "react-hot-toast";
 import { useState, useMemo } from "react";
-import "react-datepicker/dist/react-datepicker.css";
 import { createNewTask } from "../../api/superadmin";
 import useSuperAdminGetOrgSpecificEmployeeDetails from "../../hooks/SuperAdminHooks/useSuperAdminGetOrgSpecificEmployeeDetails";
 
