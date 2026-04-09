@@ -10,7 +10,7 @@ const router = express.Router();
 router.post("/create-organization", createOrganizationController);
 
 /* POST /api/auth/login */
-router.post("/login", userLoginController, requireOrgUser);
+router.post("/login", userLoginController);
 
 /* POST /api/auth/logout */
 router.post("/logout", userLogoutController);
