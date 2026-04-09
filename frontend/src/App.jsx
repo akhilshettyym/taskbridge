@@ -34,9 +34,9 @@ import SuperAdminTasksDashboardPage from "./pages/SuperAdminPages/SuperAdminTask
 import SuperAdminAdminDashboardPage from "./pages/SuperAdminPages/SuperAdminAdminDashboardPage";
 import SuperAdminEmployeeDashboardPage from "./pages/SuperAdminPages/SuperAdminEmployeeDashboardPage";
 import SuperAdminOrganizationDashboardPage from "./pages/SuperAdminPages/SuperAdminOrganizationDashboardPage"
+import ProtectedRoute from "./routes/ProtectedRoutes";
 
 const App = () => {
-
   const dispatch = useDispatch();
 
   const { loaded } = useSelector((state) => state.organization);
@@ -54,6 +54,8 @@ const App = () => {
       <Toaster position="top-right" toastOptions={{ style: { background: "#1B211A", color: "#FFDAB3", borderRadius: "12px", border: "1px solid rgba(255,218,179,0.2)" } }} />
 
       <Routes>
+
+        {/* PUBLIC ROUTES */}
 
         {/* Landing Page */}
         <Route path="/" element={<LandingPage />} />
@@ -75,73 +77,73 @@ const App = () => {
         {/* ADMIN ROUTES */}
 
         {/* /admin/admin-dashboard - Create Tasks */}
-        <Route path="/admin/admin-dashboard" element={<AdminDashboardPage />} />
+        <Route path="/admin/admin-dashboard" element={<ProtectedRoute allowedRoles={["ADMIN"]}> <AdminDashboardPage /> </ProtectedRoute>} />
 
         {/* /admin/created-tasks - Created Tasks */}
-        <Route path="/admin/created-tasks" element={<AdminTasksPage />} />
+        <Route path="/admin/created-tasks" element={<ProtectedRoute allowedRoles={["ADMIN"]}> <AdminTasksPage /> </ProtectedRoute>} />
 
         {/* /admin/task-status - Tasks Status */}
-        <Route path="/admin/task-status" element={<AdminTaskStatusPage />} />
+        <Route path="/admin/task-status" element={<ProtectedRoute allowedRoles={["ADMIN"]}> <AdminTaskStatusPage /> </ProtectedRoute>} />
 
         {/* /admin/employee-details - Employee Details */}
-        <Route path="/admin/employee-details" element={<AdminEmployeeDetailsPage />} />
+        <Route path="/admin/employee-details" element={<ProtectedRoute allowedRoles={["ADMIN"]}> <AdminEmployeeDetailsPage /> </ProtectedRoute>} />
 
         {/* /admin/employee-management - Employee Management */}
-        <Route path="/admin/employee-management" element={<AdminEmployeeManagementPage />} />
+        <Route path="/admin/employee-management" element={<ProtectedRoute allowedRoles={["ADMIN"]}> <AdminEmployeeManagementPage /> </ProtectedRoute>} />
 
         {/* /admin/admin-details - Admin Details */}
-        <Route path="/admin/admin-details" element={<AdminProfilePage />} />
+        <Route path="/admin/admin-details" element={<ProtectedRoute allowedRoles={["ADMIN"]}> <AdminProfilePage /> </ProtectedRoute>} />
 
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 
         {/* EMPLOYEE ROUTES */}
 
         {/* /employee/employee-dashboard - Task Status */}
-        <Route path="/employee/employee-dashboard" element={<EmployeeDashBoardPage />} />
+        <Route path="/employee/employee-dashboard" element={<ProtectedRoute allowedRoles={["EMPLOYEE"]}> <EmployeeDashBoardPage /> </ProtectedRoute>} />
 
         {/* /employee/new-tasks - New Tasks */}
-        <Route path="/employee/new-tasks" element={<EmployeeNewTasksPage />} />
+        <Route path="/employee/new-tasks" element={<ProtectedRoute allowedRoles={["EMPLOYEE"]}> <EmployeeNewTasksPage /> </ProtectedRoute>} />
 
         {/* /employee/inprogress-tasks - In-Progress Tasks */}
-        <Route path="/employee/inprogress-tasks" element={<EmployeeInProgressTasksPage />} />
+        <Route path="/employee/inprogress-tasks" element={<ProtectedRoute allowedRoles={["EMPLOYEE"]}> <EmployeeInProgressTasksPage /> </ProtectedRoute>} />
 
         {/* /employee/completed-failed-tasks - Completed and Failed Tasks */}
-        <Route path="/employee/completed-failed-tasks" element={<EmployeeCompFailedTasksPage />} />
+        <Route path="/employee/completed-failed-tasks" element={<ProtectedRoute allowedRoles={["EMPLOYEE"]}> <EmployeeCompFailedTasksPage /> </ProtectedRoute>} />
 
         {/* /employee/employee-details */}
-        <Route path="/employee/employee-details" element={<EmployeeProfilePage />} />
+        <Route path="/employee/employee-details" element={<ProtectedRoute allowedRoles={["EMPLOYEE"]}> <EmployeeProfilePage /> </ProtectedRoute>} />
 
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 
         {/* SUPER ADMIN ROUTES */}
 
         {/* /superadmin/superadmin-dashboard */}
-        <Route path="/superadmin/superadmin-dashboard" element={<SuperAdminDashboardPage />} />
+        <Route path="/superadmin/superadmin-dashboard" element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]}> <SuperAdminDashboardPage /> </ProtectedRoute>} />
 
         {/* /superadmin/approve-organizations */}
-        <Route path="/superadmin/approve-organizations" element={<SuperAdminApproveOrganizationsPage />} />
+        <Route path="/superadmin/approve-organizations" element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]}> <SuperAdminApproveOrganizationsPage /> </ProtectedRoute>} />
 
         {/* /superadmin/rejected-organizations */}
-        <Route path="/superadmin/rejected-organizations" element={<SuperAdminRejectedOrganizationsPage />} />
+        <Route path="/superadmin/rejected-organizations" element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]}> <SuperAdminRejectedOrganizationsPage /> </ProtectedRoute>} />
 
         {/* /superadmin/revoke-organizations */}
-        <Route path="/superadmin/revoke-organizations" element={<SuperAdminRevokeOrganizationsPage />} />
+        <Route path="/superadmin/revoke-organizations" element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]}> <SuperAdminRevokeOrganizationsPage /> </ProtectedRoute>} />
 
         {/* /superadmin/reactivate-organizations */}
-        <Route path="/superadmin/reactivate-organizations" element={<SuperAdminReactivateOrganizationsPage />} />
+        <Route path="/superadmin/reactivate-organizations" element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]}> <SuperAdminReactivateOrganizationsPage /> </ProtectedRoute>} />
 
 
         {/* /superadmin/control/organization-dashboard */}
-        <Route path="/superadmin/control/organization-dashboard" element={<SuperAdminOrganizationDashboardPage />} />
+        <Route path="/superadmin/control/organization-dashboard" element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]}> <SuperAdminOrganizationDashboardPage /> </ProtectedRoute>} />
 
         {/* /superadmin/control/admin-dashboard */}
-        <Route path="/superadmin/control/admin-dashboard" element={<SuperAdminAdminDashboardPage />} />
+        <Route path="/superadmin/control/admin-dashboard" element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]}> <SuperAdminAdminDashboardPage /> </ProtectedRoute>} />
 
         {/* /superadmin/control/employee-dashboard */}
-        <Route path="/superadmin/control/employee-dashboard" element={<SuperAdminEmployeeDashboardPage />} />
+        <Route path="/superadmin/control/employee-dashboard" element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]}> <SuperAdminEmployeeDashboardPage /> </ProtectedRoute>} />
 
         {/* /superadmin/control/tasks-dashboard */}
-        <Route path="/superadmin/control/tasks-dashboard" element={<SuperAdminTasksDashboardPage />} />
+        <Route path="/superadmin/control/tasks-dashboard" element={<ProtectedRoute allowedRoles={["SUPER_ADMIN"]}> <SuperAdminTasksDashboardPage /> </ProtectedRoute>} />
 
         {/* ----------------------------------------------------------------------------------------------------------------------- */}
 
