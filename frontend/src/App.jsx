@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
+import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 
 import AdminTasksPage from "./pages/AdminPages/AdminTasksPage";
